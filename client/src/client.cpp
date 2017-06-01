@@ -19,7 +19,7 @@ int main()
         window.clear(sf::Color::White); //RAZ de la fenetre
         
         sf::Texture t_fondAccueil;
-        if (!t_fondAccueil.loadFromFile("img/fond.png"))
+        if (!t_fondAccueil.loadFromFile("../img/fond.png"))
 			{
 			}
 		
