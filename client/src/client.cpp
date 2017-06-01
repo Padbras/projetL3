@@ -1,10 +1,12 @@
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "cin_acceuil.hpp"
 
 int main()
 {	//creation de la fenetre
     sf::RenderWindow window(sf::VideoMode(800, 600), "Peaceful Shadow Online"
-    ,sf::Style::Default);
+    sf::Style::Default);
 
 	// tant que la fenetre est ouverte ...
     while (window.isOpen())
@@ -18,6 +20,8 @@ int main()
 
         window.clear(sf::Color::White); //RAZ de la fenetre
         
+        aff_img_fond();
+/*        
         sf::Texture t_fondAccueil;
         if (!t_fondAccueil.loadFromFile("../img/fond.png"))
 			{
@@ -25,9 +29,9 @@ int main()
 		
 		sf::Sprite s_fondAccueil;
 		s_fondAccueil.setTexture(t_fondAccueil);
-		
+	
         window.draw(s_fondAccueil); // execute le "dessin"
-       
+*/       
        
         window.display(); //affichage des objets dessinés
     }
