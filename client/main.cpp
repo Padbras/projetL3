@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main()
 {	//creation de la fenetre
@@ -15,8 +16,20 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        window.display();
+        window.clear(sf::Color::White); //RAZ de la fenetre
+        
+        sf::Texture t_fondAccueil;
+        if (!t_fondAccueil.loadFromFile("img/fond.png"))
+			{
+			}
+		
+		sf::Sprite s_fondAccueil;
+		s_fondAccueil.setTexture(t_fondAccueil);
+		
+        window.draw(s_fondAccueil); // execute le "dessin"
+       
+       
+        window.display(); //affichage des objets dessinés
     }
 
     return 0;
