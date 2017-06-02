@@ -38,9 +38,7 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 			{
 			  std::string pseudo;
 			  packet >> pseudo;
-			  Joueur *newJoueur = new Joueur;
-			  newJoueur->socket = &client;
-			  newJoueur->pseudo = pseudo;
+			  Joueur *newJoueur = createJoueur(pseudo, &client);
 			  joueurs.push_back(*newJoueur);
 			  displayInfo("Client add to list");
 			  displayInfo("Pseudo received from client");
@@ -70,8 +68,7 @@ void		createServer(int port)
   selector.add(listener);
 
   joueurs = serverLoop(&listener, &selector, clients);
-  std::cout << joueurs.size() << std::endl;;
-  std::cout << clients.size() << std::endl;
+  displayListJoueur(joueurs);
 }
 
 

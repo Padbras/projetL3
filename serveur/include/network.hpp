@@ -29,4 +29,9 @@ sf::Packet	receivePacket(sf::TcpSocket);
 bool		connectToServer(sf::TcpSocket *, char *, int);
 void		disonnectFromServer(sf::TcpSocket);
 
+// joueur.cpp
+
+Joueur		*createJoueur(std::string, sf::TcpSocket *);
+void		displayJoueur(Joueur myJoueur);
+void		displayListJoueur(std::list<Joueur>);
 #endif		/* !NETWORK_HPP_ */

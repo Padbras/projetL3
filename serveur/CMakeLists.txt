@@ -19,7 +19,8 @@ target_link_libraries( client.out ${SFML_LIBRARIES} )
 add_executable( server.out src/server.cpp
 			   src/display.cpp
 			   src/connect.cpp
-			   src/packet.cpp)
+			   src/packet.cpp
+			   src/joueur.cpp)
 target_link_libraries( server.out ${SFML_LIBRARIES} )
 
 install (TARGETS client.out server.out DESTINATION bin)
