@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+	string pseudoEntr_s = "";
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
 	window.setPosition(Vector2i(10, 10));
 
@@ -40,22 +41,43 @@ int main()
 		
 		Text jouer;
 		jouer.setFont(main_font);
-		jouer.setString("Trouvez une partie");
+		jouer.setString("Trouver une partie");
 		jouer.setCharacterSize(40);
 		jouer.setPosition(380,550);
 		
 		Text pseudo;
 		pseudo.setFont(main_font);
-		pseudo.setString("Entrez votre pseudo");
+		pseudo.setString("Entrez votre pseudo :");
 		pseudo.setCharacterSize(40);
 		pseudo.setPosition(380,300);
 		
+		Text pseudoEntr;
+		pseudoEntr.setFont(main_font);
+		pseudoEntr.setString(pseudoEntr_s);
+		pseudoEntr.setCharacterSize(40);
+		pseudoEntr.setPosition(380,380);
 		
 		
+		
+		//Clock clock; //mise en route de l'horloge
+		
+		//if (event.type == Event::TextEntered){	
+			//Time time = clock.getElapsedTime();
+			//Int32 ecoule = time.asMilliseconds();
+			//cout << ecoule  << endl;
+			//if(ecoule >= 250 ){
+				if (((char)event.text.unicode <= 'z' && (char)event.text.unicode >= 'a')
+					|| ((char)event.text.unicode <= 'Z' && (char)event.text.unicode >= 'A')){
+				pseudoEntr_s.push_back((char)event.text.unicode);
+				//clock.restart();
+			}
+		//}	
+			
 		window.draw(spr);
 		window.draw(nomJeu);
 		window.draw(jouer);
 		window.draw(pseudo);
+		window.draw(pseudoEntr);
         
 		window.display(); // affichage des elements créés/déssinés...
         
