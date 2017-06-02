@@ -43,7 +43,26 @@ int main()
     // portNouveauServeur >> port;
     // portNouveauServeur.getDataSize();
     // std::cout << "port:" << port << std::endl;
-
+    std::string msg;
+    sf::Packet packetMsg;
+    sf::Packet msgAutre;
+    std::string msgRecu;
+    while (true)
+      {
+	std::cout << pseudo << " ";
+	std::cin >> msg;
+	packetMsg << msg;
+        if (socketToServer.send(monBeauPseudo) != sf::Socket::Done)
+	  exit(-1); // Erreur à l'envoi
+	std::cout << "v send" << std::endl;
+	
+	if (socketToServer.receive(msgAutre) != sf::Socket::Done)
+	  {
+	    exit(-1);
+	  }
+	msgAutre >> msgRecu;
+	std::cout << pseudo_autre << " : " << msgRecu << std::endl;
+      }
     // if (socketdeux.connect("127.0.0.1", port) != sf::Socket::Done)
     //    exit(-1);  
     //  if (socketdeux.send(monBeauPseudo) != sf::Socket::Done)

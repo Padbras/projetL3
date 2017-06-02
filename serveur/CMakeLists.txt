@@ -8,12 +8,12 @@ set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra" )
 find_package( PkgConfig REQUIRED )
 pkg_check_modules( SFML REQUIRED sfml-all )
 #find_package(SFML 2 COMPONENTS system network)
-include_directories( ${SFML_INCLUDE_DIRS} )
+include_directories( ${SFML_INCLUDE_DIRS} include )
 
 add_executable( client.out src/client.cpp )
 target_link_libraries( client.out ${SFML_LIBRARIES} )
 
-add_executable( server.out src/server.cpp )
+add_executable( server.out src/server.cpp src/display.cpp)
 target_link_libraries( server.out ${SFML_LIBRARIES} )
 
 install (TARGETS client.out server.out DESTINATION bin)

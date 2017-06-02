@@ -1,32 +1,22 @@
-#include <iostream>
-#include <list>
-#include <memory>
-#include <sstream>
-#include <thread>
-#include <SFML/Network.hpp>
+#include	"server.hpp"
 
-#define PORT 8888
-
-struct Joueur {
-  std::string pseudo;
-  sf::TcpSocket *socket;
-};
-
-int main()
+int		main()
 {
-  std::cout << "Server start" << std::endl;
-  // Create a socket to listen to new connections
+  // Création d'une socket pour écouter les nouvelles connexions
   sf::TcpListener listener;
-  listener.listen(PORT);
-  std::cout << "Listening on "<< PORT << std::endl;
   // Create a list to store the future clients
   std::list<Joueur> joueurs;
-  std::list<sf::TcpSocket*> clients;
-  // Create a selector
+  std::list<sf::TcpSocket*> clients;;
+  // Creation d'un selector
   sf::SocketSelector selector;
-  // Add the listener to the selector
+  //display_info("Server start");
+  // On commence à écouter le port
+  listener.listen(PORT);
+  //display_info("Listening on port n°");
+  std::cout << PORT << std::endl;
+  // Ajout du listener dans le selector
   selector.add(listener);
-  // Endless loop that waits for new connections
+  // Boucle principale
   while (true)
     {
       // Make the selector wait for data on any socket
@@ -44,17 +34,8 @@ int main()
 		  // Add the new client to the selector so that we will
 		  // be notified when he sends something
 		  selector.add(*client);
-		  std::cout << "Client connected" << std::endl;
-		  std::cout << "Nombre de clients : " << clients.size() << std::endl;
-		  // sf::Packet packetPort;
-		  // packetPort << 7894;
-		  // if (client->send(packetPort) == sf::Socket::Done)
-		  //   {
-		  //     std::cout << "Port send" << std::endl;
-		     
-		  // new_server(7894); 
-		  //   }
-		}
+		  //display_info("Client connected");
+	        }
 	      else
 		{
 		  // Error, we won't get a new connection, delete the socket
@@ -71,29 +52,27 @@ int main()
 		    {
                     // The client has sent some data, we can receive it
 		      sf::Packet packet;
+		      // On recoit le pseudo du client
 		      if (client.receive(packet) == sf::Socket::Done)
 			{
-			  std::cout << "Pseudo client" << std::endl;
+			  //display_info("Pseudo client :");
 			  std::string pseudo;
 			  packet >> pseudo;
+			  // on ajoute un nouveau joueur a notre liste de joueurs
 			  Joueur *newJoueur = new Joueur;
 			  newJoueur->socket = &client;
 			  newJoueur->pseudo = pseudo;
 			  joueurs.push_back(*newJoueur);
-			  std::cout << pseudo << std::endl;
-			  std::cout << "Nombre de joueurs : " << joueurs.size() << std::endl;
-			  // for (Joueur x : joueurs)
-			  //   {
-			  //     std::cout << x.pseudo << std::endl;
-			  //   }
-			}
+			  //display_info(pseudo.c_str());
+			  //std::cout << "Nombre de joueurs : " << joueurs.size() << std::endl;
+	        	}
 		    }
 		}
 	    }
-	  // 
+	  // si deux joueurs sont connectés on procede à l'échange des pseudos 
 	  if (joueurs.size() == 2 )
 	    {
-	      // std::cout << "Two players detected" << std::endl;
+	      // a modifier
 	      sf::Packet pseudo1;
 	      pseudo1 << joueurs.front().pseudo;
 	      if (joueurs.back().socket->send(pseudo1) == sf::Socket::Done)
@@ -108,8 +87,9 @@ int main()
 		  std::cout << "Pseudo de " << joueurs.back().pseudo <<
 		    " envoyé à " << joueurs.front().pseudo << std::endl;
 		}
-	      
 	    }
+	 
 	}
-    }  
+    }
+  return 0;
 }
