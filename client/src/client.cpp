@@ -72,17 +72,23 @@ int main()
 				pseudoEntr_s.push_back((char)event.text.unicode);
 				clock.restart();
 				}
+				
+		
 			}
 		}
-		if (event.type == Event::KeyPressed){
-			if (event.key.code == Keyboard::BackSpace){
-				/*std::cout << "the escape key was pressed" << std::endl;
-				std::cout << "control:" << event.key.control << std::endl;
-				std::cout << "alt:" << event.key.alt << std::endl;
-				std::cout << "shift:" << event.key.shift << std::endl;
-				std::cout << "system:" << event.key.system << std::endl;*/
-				cout << "test" << endl;
-			}
+		// else if (event.type == Event::KeyPressed){
+		  // cout << "rentre dans le if" << endl;
+		if (event.key.code == Keyboard::BackSpace){
+		  Time time = clock.getElapsedTime();
+		  if (time.asMilliseconds() > 250)
+		    {
+		      if (pseudoEntr_s.size() != 0)
+			pseudoEntr_s.pop_back();
+		      clock.restart();
+		    }
+		  
+
+		// }
 		}	
 
 	
