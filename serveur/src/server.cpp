@@ -1,5 +1,41 @@
 #include	"network.hpp"
 
+void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
+			 sf::SocketSelector *selector)
+{
+  sf::Packet	toTransmit;
+  Joueur	joueurUn = joueurs.front();
+  Joueur	joueurDeux = joueurs.back();
+  bool		running = true;
+  std::string	str;
+  
+  while (running)
+    {
+      // if (joueurUn.socket->receive == sf::Socket::Done)
+      // 	{
+      toTransmit.clear();
+      toTransmit = receivePacket(joueurUn.socket);
+      toTransmit >> str;
+      std::cout << str << std::endl;
+      if (sendPacket(&toTransmit, joueurDeux.socket) == false)
+	displayError("failed to send packet");
+      else
+	displayInfo("packet sent");
+      // 	}
+      // if (joueurDeux.socket == sf::Socket::Done)
+      // 	{
+      toTransmit.clear();
+      toTransmit = receivePacket(joueurDeux.socket);
+      toTransmit >> str;
+      std::cout << str << std::endl;
+      if (sendPacket(&toTransmit, joueurUn.socket) == false)
+	displayError("failed to send packet");
+      else
+	displayInfo("packet sent");
+      // }
+    }
+}
+
 std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 			     std::list<sf::TcpSocket *> clients)
 {
@@ -23,8 +59,7 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 		}
 	      else
 		delete client;
-	    }
-	  
+	    }	  
 	  else
 	    {
 	      for (std::list<sf::TcpSocket *>::iterator it = clients.begin();
@@ -49,10 +84,9 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 	    } 
 	}
       if (joueurs.size() == 2)
-	{
-	  running = false;
-	}
+	running = false;
     }
+  gameLoop(joueurs, listener, selector);
   return joueurs;
 }
 
@@ -68,7 +102,7 @@ void		createServer(int port)
   selector.add(listener);
 
   joueurs = serverLoop(&listener, &selector, clients);
-  displayListJoueur(joueurs);
+  // displayListJoueur(joueurs);
 }
 
 

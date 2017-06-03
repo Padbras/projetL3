@@ -22,7 +22,7 @@ void		displayError(const char *);
 // packet.cpp
 
 bool		sendPacket(sf::Packet *, sf::TcpSocket *);
-sf::Packet	receivePacket(sf::TcpSocket);
+sf::Packet	receivePacket(sf::TcpSocket *);
 
 // connect.cpp
 
