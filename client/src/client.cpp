@@ -10,6 +10,8 @@ int main()
 	string pseudoEntr_s = "";
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
 	window.setPosition(Vector2i(10, 10));
+	Clock clock; //mise en route de l'horloge
+
 
 	// tant que la fenetre est ouverte ...
 	while (window.isOpen()){
@@ -29,6 +31,7 @@ int main()
 		Font main_font;
 		main_font.loadFromFile("../fonts/main_font.ttf");
 		
+//////////// creation des textes, sprites et textures /////////////
 			
 		Sprite spr(tex);
 		spr.scale(1.25f, 1.34f);
@@ -57,21 +60,34 @@ int main()
 		pseudoEntr.setCharacterSize(40);
 		pseudoEntr.setPosition(380,380);
 		
-		
-		
-		//Clock clock; //mise en route de l'horloge
-		
-		//if (event.type == Event::TextEntered){	
-			//Time time = clock.getElapsedTime();
-			//Int32 ecoule = time.asMilliseconds();
-			//cout << ecoule  << endl;
-			//if(ecoule >= 250 ){
-				if (((char)event.text.unicode <= 'z' && (char)event.text.unicode >= 'a')
-					|| ((char)event.text.unicode <= 'Z' && (char)event.text.unicode >= 'A')){
+/////////// gestion de l'entrée pseudo////////////////////
+
+		if (event.type == Event::TextEntered){	
+			Time time = clock.getElapsedTime();
+			if(time.asMilliseconds() > 250)
+			{
+				if (((char)event.text.unicode <= 'z' && (char)event.text.unicode >= 'a') // filtrage des caracteres entrés
+					|| ((char)event.text.unicode <= 'Z' && (char)event.text.unicode >= 'A') 
+					|| ((char)event.text.unicode <= '0' && (char)event.text.unicode >= '9')){
 				pseudoEntr_s.push_back((char)event.text.unicode);
-				//clock.restart();
+				clock.restart();
+				}
 			}
-		//}	
+		}
+		if (event.type == Event::KeyPressed){
+			if (event.key.code == Keyboard::BackSpace){
+				/*std::cout << "the escape key was pressed" << std::endl;
+				std::cout << "control:" << event.key.control << std::endl;
+				std::cout << "alt:" << event.key.alt << std::endl;
+				std::cout << "shift:" << event.key.shift << std::endl;
+				std::cout << "system:" << event.key.system << std::endl;*/
+				cout << "test" << endl;
+			}
+		}	
+
+	
+		
+///////////// gestion de l'affichage //////////////////
 			
 		window.draw(spr);
 		window.draw(nomJeu);
@@ -79,7 +95,7 @@ int main()
 		window.draw(pseudo);
 		window.draw(pseudoEntr);
         
-		window.display(); // affichage des elements créés/déssinés...
+		window.display();
         
 	}
 
