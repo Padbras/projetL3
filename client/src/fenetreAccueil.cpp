@@ -9,7 +9,7 @@ void	lancerFenetreAccueil()
 
 ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
+	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Default);
 	window.setPosition(Vector2i(10, 10));
 
 

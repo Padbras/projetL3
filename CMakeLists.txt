@@ -18,11 +18,13 @@ add_executable(client.out client/src/Case.cpp
 		   	  client/src/Jeu.cpp
 			  client/src/fenetreAccueil.cpp
 			  client/src/fenetrePosBateau.cpp
+			  client/src/gestionGrille.cpp
 			  serveur/src/client.cpp
 			  serveur/src/joueur.cpp
 			  serveur/src/connect.cpp
 			  serveur/src/packet.cpp
-			  serveur/src/display.cpp )
+			  serveur/src/display.cpp
+			  )
 target_link_libraries(client.out ${SFML_LIBRARIES} )
 
 add_executable(server.out  serveur/src/client.cpp

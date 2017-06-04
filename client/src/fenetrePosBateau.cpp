@@ -10,7 +10,7 @@ int fenetrePosBateau()
 
 ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionne tes bateaux Matelot !!",Style::None);
+	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionne tes bateaux Matelot !!",Style::Titlebar);
 	window.setPosition(Vector2i(10, 10));
 
 
@@ -63,7 +63,7 @@ int fenetrePosBateau()
 					//gestion du click sur le bouton
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 791 && event.mouseButton.y > 713 &&
-						cpt = 5){		
+						cpt == 5){		
 						std::cout << "the button was pressed" << std::endl;
 						
 					}
