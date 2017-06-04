@@ -1,11 +1,10 @@
 #include "client.hpp"
-#include "aff_elements.hpp"
 
 using namespace sf;
 using namespace std;
 
 
-int main()
+void lancerFenetreAccueil()
 {
 
 ////////////////// creation et init de la fenetre //////////////////
@@ -74,7 +73,7 @@ int main()
 						
 					break;
 
-				case Event::KeyPressed : // bug a corriger sur le suppression
+				case Event::KeyPressed : 
 					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
 						cout << pseudoEntr_s << endl ;
 						cout << "taille de la string "<< pseudoEntr_s.size() << endl;

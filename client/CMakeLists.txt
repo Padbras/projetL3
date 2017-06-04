@@ -10,7 +10,7 @@ pkg_check_modules( SFML REQUIRED sfml-all )
 #find_package(SFML 2 COMPONENTS system network)
 include_directories( ${SFML_INCLUDE_DIRS} )
 
-add_executable( PSonline_client.out src/client.cpp src/aff_elements.cpp )
+add_executable( PSonline_client.out src/fenetreAccueil.cpp )
 target_link_libraries( PSonline_client.out ${SFML_LIBRARIES} )
 
 add_executable(main.out src/Case.cpp src/main.cpp src/Pays.cpp src/Grille.cpp src/Bateau.cpp src/Jeu.cpp)
