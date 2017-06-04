@@ -1,9 +1,16 @@
 #include	"network.hpp"
+#include	"Grille.hpp"
+  
+Grille grilleP1;
 
 void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
 			 sf::SocketSelector *selector)
 {
-  sf::Packet	toTransmit;
+
+  
+
+  /sf::Packet	toTransmit;
+  sf::Packet	grilleJ1;
   Joueur	joueurUn = joueurs.front();
   Joueur	joueurDeux = joueurs.back();
   bool		running = true;
@@ -32,6 +39,17 @@ void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
 	displayError("failed to send packet");
       else
 	displayInfo("packet sent");
+
+//bool		sendPacket(sf::Packet *, sf::TcpSocket *);
+
+	
+		/*grilleJ1 = receivePacket(joueurUn.socket);
+		grilleJ1 >> grilleP1;
+		grilleP1.afficherGrille();*/
+		
+	
+
+
       // }
     }
 }

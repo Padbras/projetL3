@@ -39,7 +39,8 @@ bool		sendPseudo(sf::TcpSocket *mySocket)
   return true;
 }
 
-int		main()
+/*
+int main()
 {
   sf::TcpSocket	socketToServer;
   int		port;
@@ -50,5 +51,6 @@ int		main()
     exit(-1);
   if (sendPseudo(&socketToServer) == false)
     exit(-1);
-  gameLoop(&socketToServer);
+  //gameLoop(&socketToServer);
 }
+*/

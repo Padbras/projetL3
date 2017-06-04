@@ -6,17 +6,16 @@
 #include <iostream>
 #include "Jeu.hpp"
 #include "fenetreAccueil.hpp"
+#include "network.hpp"
 using namespace std;
 
 
 int main()
 {
-	 lancerFenetreAccueil();
-	
-	Pays pays("France");
-	cout<<"Pays : "<<pays._nomPays<<endl;
 	
 	Grille g;
+	int verif;
+	sf::TcpSocket socketToServer;
 	
 	Bateau b1;
 	Bateau b2;
@@ -26,23 +25,15 @@ int main()
 	
 	g.afficherGrille();
 	
-	b1.posBateau(g,2);
-	g.afficherGrille();
-	
-	b2.posBateau(g,3);
-	g.afficherGrille();
-	
-	b3.posBateau(g,3);
-	g.afficherGrille();
-	
-	b4.posBateau(g,4);
-	g.afficherGrille();
-	
+	b1.posBateau(g,2);	
+	b2.posBateau(g,3);	
+	b3.posBateau(g,3);	
+	b4.posBateau(g,4);	
 	b5.posBateau(g,5);
+
 	g.afficherGrille();
-	
-	jouerCoup(g);
-	jouerCoup(g);
-	
+
+	verif = connectToServer(&socketToServer, "127.0.0.1", 8888);
+
 	return 0;
 }
