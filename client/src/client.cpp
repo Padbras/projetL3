@@ -69,23 +69,20 @@ int main()
 					break;
 				
 				case Event::TextEntered :
-					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
-					pseudoEntr_s.pop_back();}
-					else {
-						pseudoEntr_s.push_back((char)event.text.unicode);
-						cout << pseudoEntr_s << endl ;}
-							
+					pseudoEntr_s.push_back((char)event.text.unicode);
+					cout << pseudoEntr_s << endl ;
+						
 					break;
-				/*
+
 				case Event::KeyPressed : // bug a corriger sur le suppression
 					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
 						cout << pseudoEntr_s << endl ;
 						cout << "taille de la string "<< pseudoEntr_s.size() << endl;
-						pseudoEntr_s.pop_back();
+						pseudoEntr_s.erase();
 						cout << "nvlle taille "<< pseudoEntr_s.size() << endl;
 					}
 					break;
-				*/						
+						
 				default:
 					break;
 			}	
