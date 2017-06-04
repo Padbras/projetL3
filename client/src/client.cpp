@@ -7,101 +7,110 @@ using namespace std;
 
 int main()
 {
-	string pseudoEntr_s = "";
+
+////////////////// creation et init de la fenetre //////////////////
+
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
 	window.setPosition(Vector2i(10, 10));
-	Clock clock; //mise en route de l'horloge
 
 
-	// tant que la fenetre est ouverte ...
-	while (window.isOpen()){
-		// gestion des evenements depuis la derniere maj de la fenetre
-		Event event;
-		while (window.pollEvent(event)){
-			// fermeture de la fenetre
-			if (event.type == Event::Closed)
-				window.close();
-		}
-        
-		window.clear(Color::White); //effacement en blanc de la frame preced.
-		
-		//chargement des fonts et textures
-		Texture tex;
-		if (!tex.loadFromFile("../img/fond.png")){}
-		Font main_font;
-		main_font.loadFromFile("../fonts/main_font.ttf");
-		
-//////////// creation des textes, sprites et textures /////////////
-			
-		Sprite spr(tex);
-		spr.scale(1.25f, 1.34f);
+////////////////// creation et init des variables //////////////////
 
-		Text nomJeu;
-		nomJeu.setFont(main_font);
-		nomJeu.setString("Peaceful Shadow Online");
-		nomJeu.setCharacterSize(70); // exprimée en pixels, pas en points !
-		nomJeu.setPosition(180,150);
-		
-		Text jouer;
-		jouer.setFont(main_font);
-		jouer.setString("Trouver une partie");
-		jouer.setCharacterSize(40);
-		jouer.setPosition(380,550);
-		
-		Text pseudo;
-		pseudo.setFont(main_font);
-		pseudo.setString("Entrez votre pseudo :");
-		pseudo.setCharacterSize(40);
-		pseudo.setPosition(380,300);
-		
-		Text pseudoEntr;
-		pseudoEntr.setFont(main_font);
-		pseudoEntr.setString(pseudoEntr_s);
-		pseudoEntr.setCharacterSize(40);
-		pseudoEntr.setPosition(380,380);
-		
-/////////// gestion de l'entrée pseudo////////////////////
+	string pseudoEntr_s = "";
+	Event event;
 
-		if (event.type == Event::TextEntered){	
-			Time time = clock.getElapsedTime();
-			if(time.asMilliseconds() > 250)
-			{
-				if (((char)event.text.unicode <= 'z' && (char)event.text.unicode >= 'a') // filtrage des caracteres entrés
-					|| ((char)event.text.unicode <= 'Z' && (char)event.text.unicode >= 'A') 
-					|| ((char)event.text.unicode <= '0' && (char)event.text.unicode >= '9')){
-				pseudoEntr_s.push_back((char)event.text.unicode);
-				clock.restart();
-				}
-				
-		
-			}
-		}
-		// else if (event.type == Event::KeyPressed){
-		  // cout << "rentre dans le if" << endl;
-		if (event.key.code == Keyboard::BackSpace){
-		  Time time = clock.getElapsedTime();
-		  if (time.asMilliseconds() > 250)
-		    {
-		      if (pseudoEntr_s.size() != 0)
-			pseudoEntr_s.pop_back();
-		      clock.restart();
-		    }
-		  
 
-		// }
-		}	
+////////////////// chargement des fonts et textures /////////////////
 
+	Texture fondEcran_tex;
+	if (!fondEcran_tex.loadFromFile("../img/fond.png")){
+	}
+	Font main_font;
+	main_font.loadFromFile("../fonts/main_font.ttf");
 	
-		
-///////////// gestion de l'affichage //////////////////
+
+//////////// creation des textes, sprites et textures //////////////
 			
-		window.draw(spr);
-		window.draw(nomJeu);
-		window.draw(jouer);
-		window.draw(pseudo);
-		window.draw(pseudoEntr);
+	Sprite fondEcran_spr(fondEcran_tex);
+	fondEcran_spr.scale(1.25f, 1.34f);
+
+	Text nomJeu_txt;
+	nomJeu_txt.setFont(main_font);
+	nomJeu_txt.setString("Peaceful Shadow Online");
+	nomJeu_txt.setCharacterSize(70); // exprimée en pixels, pas en points !
+	nomJeu_txt.setPosition(180,150);
+		
+	Text jouer_txt;
+	jouer_txt.setFont(main_font);
+	jouer_txt.setString("Trouver une partie");
+	jouer_txt.setCharacterSize(40);
+	jouer_txt.setPosition(380,550);
+		
+	Text pseudo_txt;
+	pseudo_txt.setFont(main_font);
+	pseudo_txt.setString("Entrez votre pseudo :");
+	pseudo_txt.setCharacterSize(40);
+	pseudo_txt.setPosition(380,300);
+	
+	
+//////////// affichage de la fenetre ///////////////////////////////
+
+	while (window.isOpen()){
+
+
+//////////// gestion de la boule d'evenements///////////////////////
+
+		while (window.pollEvent(event)){
+			
+			switch (event.type){
+				
+				case Event::Closed :
+					window.close();
+					break;
+				
+				case Event::TextEntered :
+					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
+					pseudoEntr_s.pop_back();}
+					else {
+						pseudoEntr_s.push_back((char)event.text.unicode);
+						cout << pseudoEntr_s << endl ;}
+							
+					break;
+				/*
+				case Event::KeyPressed : // bug a corriger sur le suppression
+					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
+						cout << pseudoEntr_s << endl ;
+						cout << "taille de la string "<< pseudoEntr_s.size() << endl;
+						pseudoEntr_s.pop_back();
+						cout << "nvlle taille "<< pseudoEntr_s.size() << endl;
+					}
+					break;
+				*/						
+				default:
+					break;
+			}	
+		}
+
+
+//////////// creation du texte avec le pseudo //////////////////////
+
+	Text pseudoEntr_txt;
+	pseudoEntr_txt.setFont(main_font);
+	pseudoEntr_txt.setCharacterSize(40);	
+	pseudoEntr_txt.setPosition(380,380);
+	pseudoEntr_txt.setString(pseudoEntr_s);
+
+///////////// gestion de l'affichage //////////////////
+	
+	window.clear(Color::White); 	
+		
+	window.draw(fondEcran_spr);
+	window.draw(nomJeu_txt);
+	window.draw(jouer_txt);
+	window.draw(pseudo_txt);
+	window.draw(pseudoEntr_txt);
         
-		window.display();
+	window.display();
         
 	}
 
