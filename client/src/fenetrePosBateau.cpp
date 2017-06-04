@@ -1,4 +1,5 @@
 #include "fenetrePosBateau.hpp"
+#include "gestionGrille.hpp"
 
 using namespace sf;
 using namespace std;
@@ -16,7 +17,7 @@ int fenetrePosBateau()
 ////////////////// creation et init des variables //////////////////
 
 	string pseudoEntr_s = "";
-	int cpt = 5;
+	int cpt = 0;
 	int btx , bty;
 	Event event;
 
@@ -52,26 +53,19 @@ int fenetrePosBateau()
 				case Event::MouseButtonPressed : // gestion de click dans la grille
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 700 && event.mouseButton.y > 300 &&
-						cpt >= 5){		
-						std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-						std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-						btx = event.mouseButton.x;
-						bty = event.mouseButton.y;
-						std::cout << "btx: " << btx << std::endl;
-						std::cout << "bty: " << bty <<std::endl;
+						cpt < 5){		
+						btx = event.mouseButton.x - 300; // -300 pour etre en 0,0 sur le
+						bty = event.mouseButton.y - 300; // coin sup gche de la grille
+						cpt++;		
+						std::cout << "btx: " << retourX(btx) << "bty: " << retourY(bty) << std::endl;
 					}
 					
 					//gestion du click sur le bouton
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 791 && event.mouseButton.y > 713 &&
-						cpt >= 5){		
-						std::cout << "the right button was pressed" << std::endl;
-						std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-						std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-						btx = event.mouseButton.x;
-						bty = event.mouseButton.y;
-						std::cout << "btx: " << btx << std::endl;
-						std::cout << "bty: " << bty <<std::endl;
+						cpt = 5){		
+						std::cout << "the button was pressed" << std::endl;
+						
 					}
 					
 					
