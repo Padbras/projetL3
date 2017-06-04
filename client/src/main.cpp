@@ -5,11 +5,14 @@
 #include "Bateau.hpp"
 #include <iostream>
 #include "Jeu.hpp"
+#include "fenetreAccueil.hpp"
 using namespace std;
 
 
 int main()
 {
+	void lancerFenetreAccueil();
+	
 	Pays pays("France");
 	cout<<"Pays : "<<pays._nomPays<<endl;
 	
