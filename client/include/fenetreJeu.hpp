@@ -1,10 +1,10 @@
-#ifndef FENETREPOSBATEAU_HPP
-#define FENETREPOSBATEAU_HPP
+#ifndef FENETREJEU_HPP
+#define FENETREJEU_HPP
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
 
-int fenetrePosBateau();
+int fenetreJeu();
 
 #endif

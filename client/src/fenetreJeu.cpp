@@ -1,12 +1,10 @@
-#include "fenetrePosBateau.hpp"
-#include "gestionGrille.hpp"
 #include "fenetreJeu.hpp"
 
 using namespace sf;
 using namespace std;
 
 
-int main()
+int fenetreJeu()
 {
 
 ////////////////// creation et init de la fenetre //////////////////
@@ -27,9 +25,9 @@ int main()
 ////////////////// chargement des fonts et textures /////////////////
 
 	Texture fondEcran_tex;
-	if (!fondEcran_tex.loadFromFile("../client/img/bateau.png")){
+	if (!fondEcran_tex.loadFromFile("../client/img/jeu.png")){
 	}
-	
+
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,713);
 	bouton.setFillColor(Color(255, 0, 0, 50));
@@ -78,8 +76,7 @@ int main()
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 791 && event.mouseButton.y > 713 &&
 						cpt == 5){
-						window.close();
-						fenetreJeu();
+						
 						
 					}
 					break;
@@ -95,7 +92,6 @@ int main()
 	if (cpt ==5 ){
 		bouton.setFillColor(Color(255, 255, 255, 0));
 	}
-
 
 ///////////// gestion de l'affichage //////////////////
 	

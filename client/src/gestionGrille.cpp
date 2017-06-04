@@ -7,3 +7,7 @@ int retourX(int mouseX){
 int retourY(int mouseY){
 	return mouseY/40;
 }
+
+void posBateau(int numeroBateau,int x, int y){
+
+}
