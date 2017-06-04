@@ -50,23 +50,18 @@ int main()
 				
 				case Event::TextEntered :
 					pseudoEntr_s.push_back((char)event.text.unicode);
-					cout << pseudoEntr_s << endl ;
 						
 					break;
 
 				case Event::KeyPressed : 
-					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace ){
-						cout << pseudoEntr_s << endl ;
-						cout << "taille de la string "<< pseudoEntr_s.size() << endl;
+					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
 						pseudoEntr_s.erase();
-						cout << "nvlle taille "<< pseudoEntr_s.size() << endl;
-					}
 					break;
 				
 				case Event::MouseButtonPressed :
-					std::cout << "the right button was pressed" << std::endl;
-					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
+						event.mouseButton.y < 700 && event.mouseButton.y > 628)		
+						std::cout << "the right button was pressed" << std::endl;
 					break;
 						
 				default:
@@ -79,8 +74,9 @@ int main()
 
 	Text pseudoEntr_txt;
 	pseudoEntr_txt.setFont(main_font);
-	pseudoEntr_txt.setCharacterSize(40);	
-	pseudoEntr_txt.setPosition(380,380);
+	pseudoEntr_txt.setCharacterSize(35);	
+	pseudoEntr_txt.setPosition(370,376);
+	//pseudoEntr_txt.setFillColor(Color::Red);
 	pseudoEntr_txt.setString(pseudoEntr_s);
 
 ///////////// gestion de l'affichage //////////////////
