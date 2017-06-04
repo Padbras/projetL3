@@ -22,7 +22,7 @@ int main()
 ////////////////// chargement des fonts et textures /////////////////
 
 	Texture fondEcran_tex;
-	if (!fondEcran_tex.loadFromFile("../img/fond.png")){
+	if (!fondEcran_tex.loadFromFile("../img/accueil.png")){
 	}
 	Font main_font;
 	main_font.loadFromFile("../fonts/main_font.ttf");
@@ -31,25 +31,6 @@ int main()
 //////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);
-	fondEcran_spr.scale(1.25f, 1.34f);
-
-	Text nomJeu_txt;
-	nomJeu_txt.setFont(main_font);
-	nomJeu_txt.setString("Peaceful Shadow Online");
-	nomJeu_txt.setCharacterSize(70); // exprimée en pixels, pas en points !
-	nomJeu_txt.setPosition(180,150);
-		
-	Text jouer_txt;
-	jouer_txt.setFont(main_font);
-	jouer_txt.setString("Trouver une partie");
-	jouer_txt.setCharacterSize(40);
-	jouer_txt.setPosition(380,550);
-		
-	Text pseudo_txt;
-	pseudo_txt.setFont(main_font);
-	pseudo_txt.setString("Entrez votre pseudo :");
-	pseudo_txt.setCharacterSize(40);
-	pseudo_txt.setPosition(380,300);
 	
 	
 //////////// affichage de la fenetre ///////////////////////////////
@@ -81,6 +62,12 @@ int main()
 						cout << "nvlle taille "<< pseudoEntr_s.size() << endl;
 					}
 					break;
+				
+				case Event::MouseButtonPressed :
+					std::cout << "the right button was pressed" << std::endl;
+					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+					break;
 						
 				default:
 					break;
@@ -101,9 +88,6 @@ int main()
 	window.clear(Color::White); 	
 		
 	window.draw(fondEcran_spr);
-	window.draw(nomJeu_txt);
-	window.draw(jouer_txt);
-	window.draw(pseudo_txt);
 	window.draw(pseudoEntr_txt);
         
 	window.display();
