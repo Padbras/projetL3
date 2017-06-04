@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-	void lancerFenetreAccueil();
+	 lancerFenetreAccueil();
 	
 	Pays pays("France");
 	cout<<"Pays : "<<pays._nomPays<<endl;
