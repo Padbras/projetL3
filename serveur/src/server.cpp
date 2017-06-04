@@ -9,7 +9,7 @@ void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
 
   
 
-  /sf::Packet	toTransmit;
+  sf::Packet	toTransmit;
   sf::Packet	grilleJ1;
   Joueur	joueurUn = joueurs.front();
   Joueur	joueurDeux = joueurs.back();

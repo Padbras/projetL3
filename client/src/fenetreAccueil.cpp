@@ -1,11 +1,10 @@
 #include "fenetreAccueil.hpp"
 #include "fenetrePosBateau.hpp"
-
 using namespace sf;
 using namespace std;
 
 
-int main()
+void	lancerFenetreAccueil()
 {
 
 ////////////////// creation et init de la fenetre //////////////////
@@ -23,10 +22,10 @@ int main()
 ////////////////// chargement des fonts et textures /////////////////
 
 	Texture fondEcran_tex;
-	if (!fondEcran_tex.loadFromFile("../img/accueil.png")){
+	if (!fondEcran_tex.loadFromFile("../client/img/accueil.png")){
 	}
 	Font main_font;
-	main_font.loadFromFile("../fonts/main_font.ttf");
+	main_font.loadFromFile("../client/fonts/main_font.ttf");
 	
 
 //////////// creation des sprites et textures //////////////////////
@@ -100,7 +99,6 @@ int main()
         
 	}
 
-	return 0;
 }
 
 

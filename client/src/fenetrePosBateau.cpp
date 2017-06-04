@@ -24,7 +24,7 @@ int fenetrePosBateau()
 ////////////////// chargement des fonts et textures /////////////////
 
 	Texture fondEcran_tex;
-	if (!fondEcran_tex.loadFromFile("../img/bateau.png")){
+	if (!fondEcran_tex.loadFromFile("../client/img/bateau.png")){
 	}
 	
 
