@@ -110,7 +110,6 @@ void lancerFenetreAccueil()
         
 	}
 
-	return 0;
 }
 
 
