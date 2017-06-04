@@ -1,103 +1,105 @@
-#include "fenetreAccueil.hpp"
-#include "fenetrePosBateau.hpp"
+#include	"fenetreAccueil.hpp"
+#include	"fenetrePosBateau.hpp"
+
 using namespace sf;
 using namespace std;
 
 
-void	lancerFenetreAccueil()
+string		lancerFenetreAccueil()
 {
 
-////////////////// creation et init de la fenetre //////////////////
+  ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
-	window.setPosition(Vector2i(10, 10));
-
-
-////////////////// creation et init des variables //////////////////
-
-	string pseudoEntr_s = "";
-	Event event;
+  RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
+  window.setPosition(Vector2i(10, 10));
 
 
-////////////////// chargement des fonts et textures /////////////////
+  ////////////////// creation et init des variables //////////////////
 
-	Texture fondEcran_tex;
-	if (!fondEcran_tex.loadFromFile("../client/img/accueil.png")){
-	}
-	Font main_font;
-	main_font.loadFromFile("../client/fonts/main_font.ttf");
+  string pseudoEntr_s = "";
+  Event event;
+
+
+  ////////////////// chargement des fonts et textures /////////////////
+
+  Texture fondEcran_tex;
+  if (!fondEcran_tex.loadFromFile("../client/img/accueil.png")){
+  }
+  Font main_font;
+  main_font.loadFromFile("../client/fonts/main_font.ttf");
 	
 
-//////////// creation des sprites et textures //////////////////////
+  //////////// creation des sprites et textures //////////////////////
 			
-	Sprite fondEcran_spr(fondEcran_tex);
+  Sprite fondEcran_spr(fondEcran_tex);
 	
 	
-//////////// affichage de la fenetre ///////////////////////////////
+  //////////// affichage de la fenetre ///////////////////////////////
 
-	while (window.isOpen()){
+  while (window.isOpen()){
 
 
-//////////// gestion de la boule d'evenements///////////////////////
+    //////////// gestion de la boule d'evenements///////////////////////
 
-		while (window.pollEvent(event)){
+    while (window.pollEvent(event)){
 			
-			switch (event.type){
+      switch (event.type){
 				
-				case Event::Closed :
-					window.close();
-					break;
+      case Event::Closed :
+	window.close();
+	break;
 				
-				case Event::TextEntered :
-					pseudoEntr_s.push_back((char)event.text.unicode);
+      case Event::TextEntered :
+	pseudoEntr_s.push_back((char)event.text.unicode);
 						
-					break;
+	break;
 
-				case Event::KeyPressed : 
-					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
-						pseudoEntr_s.erase();
-					break;
+      case Event::KeyPressed : 
+	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
+	  pseudoEntr_s.erase();
+	break;
 				
-				case Event::MouseButtonPressed :
-					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
-						event.mouseButton.y < 700 && event.mouseButton.y > 628 &&
-						pseudoEntr_s.size() > 0){	
-							window.close();
-							fenetrePosBateau();
-					}
-					break;
+      case Event::MouseButtonPressed :
+	if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
+		event.mouseButton.y < 700 && event.mouseButton.y > 628 &&
+		pseudoEntr_s.size() > 0){	
+	  window.close();
+	  return pseudoEntr_s;
+	  // fenetrePosBateau();
+	}
+	break;
 				
-			//	case Event::KeyPressed :
+	//	case Event::KeyPressed :
 					
-				//	break;
+	//	break;
 						
-				default:
-					break;
-			}	
-		}
+      default:
+	break;
+      }	
+    }
 
 
-//////////// creation des textes ////////////////////////////
+    //////////// creation des textes ////////////////////////////
 
-	Text pseudoEntr_txt;
-	pseudoEntr_txt.setFont(main_font);
-	pseudoEntr_txt.setCharacterSize(35);	
-	pseudoEntr_txt.setPosition(370,376);
-	pseudoEntr_txt.setString(pseudoEntr_s);
-	//pseudoEntr_txt.setFillColor(Color::Red);
+    Text pseudoEntr_txt;
+    pseudoEntr_txt.setFont(main_font);
+    pseudoEntr_txt.setCharacterSize(35);	
+    pseudoEntr_txt.setPosition(370,376);
+    pseudoEntr_txt.setString(pseudoEntr_s);
+    //pseudoEntr_txt.setFillColor(Color::Red);
 
 	
-///////////// gestion de l'affichage ////////////////////////////
+    ///////////// gestion de l'affichage ////////////////////////////
 	
-	window.clear(Color::White); 	
+    window.clear(Color::White); 	
 	
-	window.draw(fondEcran_spr);
-	window.draw(pseudoEntr_txt);
+    window.draw(fondEcran_spr);
+    window.draw(pseudoEntr_txt);
 
         
-	window.display();
+    window.display();
         
-	}
+  }
 
 }
 

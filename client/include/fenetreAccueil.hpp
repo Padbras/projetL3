@@ -6,6 +6,6 @@
 #include <iostream>
 #include <string>
 
-void	lancerFenetreAccueil();
+std::string	lancerFenetreAccueil();
 
 #endif

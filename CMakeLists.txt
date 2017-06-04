@@ -11,7 +11,7 @@ pkg_check_modules( SFML REQUIRED sfml-all )
 include_directories( ${SFML_INCLUDE_DIRS} serveur/include client/include)
 
 add_executable(client.out client/src/Case.cpp
-			  client/src/main.cpp
+			  client/src/client.cpp
 			  client/src/Pays.cpp
 			  client/src/Grille.cpp
 			  client/src/Bateau.cpp
