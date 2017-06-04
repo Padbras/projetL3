@@ -1,16 +1,15 @@
-#include "fenetreAccueil.hpp"
 #include "fenetrePosBateau.hpp"
 
 using namespace sf;
 using namespace std;
 
 
-int main()
+int fenetrePosBateau()
 {
 
 ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online",Style::Close);
+	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionne tes bateaux Matelot !!",Style::Close);
 	window.setPosition(Vector2i(10, 10));
 
 
@@ -29,7 +28,7 @@ int main()
 	main_font.loadFromFile("../fonts/main_font.ttf");
 	
 
-//////////// creation des sprites et textures //////////////////////
+//////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);
 	
@@ -61,16 +60,9 @@ int main()
 				
 				case Event::MouseButtonPressed :
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
-						event.mouseButton.y < 700 && event.mouseButton.y > 628 &&
-						pseudoEntr_s.size() > 0){	
-							window.close();
-							fenetrePosBateau();
-					}
+						event.mouseButton.y < 700 && event.mouseButton.y > 628)		
+						std::cout << "the right button was pressed" << std::endl;
 					break;
-				
-			//	case Event::KeyPressed :
-					
-				//	break;
 						
 				default:
 					break;
@@ -78,23 +70,21 @@ int main()
 		}
 
 
-//////////// creation des textes ////////////////////////////
+//////////// creation du texte avec le pseudo //////////////////////
 
 	Text pseudoEntr_txt;
 	pseudoEntr_txt.setFont(main_font);
 	pseudoEntr_txt.setCharacterSize(35);	
 	pseudoEntr_txt.setPosition(370,376);
-	pseudoEntr_txt.setString(pseudoEntr_s);
 	//pseudoEntr_txt.setFillColor(Color::Red);
+	pseudoEntr_txt.setString(pseudoEntr_s);
 
-	
-///////////// gestion de l'affichage ////////////////////////////
+///////////// gestion de l'affichage //////////////////
 	
 	window.clear(Color::White); 	
-	
+		
 	window.draw(fondEcran_spr);
 	window.draw(pseudoEntr_txt);
-
         
 	window.display();
         
