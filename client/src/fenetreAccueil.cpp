@@ -4,7 +4,7 @@ using namespace sf;
 using namespace std;
 
 
-void lancerFenetreAccueil()
+int main()
 {
 
 ////////////////// creation et init de la fenetre //////////////////
@@ -110,6 +110,7 @@ void lancerFenetreAccueil()
         
 	}
 
+	return 0;
 }
 
 

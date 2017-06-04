@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-void lancerFenetreAccueil();
-
 
 
 #endif

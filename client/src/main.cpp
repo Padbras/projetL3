@@ -1,17 +1,20 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <iostream>
+#include <string>
 #include "Case.hpp"
 #include "Pays.hpp"
 #include "Grille.hpp"
 #include "Bateau.hpp"
-#include <iostream>
 #include "Jeu.hpp"
 #include "fenetreAccueil.hpp"
-using namespace std;
 
+using namespace std;
+using namespace sf;
 
 int main()
 {
-	void lancerFenetreAccueil();
 	
 	Pays pays("France");
 	cout<<"Pays : "<<pays._nomPays<<endl;
