@@ -33,6 +33,7 @@ int fenetreJeu(){
 	bouton.setPosition(348,670);
 	bouton.setFillColor(Color(255, 0, 0, 50));
 
+
 //////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);
