@@ -3,47 +3,7 @@
 Grille		g_Grille;
 Grille		g_GrilleOpp;
 
-sf::Packet	&operator <<(sf::Packet &packet, const Case &myCase)
-{
-  return packet << (int)myCase._x << (int)myCase._y << (int)myCase._type;
-}
-
-sf::Packet	&operator >>(sf::Packet &packet, Case &myCase)
-{
-  return packet >> myCase._x >> myCase._y << myCase._type;
-}
-
-
-bool		receiveInfo(sf::TcpSocket *mySocket)
-{
-  sf::Packet	myPacket;
-
-  myPacket = receivePacket(mySocket);
-  for (int i = 0; i < 10; i++)
-    {
-      for (int j = 0; j < 10; j++)
-	{
-	  myPacket >> g_Grille._grille[i][j];
-	}
-    }
-}
-
-bool		sendInfo(sf::TcpSocket *mySocket)
-{
-  sf::Packet	myPacket;
-
-  for (int i = 0; i < 10; i++)
-    {
-      for (int j = 0; j < 10; j++)
-	{
-	  myPacket << &g_GrilleOpp._grille[i][j];
-	  if (sendPacket(&myPacket, mySocket) == false)
-	    return false;
-	}
-    }
-}
-
-void		clientGameLoop(sf::TcpSocket *mySocket)
+bool		clientGameLoop(sf::TcpSocket *mySocket)
 {
   bool		running = true;
   bool		isOk = false;
@@ -56,22 +16,24 @@ void		clientGameLoop(sf::TcpSocket *mySocket)
     {
       if (sendInfo(mySocket) == false)
 	{
-	  //dostuff
+	  displayError("Failed to send infos");
+	  return false;
 	}
+      displayInfo("First info sent");
       if (receiveInfo(mySocket) == false)
 	{
-	  //dostuff
+	  displayError("Failed to receive infos");
+	  return false;
 	}
-  
+      displayInfo("First info received");
       g_GrilleOpp.afficherGrille();
       g_Grille.afficherGrille();
-  
-      displayInfo("First info sent");
     }
   while (!running)
     {
       
     }
+  return true;
 }
 
 bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
@@ -80,11 +42,15 @@ bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
 
   toSend << pseudo;
   if (sendPacket(&toSend, socket) == false)
-    return false;
+    {
+      displayError("Failed to send pseudo");
+      return false;
+    }
+  displayInfo("Pseudo sent");
   return true;
 }
 
-void		startClient(char *ip, int port)
+bool		startClient(char *ip, int port)
 {
   std::string	pseudo;
   sf::TcpSocket	socketToServer;
@@ -92,17 +58,23 @@ void		startClient(char *ip, int port)
   pseudo = lancerFenetreAccueil();
   if (connectToServer(&socketToServer, ip, port) == false)
     {
-      
+      displayError("Failed to connect to server");
+      return false;      
     }
   if (sendPseudo(&socketToServer, pseudo) == false)
     {
       displayError("Failed to send packet");
-      exit(-1);
+      return false;
     }
-  clientGameLoop(&socketToServer);
+  if (clientGameLoop(&socketToServer) == false)
+    {
+      displayError("Failed to load client loop");
+      return false;
+    }
   // a la fin de pos bateau envoi des positions.
       // fenetrePosBateau(//&socketToServer
       // 		       );
+  return true;
 }
 
 int		main(int ac, char **av)
@@ -113,6 +85,10 @@ int		main(int ac, char **av)
       displayInfo("Usage : ./client.out [IP] [PORT]");                                      
       return -1;  
     }
-  startClient(av[1], atoi(av[2]));
+  if (startClient(av[1], atoi(av[2])) == false)
+    {
+      displayInfo("Failed to start client");
+      return -1;
+    }
   return 0;
 }

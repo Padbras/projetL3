@@ -22,6 +22,7 @@ add_executable(client.out client/src/Case.cpp
 			  client/src/fenetreJeu.cpp
 			  client/src/fenetreLoose.cpp
 			  client/src/fenetreWin.cpp
+			  client/src/infos.cpp
 			  serveur/src/client.cpp
 			  serveur/src/joueur.cpp
 			  serveur/src/connect.cpp
