@@ -6,10 +6,7 @@
 #include <iostream>
 #include <string>
 
-int gdRetourX(int mouseX);
-int gdRetourY(int mouseY);
-
-int ptRetourX(int mouseX);
-int ptRetourY(int mouseY);
+int retourX(int mouseX);
+int retourY(int mouseY);
 
 #endif

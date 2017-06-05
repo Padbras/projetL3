@@ -47,6 +47,7 @@ string		lancerFenetreAccueil()
 				
       case Event::Closed :
 	window.close();
+	exit(0);
 	break;
 				
       case Event::TextEntered :
@@ -55,10 +56,14 @@ string		lancerFenetreAccueil()
 	break;
 
       case Event::KeyPressed : 
-	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
+	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace)
 	  pseudoEntr_s.erase();
+	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::Return)
+	  {
+	    window.close();
+	    return pseudoEntr_s;
+	  }
 	break;
-				
       case Event::MouseButtonPressed :
 	if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 		event.mouseButton.y < 700 && event.mouseButton.y > 628 &&

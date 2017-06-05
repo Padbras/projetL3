@@ -1,57 +1,48 @@
 #include	"network.hpp"
 #include	"Grille.hpp"
   
-Grille grilleP1;
+Grille g_GrilleP1;
+Grille g_GrilleP2;
+
+bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
+{
+  sf::Packet	myPacket1;
+  sf::Packet	myPacket2;
+
+  displayJoueur(joueurUn);
+  displayJoueur(joueurDeux);
+  myPacket1 = receivePacket(joueurUn.socket);
+  myPacket2 = receivePacket(joueurDeux.socket);
+  if (sendPacket(&myPacket1, joueurDeux.socket) == false)
+    return false;
+  if (sendPacket(&myPacket2, joueurUn.socket) == false)
+    return false;
+  return true;  
+}
 
 void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
 			 sf::SocketSelector *selector)
 {
-
-  
-
-  sf::Packet	toTransmit;
-  sf::Packet	grilleJ1;
+  bool		running = true;
+  sf::Packet	myPacket;
   Joueur	joueurUn = joueurs.front();
   Joueur	joueurDeux = joueurs.back();
-  bool		running = true;
-  std::string	str;
-  
-  while (running)
+
+  myPacket << true;
+  if (sendPacket(&myPacket, joueurUn.socket) == false)
     {
-      // if (joueurUn.socket->receive == sf::Socket::Done)
-      // 	{
-      toTransmit.clear();
-      toTransmit = receivePacket(joueurUn.socket);
-      toTransmit >> str;
-      std::cout << str << std::endl;
-      if (sendPacket(&toTransmit, joueurDeux.socket) == false)
-	displayError("failed to send packet");
-      else
-	displayInfo("packet sent");
-      // 	}
-      // if (joueurDeux.socket == sf::Socket::Done)
-      // 	{
-      toTransmit.clear();
-      toTransmit = receivePacket(joueurDeux.socket);
-      toTransmit >> str;
-      std::cout << str << std::endl;
-      if (sendPacket(&toTransmit, joueurUn.socket) == false)
-	displayError("failed to send packet");
-      else
-	displayInfo("packet sent");
 
-//bool		sendPacket(sf::Packet *, sf::TcpSocket *);
+    };
+  if (sendPacket(&myPacket, joueurDeux.socket) == false)
+    {
 
-	
-		/*grilleJ1 = receivePacket(joueurUn.socket);
-		grilleJ1 >> grilleP1;
-		grilleP1.afficherGrille();*/
-		
-	
-
-
-      // }
     }
+  if (transmitFirstInfo(joueurUn, joueurDeux) == false)
+    {
+      //dostuff
+    }
+  displayInfo("First Info transmit");
+  
 }
 
 std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
@@ -102,9 +93,11 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 	    } 
 	}
       if (joueurs.size() == 2)
-	running = false;
+	{
+	  running = false;
+	}
     }
-  gameLoop(joueurs, listener, selector);
+  gameLoop(joueurs, listener, selector); 
   return joueurs;
 }
 
@@ -135,3 +128,46 @@ int		main(int ac, char **av)
   createServer(atoi(av[1]));
   return 0;
 }
+
+  // sf::Packet	toTransmit;
+  // sf::Packet	grilleJ1;
+  // Joueur	joueurUn = joueurs.front();
+  // Joueur	joueurDeux = joueurs.back();
+  // bool		running = true;
+  // std::string	str;
+  
+  // while (running)
+  //   {
+  //     // if (joueurUn.socket->receive == sf::Socket::Done)
+  //     // 	{
+  //     toTransmit.clear();
+  //     toTransmit = receivePacket(joueurUn.socket);
+  //     toTransmit >> str;
+  //     std::cout << str << std::endl;
+  //     if (sendPacket(&toTransmit, joueurDeux.socket) == false)
+  // 	displayError("failed to send packet");
+  //     else
+  // 	displayInfo("packet sent");
+  //     // 	}
+  //     // if (joueurDeux.socket == sf::Socket::Done)
+  //     // 	{
+  //     toTransmit.clear();
+  //     toTransmit = receivePacket(joueurDeux.socket);
+  //     toTransmit >> str;
+  //     std::cout << str << std::endl;
+  //     if (sendPacket(&toTransmit, joueurUn.socket) == false)
+  // 	displayError("failed to send packet");
+  //     else
+  // 	displayInfo("packet sent");
+
+//bool		sendPacket(sf::Packet *, sf::TcpSocket *);
+
+	
+		/*grilleJ1 = receivePacket(joueurUn.socket);
+		grilleJ1 >> grilleP1;
+		grilleP1.afficherGrille();*/
+		
+	
+
+
+      // }

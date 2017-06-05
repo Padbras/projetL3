@@ -18,7 +18,7 @@ int fenetreJeu(){
 ////////////////// creation et init des variables //////////////////
 
 	int cpt = 0;
-	int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5;
+	int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5, btx, bty;
 	x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
 	Event event;
 
@@ -52,8 +52,10 @@ int fenetreJeu(){
 				case Event::MouseButtonPressed : // gestion de click dans la grille de tir
 					if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
 						event.mouseButton.y < 600 && event.mouseButton.y > 200){		
-						x1 = ptRetourX(event.mouseButton.x);
-						y1 = ptRetourY(event.mouseButton.y);
+						btx = event.mouseButton.x - 533; // -200 et -533 pour etre en 0,0 sur le
+						bty = event.mouseButton.y - 200; // coin sup gche de la grille
+						x1 = retourX(btx);
+						y1 = retourY(bty);
 						cout << x1 << "  " << y1 << endl;
 						cpt++;				
 					}

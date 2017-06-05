@@ -2,15 +2,12 @@
 
 using namespace std;
 
-Grille::Grille(){
-	for(int i=0;i<10;i++){
-		for(int j=0;j<10;j++){
-			_grille[i][j]=Case(i,j,mer);
-			cout<<"Info Case "<<i<<j<<" : "<<_grille[i][j]._x<<" "<<_grille[i][j]._y<<" "<<_grille[i][j]._type<<endl;
-		}
-	}
+Grille::Grille()
+{
+  for(int i = 0; i < 10; i++)
+    for(int j = 0; j < 10; j++)
+      _grille[i][j] = Case(i, j, mer);
 }
-
 
 void Grille::afficherGrille(){
 	cout<<" _ _ _ _ _ _ _ _ _ _"<<endl;
