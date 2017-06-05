@@ -16,6 +16,8 @@ add_executable(client.out client/src/Case.cpp
 			  client/src/Grille.cpp
 			  client/src/Bateau.cpp
 		   	  client/src/Jeu.cpp
+		   	  client/src/Case.cpp
+		   	  client/src/Joueur.cpp
 			  client/src/fenetreAccueil.cpp
 			  client/src/fenetrePosBateau.cpp
 			  client/src/gestionGrille.cpp

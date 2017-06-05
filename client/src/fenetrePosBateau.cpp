@@ -31,22 +31,8 @@ int fenetrePosBateau(){
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,713);
 	bouton.setFillColor(Color(0, 0, 0, 128));
-	/*
-	RectangleShape bateau2c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau3c1(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau3c2(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau4c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau5c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));	
-*/
+
+
 //////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);

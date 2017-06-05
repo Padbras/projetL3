@@ -9,7 +9,7 @@ Bateau::Bateau(){}
 
 void Bateau::posBateau(Grille &g,int taille){
 	int x,y,rotate;
-	bool libre = false;
+	bool libre;
 	
 	
 	while(!libre){ //tant que le bateau ne rencontre pas un autre bateau 
