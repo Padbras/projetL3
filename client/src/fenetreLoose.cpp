@@ -67,7 +67,7 @@ int fenetreLoose(){
 
 //////////// gestion colorimetrie du bouton  ///////////////////////////
 
-	if (time.asSeconds() > 4.0f ){
+	if (time.asSeconds() > 3.0f ){
 		bouton.setFillColor(Color(0, 0, 0, 0));
 	}
 	
