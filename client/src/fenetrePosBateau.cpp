@@ -30,7 +30,7 @@ int main(){
 	
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,713);
-	bouton.setFillColor(Color(255, 0, 0, 50));
+	bouton.setFillColor(Color(0, 0, 0, 128));
 	/*
 	RectangleShape bateau2c(Vector2f(80,40));
 	bouton.setFillColor(Color(0, 255, 0, 50));
@@ -94,7 +94,7 @@ int main(){
 //////////// gestion colorimetrie du bouton  ///////////////////////////
 	
 	if (cpt ==5 ){
-		bouton.setFillColor(Color(255, 255, 255, 0));
+		bouton.setFillColor(Color(0, 0, 0, 0));
 	}
 
 

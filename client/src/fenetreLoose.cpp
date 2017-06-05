@@ -28,7 +28,7 @@ int fenetreLoose(){
 
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,116);
-	bouton.setFillColor(Color(255, 0, 0, 0));
+	bouton.setFillColor(Color(0, 0, 0, 128));
 
 
 //////////// creation des textes, sprites et textures //////////////
@@ -68,7 +68,7 @@ int fenetreLoose(){
 //////////// gestion colorimetrie du bouton  ///////////////////////////
 
 	if (time.asSeconds() > 4.0f ){
-		bouton.setFillColor(Color(0, 255, 0, 50));
+		bouton.setFillColor(Color(0, 0, 0, 0));
 	}
 	
 	
