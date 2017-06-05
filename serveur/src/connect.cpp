@@ -1,6 +1,6 @@
 #include	"network.hpp"
 
-
+// connect to a server 
 
 bool		connectToServer(sf::TcpSocket *mySocket, char *ip, int port)
 {
