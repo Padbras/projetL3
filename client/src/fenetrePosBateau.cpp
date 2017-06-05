@@ -6,7 +6,7 @@ using namespace sf;
 using namespace std;
 
 
-int main(){
+int fenetrePosBateau(){
 
 ////////////////// creation et init de la fenetre //////////////////
 
