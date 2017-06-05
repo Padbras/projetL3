@@ -52,8 +52,8 @@ int fenetreJeu(){
 				case Event::MouseButtonPressed : // gestion de click dans la grille de tir
 					if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
 						event.mouseButton.y < 600 && event.mouseButton.y > 200){		
-						btx = event.mouseButton.x - 300; // -300 pour etre en 0,0 sur le
-						bty = event.mouseButton.y - 300; // coin sup gche de la grille
+						btx = event.mouseButton.x - 533; // -200 et -533 pour etre en 0,0 sur le
+						bty = event.mouseButton.y - 200; // coin sup gche de la grille
 						x1 = retourX(btx);
 						y1 = retourY(bty);
 						cout << x1 << "  " << y1 << endl;
