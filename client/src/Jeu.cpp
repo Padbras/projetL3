@@ -1,20 +1,62 @@
-#include "Pays.hpp"
-#include "Bateau.hpp"
+#include "Jeu.hpp"
 
-void jouerCoup(Grille &g){
-	int x,y;
-	cout<<"Veuillez saisir les coordonnées à viser : "<< endl;
-		cout<<"x : ";
-		cin>>x;
-		cout<<"y : ";
-		cin>>y;
+#include <iostream>
+
+using namespace std;
+
+
+void jouerPartie(){
+	cout<<"-----JOUEUR 1-----"<<endl;
+	Joueur j1;
+	j1.gJoueur=Grille();
+	j1.gAdversaire=Grille();
+	j1.initGrille(j1.gJoueur);
+	cout<<endl;
+	cout<<endl;
 	
-	if(g._grille[x][y]._type==boat){
-		cout<<"Touché ! "<<endl;
-		g._grille[x][y]._type=touch;
-	}else if(g._grille[x][y]._type==mer){
-		cout<<"PLOUF ! Dommage ..."<<endl;
-		g._grille[x][y]._type=miss;
+	cout<<"-----JOUEUR 2-----"<<endl;
+	Joueur j2=Joueur();
+	j2.gJoueur=Grille();
+	j2.gAdversaire=Grille();
+	j2.initGrille(j2.gJoueur);
+	cout<<endl;
+	cout<<endl;
+	
+	
+	bool gagne=false;
+	int cpt1=0; //compteur coup touché par j1
+	int cpt2=0; //compteur coup touché par j2
+	
+	while(!gagne){
+		
+		cout<<"------JOUEUR 1------"<<endl;
+		cout<<endl;
+		cpt1=j1.jouerCoup(j2,cpt1);
+		
+		if(win(j2,cpt1)){
+			gagne=true;
+			cout<<"------Joueur 1 gagne la partie ! Bien Joué ;)------"<<endl;
+			break;
+		}
+		
+		cout<<"------JOUEUR 2------"<<endl;
+		cout<<endl;
+		cpt2=j2.jouerCoup(j1,cpt2);
+		
+		if(win(j1,cpt2)){
+			cout<<"------Joueur 2 gagne la partie ! Bien Joué ;)------"<<endl;
+			gagne=true;
+			break;
+		}
 	}
-	g.afficherGrille();
+}
+
+bool win(Joueur &j,int cpt){
+	bool gagne=false;
+	if (j.cptBoatPart==cpt){
+		gagne = true;
+	}else{
+		gagne = false;
+	}
+	return gagne;
 }

@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sylvain/projetL3/client/src/aff_elements.cpp
+aff_elements.hpp
+/home/sylvain/projetL3/client/src/aff_elements.hpp
+
+/home/sylvain/projetL3/client/src/aff_elements.hpp
+SFML/Window.hpp
+-
+SFML/Graphics.hpp
+-
+iostream
+-
+string
+-
+
+/home/sylvain/projetL3/client/src/client.cpp
+client.hpp
+/home/sylvain/projetL3/client/src/client.hpp
+aff_elements.hpp
+/home/sylvain/projetL3/client/src/aff_elements.hpp
+
+/home/sylvain/projetL3/client/src/client.hpp
+SFML/Window.hpp
+-
+SFML/Graphics.hpp
+-
+SFML/System.hpp
+-
+iostream
+-
+string
+-
+

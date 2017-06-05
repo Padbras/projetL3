@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++14 -Wall -Wextra -g    CMakeFiles/main.out.dir/src/Case.cpp.o CMakeFiles/main.out.dir/src/main.cpp.o CMakeFiles/main.out.dir/src/Pays.cpp.o CMakeFiles/main.out.dir/src/Grille.cpp.o CMakeFiles/main.out.dir/src/Bateau.cpp.o CMakeFiles/main.out.dir/src/Jeu.cpp.o CMakeFiles/main.out.dir/src/Joueur.cpp.o  -o main.out -rdynamic 

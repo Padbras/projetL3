@@ -1,9 +1,10 @@
 #ifndef JEU_HPP
 #define JEU_HPP
 
-void jouerCoup(Grille &g);
+#include "Joueur.hpp"
 
-void jouerPartie(){
-}
+void jouerPartie();
+bool win(Joueur &j,int cpt);
+
 
 #endif

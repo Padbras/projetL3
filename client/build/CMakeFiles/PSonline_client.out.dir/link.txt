@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++14 -Wall -Wextra    CMakeFiles/PSonline_client.out.dir/src/client.cpp.o CMakeFiles/PSonline_client.out.dir/src/aff_elements.cpp.o  -o PSonline_client.out -rdynamic -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system 

@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sylvain/projetL3/client/src/Case.hpp
+
+/home/sylvain/projetL3/client/src/Grille.hpp
+iostream
+-
+Case.hpp
+/home/sylvain/projetL3/client/src/Case.hpp
+
+/home/sylvain/projetL3/client/src/Jeu.cpp
+Jeu.hpp
+/home/sylvain/projetL3/client/src/Jeu.hpp
+iostream
+-
+
+/home/sylvain/projetL3/client/src/Jeu.hpp
+Joueur.hpp
+/home/sylvain/projetL3/client/src/Joueur.hpp
+
+/home/sylvain/projetL3/client/src/Joueur.hpp
+Grille.hpp
+/home/sylvain/projetL3/client/src/Grille.hpp
+Pays.hpp
+/home/sylvain/projetL3/client/src/Pays.hpp
+
+/home/sylvain/projetL3/client/src/Pays.hpp
+string
+-
+
