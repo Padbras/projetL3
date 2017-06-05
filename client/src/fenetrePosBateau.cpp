@@ -1,12 +1,12 @@
 #include "fenetrePosBateau.hpp"
 #include "gestionGrille.hpp"
+#include "fenetreJeu.hpp"
 
 using namespace sf;
 using namespace std;
 
 
-int fenetrePosBateau()
-{
+int fenetrePosBateau(){
 
 ////////////////// creation et init de la fenetre //////////////////
 
@@ -16,9 +16,9 @@ int fenetrePosBateau()
 
 ////////////////// creation et init des variables //////////////////
 
-	string pseudoEntr_s = "";
 	int cpt = 0;
-	int btx , bty;
+	int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5, btx, bty;
+	x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
 	Event event;
 
 
@@ -28,7 +28,25 @@ int fenetrePosBateau()
 	if (!fondEcran_tex.loadFromFile("../client/img/bateau.png")){
 	}
 	
-
+	RectangleShape bouton(Vector2f(400, 78));
+	bouton.setPosition(300,713);
+	bouton.setFillColor(Color(0, 0, 0, 128));
+	/*
+	RectangleShape bateau2c(Vector2f(80,40));
+	bouton.setFillColor(Color(0, 255, 0, 50));
+	
+	RectangleShape bateau3c1(Vector2f(80,40));
+	bouton.setFillColor(Color(0, 255, 0, 50));
+	
+	RectangleShape bateau3c2(Vector2f(80,40));
+	bouton.setFillColor(Color(0, 255, 0, 50));
+	
+	RectangleShape bateau4c(Vector2f(80,40));
+	bouton.setFillColor(Color(0, 255, 0, 50));
+	
+	RectangleShape bateau5c(Vector2f(80,40));
+	bouton.setFillColor(Color(0, 255, 0, 50));	
+*/
 //////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);
@@ -45,30 +63,26 @@ int fenetrePosBateau()
 			
 			switch (event.type){
 				
-				case Event::KeyPressed : 
-					if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
-						pseudoEntr_s.erase();
-					break;
-				
 				case Event::MouseButtonPressed : // gestion de click dans la grille
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 700 && event.mouseButton.y > 300 &&
 						cpt < 5){		
 						btx = event.mouseButton.x - 300; // -300 pour etre en 0,0 sur le
 						bty = event.mouseButton.y - 300; // coin sup gche de la grille
-						cpt++;		
-						std::cout << "btx: " << retourX(btx) << "bty: " << retourY(bty) << std::endl;
+						x1 = retourX(btx);
+						y1 = retourY(bty);
+						cout << x1 << "  " << y1 << endl;
+						cpt++;							
 					}
 					
 					//gestion du click sur le bouton
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 791 && event.mouseButton.y > 713 &&
-						cpt == 5){		
-						std::cout << "the button was pressed" << std::endl;
+						cpt == 5){
+						window.close();
+						fenetreJeu();
 						
 					}
-					
-					
 					break;
 						
 				default:
@@ -77,21 +91,19 @@ int fenetrePosBateau()
 		}
 
 
-//////////// creation du texte avec le pseudo //////////////////////
-/*
-	Text pseudoEntr_txt;
-	pseudoEntr_txt.setFont(main_font);
-	pseudoEntr_txt.setCharacterSize(35);	
-	pseudoEntr_txt.setPosition(370,376);
-	//pseudoEntr_txt.setFillColor(Color::Red);
-	pseudoEntr_txt.setString(pseudoEntr_s);
-*/
+//////////// gestion colorimetrie du bouton  ///////////////////////////
+	
+	if (cpt ==5 ){
+		bouton.setFillColor(Color(0, 0, 0, 0));
+	}
+
+
 ///////////// gestion de l'affichage //////////////////
 	
 	window.clear(Color::White); 	
 		
 	window.draw(fondEcran_spr);
-	//window.draw(pseudoEntr_txt);
+	window.draw(bouton);
         
 	window.display();
         
