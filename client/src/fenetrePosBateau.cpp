@@ -6,8 +6,7 @@ using namespace sf;
 using namespace std;
 
 
-int main()
-{
+int main(){
 
 ////////////////// creation et init de la fenetre //////////////////
 
@@ -17,7 +16,6 @@ int main()
 
 ////////////////// creation et init des variables //////////////////
 
-	string pseudoEntr_s = "";
 	int cpt = 0;
 	int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5, btx, bty;
 	x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
@@ -33,7 +31,7 @@ int main()
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,713);
 	bouton.setFillColor(Color(255, 0, 0, 50));
-	
+	/*
 	RectangleShape bateau2c(Vector2f(80,40));
 	bouton.setFillColor(Color(0, 255, 0, 50));
 	
@@ -48,7 +46,7 @@ int main()
 	
 	RectangleShape bateau5c(Vector2f(80,40));
 	bouton.setFillColor(Color(0, 255, 0, 50));	
-
+*/
 //////////// creation des textes, sprites et textures //////////////
 			
 	Sprite fondEcran_spr(fondEcran_tex);
@@ -71,6 +69,9 @@ int main()
 						cpt < 5){		
 						btx = event.mouseButton.x - 300; // -300 pour etre en 0,0 sur le
 						bty = event.mouseButton.y - 300; // coin sup gche de la grille
+						x1 = retourX(btx);
+						y1 = retourY(bty);
+						cout << x1 << "  " << y1 << endl;
 						cpt++;							
 					}
 					

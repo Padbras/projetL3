@@ -1,21 +1,22 @@
 #include "fenetreJeu.hpp"
+#include "gestionGrille.hpp"
+#include "fenetreWin.hpp"
+#include "fenetreLoose.hpp"
 
 using namespace sf;
 using namespace std;
 
 
-int fenetreJeu()
-{
+int fenetreJeu(){
 
 ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionne tes bateaux Matelot !!",Style::Titlebar);
+	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La Bataille ",Style::Titlebar);
 	window.setPosition(Vector2i(10, 10));
 
 
 ////////////////// creation et init des variables //////////////////
 
-	string pseudoEntr_s = "";
 	int cpt = 0;
 	int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5, btx, bty;
 	x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
@@ -28,24 +29,9 @@ int fenetreJeu()
 	if (!fondEcran_tex.loadFromFile("../client/img/jeu.png")){
 	}
 
-	RectangleShape bouton(Vector2f(400, 78));
-	bouton.setPosition(300,713);
+	RectangleShape bouton(Vector2f(300, 60));
+	bouton.setPosition(348,670);
 	bouton.setFillColor(Color(255, 0, 0, 50));
-	
-	RectangleShape bateau2c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau3c1(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau3c2(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau4c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));
-	
-	RectangleShape bateau5c(Vector2f(80,40));
-	bouton.setFillColor(Color(0, 255, 0, 50));	
 
 //////////// creation des textes, sprites et textures //////////////
 			
@@ -63,21 +49,28 @@ int fenetreJeu()
 			
 			switch (event.type){
 				
-				case Event::MouseButtonPressed : // gestion de click dans la grille
-					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
-						event.mouseButton.y < 700 && event.mouseButton.y > 300 &&
-						cpt < 5){		
+				case Event::MouseButtonPressed : // gestion de click dans la grille de tir
+					if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
+						event.mouseButton.y < 600 && event.mouseButton.y > 200){		
 						btx = event.mouseButton.x - 300; // -300 pour etre en 0,0 sur le
 						bty = event.mouseButton.y - 300; // coin sup gche de la grille
-						cpt++;							
+						x1 = retourX(btx);
+						y1 = retourY(bty);
+						cout << x1 << "  " << y1 << endl;
+						cpt++;				
 					}
 					
 					//gestion du click sur le bouton
-					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
-						event.mouseButton.y < 791 && event.mouseButton.y > 713 &&
-						cpt == 5){
-						
-						
+					if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
+						event.mouseButton.y < 730 && event.mouseButton.y > 670){
+						if (cpt > 0){
+							window.close();
+							fenetreWin();
+						}
+						else{
+							window.close();
+							fenetreLoose();
+						}
 					}
 					break;
 						
@@ -88,10 +81,11 @@ int fenetreJeu()
 
 
 //////////// gestion colorimetrie du bouton  ///////////////////////////
-	
-	if (cpt ==5 ){
-		bouton.setFillColor(Color(255, 255, 255, 0));
+
+	if (cpt > 0 ){
+		bouton.setFillColor(Color(0, 255, 0, 50));
 	}
+
 
 ///////////// gestion de l'affichage //////////////////
 	

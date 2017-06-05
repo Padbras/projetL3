@@ -12,5 +12,7 @@ include_directories( ${SFML_INCLUDE_DIRS} serveur/include client/include)
 
 add_executable(test.out  client/src/gestionGrille.cpp
 			   client/src/fenetrePosBateau.cpp
-			   client/src/fenetreJeu.cpp)
+			   client/src/fenetreJeu.cpp
+			   client/src/fenetreWin.cpp
+			   client/src/fenetreLoose.cpp)
 target_link_libraries(test.out ${SFML_LIBRARIES} )
