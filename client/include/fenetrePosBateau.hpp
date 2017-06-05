@@ -5,6 +5,6 @@
 #include <SFML/System.hpp>
 #include <iostream>
 
-int fenetrePosBateau();
+Grille fenetrePosBateau();
 
 #endif

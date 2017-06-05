@@ -3,9 +3,10 @@
 using namespace std;
 
 Grille::Grille(){
+	sf::RectangleShape rect(sf::Vector2f(40,40));
 	for(int i=0;i<10;i++){
 		for(int j=0;j<10;j++){
-			_grille[i][j]=Case(i,j,mer);
+			_grille[i][j]=Case(i,j,mer,rect);
 		}
 	}
 }

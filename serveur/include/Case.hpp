@@ -1,17 +1,25 @@
 #ifndef CASE_HPP
 #define CASE_HPP
 
-enum typeCase{mer=0,boat=1,touch=2,miss=3};
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
+enum typeCase{mer,boat,touch,miss};
 
 
 class Case{
 	public:
 		typeCase _type;
 		int _x,_y;
-		Case();
+		sf::RectangleShape _case_rect;
+		Case(int px, int py, typeCase t, sf::RectangleShape _case_rect);
 		Case(int px, int py, typeCase t);
+		Case();
 };
 
 #endif
+
+ 
 
  

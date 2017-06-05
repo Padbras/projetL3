@@ -18,6 +18,13 @@ int ptRetourY(int mouseY){
 	return (mouseY- 200)/40;
 }
 
-//void posBateau(int numeroBateau,int x, int y){
+void enrPos(int x, int y, Grille *grille){
+	int posx, posy;
+	grille->_grille[x][y]._type = boat;
+	posx = 300 + 40*x;
+	posy = 300 + 40*y;
+	grille->_grille[x][y]._case_rect.setPosition(posx,posy);
+	grille->_grille[x][y]._case_rect.setFillColor(sf::Color(0, 255, 0, 128));
+}
 
-//}
+
