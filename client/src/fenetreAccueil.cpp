@@ -57,6 +57,10 @@ string		lancerFenetreAccueil()
       case Event::KeyPressed : 
 	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::BackSpace )
 	  pseudoEntr_s.erase();
+	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::Return ){
+	  window.close();
+	  return pseudoEntre_s;}
+	  
 	break;
 				
       case Event::MouseButtonPressed :
@@ -64,15 +68,9 @@ string		lancerFenetreAccueil()
 		event.mouseButton.y < 700 && event.mouseButton.y > 628 &&
 		pseudoEntr_s.size() > 0){	
 	  window.close();
-	  return pseudoEntr_s;
-	  // fenetrePosBateau();
-	}
+	  return pseudoEntr_s;}
 	break;
-				
-	//	case Event::KeyPressed :
-					
-	//	break;
-						
+			
       default:
 	break;
       }	
