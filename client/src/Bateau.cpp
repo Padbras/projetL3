@@ -9,7 +9,7 @@ Bateau::Bateau(){}
 
 void Bateau::posBateau(Grille &g,int taille){
 	int x,y,rotate;
-	bool libre;
+	bool libre=false;
 	
 	
 	while(!libre){ //tant que le bateau ne rencontre pas un autre bateau 
@@ -26,38 +26,30 @@ void Bateau::posBateau(Grille &g,int taille){
 			case 0: //nord
 				libre=true;
 				for(int i=0;i<taille;i++){
-					if((x-i)<0){ //verifie qu'on est dans la grille 
+					if((x-i)<0 || g._grille[x-i][y]._type!=mer){ //verifie qu'on est dans la grille ou qu'on rencontre pas un bateau
+						libre=false;
 						cout<<"Erreur placement"<<endl;
-						posBateau(g,taille);
-					}else{
-						if(g._grille[x-i][y]._type!=mer){ //permet de gérer les collisions entre bateaux
-							libre=false;
-							cout<<"Erreur placement"<<endl;
-						}
 					}
 				}
-				for(int j=0;j<taille;j++){
-					if(libre){
+				
+				if(libre){
+					for(int j=0;j<taille;j++){
 						g._grille[x-j][y]._type=boat;
 					}
 				}
+				
 			break;
 			
 			case 1: //est
 				libre=true;
 				for(int i=0;i<taille;i++){
-					if((y+i)>9){ //verifie qu'on est dans la grille 
+					if((y+i)>9 || g._grille[x][y+i]._type!=mer){ //verifie qu'on est dans la grille ou qu'on rencontre pas un bateau
+						libre=false;
 						cout<<"Erreur placement"<<endl;
-						posBateau(g,taille);
-					}else{
-						if(g._grille[x][y+i]._type!=mer){ //permet de gérer les collisions entre bateaux
-							libre=false;
-							cout<<"Erreur placement"<<endl;
-						}
 					}
 				}
-				for(int j=0;j<taille;j++){
-					if(libre){
+				if(libre){
+					for(int j=0;j<taille;j++){
 						g._grille[x][y+j]._type=boat;
 					}
 				}
@@ -66,18 +58,13 @@ void Bateau::posBateau(Grille &g,int taille){
 			case 2: //sud
 				libre=true;
 				for(int i=0;i<taille;i++){
-					if((x+i)>9){ //verifie qu'on est dans la grille 
+					if((x+i)>9 || g._grille[x+i][y]._type!=mer){ //verifie qu'on est dans la grille ou qu'on rencontre pas un bateau
+						libre=false;
 						cout<<"Erreur placement"<<endl;
-						posBateau(g,taille);
-					}else{
-						if(g._grille[x+i][y]._type!=mer){ //permet de gérer les collisions entre bateaux
-							libre=false;
-							cout<<"Erreur placement"<<endl;
-						}
 					}
 				}
-				for(int j=0;j<taille;j++){
-					if(libre){
+				if(libre){
+					for(int j=0;j<taille;j++){
 						g._grille[x+j][y]._type=boat;
 					}
 				}
@@ -86,27 +73,20 @@ void Bateau::posBateau(Grille &g,int taille){
 			
 			case 3: //ouest
 				libre=true;
-				for(int i=0;i<taille;i++){
-					if((y-i)<0){ //verifie qu'on est dans la grille 
+				for(int i=0;i<taille;i++ ){
+					if((y-i)<0 || g._grille[x][y-i]._type!=mer){ //verifie qu'on est dans la grille ou qu'on rencontre pas un bateau
+						libre=false;
 						cout<<"Erreur placement"<<endl;
-						posBateau(g,taille);
-					}else{	
-						if(g._grille[x][y-i]._type!=mer){ //permet de gérer les collisions entre bateaux
-							libre=false;
-							cout<<"Erreur placement"<<endl;
-						}
 					}
 				}
-				for(int j=0;j<taille;j++){ 
-					if(libre){
+				if(libre){
+					for(int j=0;j<taille;j++){ 
 						g._grille[x][y-j]._type=boat;
 					}
 				}
 			break;
 		}
 	}
-	
-	
 }
 
 
