@@ -1,35 +1,45 @@
 #include	"client.hpp"
 
-sf::Packet	&operator <<(sf::Packet &packet, const Case &myCase)
-{
-  return packet << (int)myCase._x << (int)myCase._y << (int)myCase._type;
-}
-
-sf::Packet	&operator >>(sf::Packet &packet, Case &myCase)
-{
-  return packet >> myCase._x >> myCase._y << myCase._type;
-}
-
-
-bool		receiveInfo(sf::TcpSocket *mySocket)
+Grille		receiveInfo(sf::TcpSocket *mySocket)
 {
   sf::Packet	myPacket;
-
-  myPacket = receivePacket(mySocket);
-  for (int i = 0; i < 10; i++)
-    for (int j = 0; j < 10; j++)
-      myPacket >> g_Grille._grille[i][j];
-  return true;
-}
-
-bool		sendInfo(sf::TcpSocket *mySocket)
-{
-  sf::Packet	myPacket;
-
-  for (int i = 0; i < 10; i++)
-    for (int j = 0; j < 10; j++)
+  int		type;
+  Grille	myGrille;
+  
+  for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 10; i++)
       {
-	myPacket << &g_GrilleOpp._grille[i][j];
+	myPacket.clear();
+	myPacket = receivePacket(mySocket);
+	myPacket >> myGrille._grille[i][j]._x
+		 >> myGrille._grille[i][j]._y
+		 >> type;
+	if (type == 0)
+	  myGrille._grille[i][j]._type = mer;
+	else
+	  myGrille._grille[i][j]._type = boat;
+	
+      }
+  myGrille.afficherGrille();
+  return myGrille;
+}
+
+bool		sendInfo(sf::TcpSocket *mySocket, Grille myGrille)
+{
+  sf::Packet	myPacket;
+  int		x, y, type;
+
+  for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 10; i++)
+      {
+	myPacket.clear();
+	x = myGrille._grille[i][j]._x;
+	y = myGrille._grille[i][j]._y;
+	if (myGrille._grille[i][j]._type == mer)
+	  type = 0;
+	else
+	  type = 1;
+	myPacket << x << y << type;
 	if (sendPacket(&myPacket, mySocket) == false)
 	  return false;
       }

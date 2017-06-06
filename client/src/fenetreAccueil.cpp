@@ -59,7 +59,7 @@ string		lancerFenetreAccueil()
 	  pseudoEntr_s.erase();
 	if (pseudoEntr_s.size() > 0 && event.key.code == Keyboard::Return ){
 	  window.close();
-	  return pseudoEntre_s;}
+	  return pseudoEntr_s;}
 	  
 	break;
 				
@@ -98,7 +98,6 @@ string		lancerFenetreAccueil()
     window.display();
         
   }
-
 }
 
 

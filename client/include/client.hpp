@@ -8,11 +8,6 @@
 #include	"fenetrePosBateau.hpp"
 #include	"network.hpp"
 
-// Variables globales pour les grilles
-
-extern Grille  	g_Grille;
-extern Grille	g_GrilleOpp;
-
 // infos.cpp
 
 // Surcharge des opérateurs >> et << de sf::Packet pour la
@@ -23,7 +18,7 @@ sf::Packet	&operator >>(sf::Packet &, Case &);
 
 // fonctions d'envoi et de reception d'infos
 
-bool		receiveInfo(sf::TcpSocket *);
-bool		sendInfo(sf::TcpSocket *);
+Grille		receiveInfo(sf::TcpSocket *);
+bool		sendInfo(sf::TcpSocket *, Grille);
 
 #endif

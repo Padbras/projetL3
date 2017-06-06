@@ -4,8 +4,8 @@ using namespace std;
 
 Grille::Grille(){
 	sf::RectangleShape rect(sf::Vector2f(40,40));
-	for(int i=0;i<10;i++){
-		for(int j=0;j<10;j++){
+	for(int j=0;j<10;j++){
+		for(int i=0;i<10;i++){
 			_grille[i][j]=Case(i,j,mer,rect);
 		}
 	}
@@ -14,8 +14,8 @@ Grille::Grille(){
 
 void Grille::afficherGrille(){
 	cout<<" _ _ _ _ _ _ _ _ _ _"<<endl;
-	for(int i=0;i<10;i++){
-		for(int j=0;j<10;j++){
+	for(int j=0;j<10;j++){
+		for(int i=0;i<10;i++){
 			cout<<"|";
 			switch(_grille[i][j]._type){
 				case mer:

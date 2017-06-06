@@ -1,21 +1,71 @@
 #include	"network.hpp"
+#include	"client.hpp"
 #include	"Grille.hpp"
   
-Grille g_GrilleP1;
-Grille g_GrilleP2;
+Grille		g_GrilleP2;
+Grille       	g_GrilleP1;
+
+bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
+{
+  sf::Packet	myPacket;
+  int		x, y, type;
+
+  for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 10; i++)
+      {
+	myPacket.clear();
+	x = myGrille._grille[i][j]._x;
+	y = myGrille._grille[i][j]._y;
+	if (myGrille._grille[i][j]._type == mer)
+	  type = 0;
+	else
+	  type = 1;
+	myPacket << x << y << type;
+	if (sendPacket(&myPacket, mySocket) == false)
+	  return false;
+      }
+  return true;
+}
+
+Grille		receiveGrille(sf::TcpSocket *mySocket)
+{
+  sf::Packet	myPacket;
+  Grille	myGrille;
+  int		type;
+  
+  for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 10; i++)
+      {
+	myPacket.clear();
+	myPacket = receivePacket(mySocket);
+	myPacket >> myGrille._grille[i][j]._x
+		 >> myGrille._grille[i][j]._y
+		 >> type;
+	if (type == 0)
+	  myGrille._grille[i][j]._type = mer;
+	else
+	  myGrille._grille[i][j]._type = boat;
+      }
+  myGrille.afficherGrille();
+  return myGrille;
+}
 
 bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
 {
   sf::Packet	myPacket1;
   sf::Packet	myPacket2;
-
-  displayJoueur(joueurUn);
-  displayJoueur(joueurDeux);
-  myPacket1 = receivePacket(joueurUn.socket);
-  myPacket2 = receivePacket(joueurDeux.socket);
-  if (sendPacket(&myPacket1, joueurDeux.socket) == false)
+  // displayJoueur(joueurUn);
+  // displayJoueur(joueurDeux);
+  
+  g_GrilleP1 = receiveGrille(joueurUn.socket);
+  g_GrilleP2 = receiveGrille(joueurDeux.socket);
+  // displayInfo("Grille joueur 1");
+  // g_GrilleP1.afficherGrille();
+  // displayInfo("Grille joueur 2");
+  // g_GrilleP2.afficherGrille();
+  if (sendGrille(joueurDeux.socket, g_GrilleP1) == false)
     return false;
-  if (sendPacket(&myPacket2, joueurUn.socket) == false)
+  if (sendGrille(joueurUn.socket, g_GrilleP2) == false)
     return false;
   return true;  
 }
@@ -31,15 +81,16 @@ void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
   myPacket << true;
   if (sendPacket(&myPacket, joueurUn.socket) == false)
     {
-
-    };
+      displayError("Failed to send packet (bool to j1)");
+    }
   if (sendPacket(&myPacket, joueurDeux.socket) == false)
     {
 
+      displayError("Failed to send packet (bool to j2)");
     }
   if (transmitFirstInfo(joueurUn, joueurDeux) == false)
     {
-      //dostuff
+      displayError("Failed to transmit");
     }
   displayInfo("First Info transmit");
   
