@@ -17,3 +17,12 @@
 	./client.out 127.0.0.1 8888   // 127.0.0.1 est l'adresse IP du serveur sur lequel on veut 									//se connecter
 
 #### NB : La gestion de la rotation et de la collision des bateaux lors de leur placement n'a pas encore été gérée dans l'interface graphique.
+
+
+
+
+### Membres du groupe de travail :
+#### Mallevaey Pierre
+#### Chrétien Octave 
+#### Specq Corentin
+#### Ehinger Sylvain 
