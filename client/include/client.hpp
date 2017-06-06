@@ -6,6 +6,7 @@
 #include	"Bateau.hpp"
 #include	"fenetreAccueil.hpp"
 #include	"fenetrePosBateau.hpp"
+#include	"fenetreJeu.hpp"
 #include	"network.hpp"
 
 // infos.cpp

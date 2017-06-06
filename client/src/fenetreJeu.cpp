@@ -6,6 +6,15 @@
 using namespace sf;
 using namespace std;
 
+int retTrueX(int x)
+{
+  return (66 + 40 * x);
+}
+
+int retTrueY(int y)
+{
+  return (200 + 40 * y);
+}
 
 int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 
@@ -59,7 +68,14 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 	      
 	      window.draw(fondEcran_spr);
 	      window.draw(bouton);
-	      
+	            for (int j = 0; j < 10; j++)
+	for (int i = 0; i < 10; i++)
+	  {
+	    grilleMe._grille[i][j]._case_rect.setPosition(retTrueX(i), retTrueY(j));
+	    window.draw(grilleMe._grille[i][j]._case_rect);
+	    
+	  }
+
 	      window.display();
 	      cpt2++;
 	    }
@@ -91,16 +107,16 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 		if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
 			event.mouseButton.y < 730 && event.mouseButton.y > 670)
 		  {
-		    // if (grilleOpp._grille[x1][y1]._type == boat)
-		    //   {
-		    //     grilleOpp._grille[x1][y1]._type = touch;
-		    //     // affichage vert
-		    //   }
-		    // else if (grilleOpp._grille[x1][y1]._type == mer)
-		    //   {
-		    //     grilleOpp._grille[x1][y1]._type = miss;
-		    //     // affichage rouge
-		    //   }
+		    if (grilleOpp._grille[x1][y1]._type == boat)
+		      {
+		        grilleOpp._grille[x1][y1]._type = touch;
+		        // affichage vert
+		      }
+		    else if (grilleOpp._grille[x1][y1]._type == mer)
+		      {
+		        grilleOpp._grille[x1][y1]._type = miss;
+		        // affichage rouge
+		      }
 		    myTurn = false;
 		    whoTurn.clear();
 		    whoTurn << myTurn;
@@ -130,15 +146,21 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 
 
       ///////////// gestion de l'affichage //////////////////
-	
-    window.clear(Color::White); 	
+
+      window.clear(Color::White); 	
 		
-    window.draw(fondEcran_spr);
-    window.draw(bouton);
-        
-    window.display();
-        
-  }
+      window.draw(fondEcran_spr);
+      window.draw(bouton);
+      for (int j = 0; j < 10; j++)
+	for (int i = 0; i < 10; i++)
+	  {
+	    grilleMe._grille[i][j]._case_rect.setPosition(retTrueX(i), retTrueY(j));
+	    window.draw(grilleMe._grille[i][j]._case_rect);
+	    
+	  }
+      window.display();
+    
+    }
 
   return 0;
 }
