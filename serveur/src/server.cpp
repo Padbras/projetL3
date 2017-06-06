@@ -50,6 +50,64 @@ Grille		receiveGrille(sf::TcpSocket *mySocket)
   return myGrille;
 }
 
+void		whoBegin(Joueur joueurUn, Joueur joueurDeux)
+{
+  sf::Packet	begin;
+
+  begin << true;
+  if (sendPacket(&begin, joueurUn.socket) == false)
+    {
+      
+    }
+  begin.clear();
+  begin << false;
+  if (sendPacket(&begin, joueurDeux.socket) == false)
+    {
+
+    }
+}
+
+void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
+{
+  bool		running = true;
+  bool		turnUn = true;
+  bool		turnDeux = false;
+  sf::Packet	turn;
+  
+  whoBegin(joueurUn, joueurDeux);
+  while (running)
+    {
+      displayInfo("tour joueur 1");
+      turn.clear();
+      turn = receivePacket(joueurUn.socket);
+      turn >> turnUn;
+      if (turnUn == false)
+	{
+	  displayInfo("debut tour joueur 2");
+	  turn.clear();
+	  turn << true;
+	  if (sendPacket(&turn, joueurDeux.socket) == false)
+	    {
+
+	    }
+	}
+      displayInfo("tour joueur 2");
+      turn.clear();
+      turn = receivePacket(joueurDeux.socket);
+      turn >> turnDeux;
+      if (turnDeux == false)
+	{
+	  displayInfo("debut tour joueur 2");
+	  turn.clear();
+	  turn << true;
+	  if (sendPacket(&turn, joueurUn.socket) == false)
+	    {
+	      
+	    }
+	}
+    }
+}
+
 bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
 {
   sf::Packet	myPacket1;
@@ -70,7 +128,7 @@ bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
   return true;  
 }
 
-void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
+void		beginGame(std::list<Joueur> joueurs, sf::TcpListener *listener,
 			 sf::SocketSelector *selector)
 {
   bool		running = true;
@@ -93,7 +151,8 @@ void		gameLoop(std::list<Joueur> joueurs, sf::TcpListener *listener,
       displayError("Failed to transmit");
     }
   displayInfo("First Info transmit");
-  
+  displayInfo("Game start");
+  gameLoop(joueurUn, joueurDeux);
 }
 
 std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
@@ -148,7 +207,7 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 	  running = false;
 	}
     }
-  gameLoop(joueurs, listener, selector); 
+  beginGame(joueurs, listener, selector); 
   return joueurs;
 }
 

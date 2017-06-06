@@ -1,37 +1,35 @@
 #include	"client.hpp"
 
-Grille		g_Grille;
-Grille		g_GrilleOpp;
-
 bool		clientGameLoop(sf::TcpSocket *mySocket)
 {
-  bool		running = true;
   bool		isOk = false;
-  sf::Packet	toSend;
   sf::Packet	toReceive;
+  Grille	grilleMe;
+  Grille	grilleOpp;	
 
+  grilleMe = fenetrePosBateau();
   toReceive = receivePacket(mySocket);
   toReceive >> isOk;
   if (isOk)
     {
-      if (sendInfo(mySocket) == false)
+      if (sendInfo(mySocket, grilleMe) == false)
 	{
 	  displayError("Failed to send infos");
 	  return false;
 	}
       displayInfo("First info sent");
-      if (receiveInfo(mySocket) == false)
-	{
-	  displayError("Failed to receive infos");
-	  return false;
-	}
+      grilleOpp = receiveInfo(mySocket);
       displayInfo("First info received");
-      g_GrilleOpp.afficherGrille();
-      g_Grille.afficherGrille();
-    }
-  while (!running)
-    {
-      
+      std::cout << "grille adversaire" << std::endl;
+      grilleOpp.afficherGrille();
+      std::cout << "ma grille" << std::endl;
+      grilleMe.afficherGrille();
+      if (fenetreJeu(grilleMe, grilleOpp, mySocket) == 1)
+	{}
+	//	fenetreWin();
+      else
+	{}
+	//fenetreLoose();
     }
   return true;
 }
@@ -71,9 +69,7 @@ bool		startClient(char *ip, int port)
       displayError("Failed to load client loop");
       return false;
     }
-  // a la fin de pos bateau envoi des positions.
-      // fenetrePosBateau(//&socketToServer
-      // 		       );
+  
   return true;
 }
 

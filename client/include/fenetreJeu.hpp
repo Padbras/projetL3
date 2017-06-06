@@ -4,7 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
+#include "network.hpp"
+#include "client.hpp"
 
-int fenetreJeu();
+// return 1 si gagné, -1 si perdu
+int fenetreJeu(Grille, Grille, sf::TcpSocket *);
 
 #endif
