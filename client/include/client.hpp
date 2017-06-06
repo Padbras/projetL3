@@ -7,6 +7,8 @@
 #include	"fenetreAccueil.hpp"
 #include	"fenetrePosBateau.hpp"
 #include	"fenetreJeu.hpp"
+#include	"fenetreLoose.hpp"
+#include	"fenetreWin.hpp"
 #include	"network.hpp"
 
 // infos.cpp

@@ -55,7 +55,7 @@ int fenetreWin(){
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 194 && event.mouseButton.y > 116 &&
 						time.asSeconds() > 4.0f){
-							window.close();
+			        	  window.close();
 					}
 					break;
 						

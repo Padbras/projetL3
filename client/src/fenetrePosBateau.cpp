@@ -141,7 +141,7 @@ Grille fenetrePosBateau(){
 
     //////////// gestion colorimetrie du bouton  ///////////////////////////
 	
-    if (cpt ==5 ){
+    if (cpt == 6 ){
       bouton.setFillColor(Color(0, 0, 0, 0));
     }
 	

@@ -55,7 +55,7 @@ int fenetreLoose(){
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 194 && event.mouseButton.y > 116 &&
 						time.asSeconds() > 4.0f){
-							window.close();
+					  window.close();
 					}
 					break;
 						
@@ -75,7 +75,7 @@ int fenetreLoose(){
 ////////////////// timer de fermeture automatique //////////////////////
 
 	if (time.asSeconds() > 10.0f){
-		window.close();
+	  window.close();
 	}
 	
 

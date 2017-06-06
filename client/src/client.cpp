@@ -25,11 +25,15 @@ bool		clientGameLoop(sf::TcpSocket *mySocket)
       std::cout << "ma grille" << std::endl;
       grilleMe.afficherGrille();
       if (fenetreJeu(grilleMe, grilleOpp, mySocket) == 1)
-	{}
-	//	fenetreWin();
+	{
+	  mySocket->disconnect();
+	  fenetreWin();
+	}
       else
-	{}
-	//fenetreLoose();
+	{
+	  mySocket->disconnect();
+	  fenetreLoose();
+	}
     }
   return true;
 }

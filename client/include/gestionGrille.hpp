@@ -8,6 +8,12 @@
 #include <string>
 
 
+int retGrGauchX(int);
+int retGrGauchY(int);
+
+int retGrDroitX(int);
+int retGrDroitY(int);
+
 int gdRetourX(int mouseX);
 int gdRetourY(int mouseY);
 
