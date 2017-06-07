@@ -19,8 +19,8 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   ////////////////// creation et init des variables //////////////////
 
   int cpt = 0;
-  int victoire = 1;
-  int defaite = 1;
+  int victoire = 17;
+  int defaite = 17;
   int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5;
   x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
   Event event;
