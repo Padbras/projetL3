@@ -5,7 +5,6 @@
 #include <iostream>
 #include "Case.hpp"
 
-using namespace std;
 
 class Grille{
 	public :

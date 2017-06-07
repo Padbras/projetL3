@@ -22,3 +22,4 @@ int ptRetourY(int mouseY);
 
 void		placeBateau(Grille *, int, int, int, int);
 #endif
+
