@@ -1,8 +1,6 @@
 #include "Case.hpp"
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+////////////////////// Constructeurs /////////////////////////////////// 
 
 Case::Case(int px, int py, typeCase t, sf::RectangleShape rect) :
 	_x(px),_y(py),_type(t),_case_rect(rect)
@@ -17,6 +15,4 @@ Case::Case(int px, int py, typeCase t) :
 {}
 
 Case::Case(){}
-
-
 

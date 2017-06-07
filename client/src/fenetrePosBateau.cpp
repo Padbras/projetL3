@@ -1,5 +1,6 @@
 #include "fenetrePosBateau.hpp"
 #include "gestionGrille.hpp"
+#include "gestionBateau.hpp"
 #include "fenetreJeu.hpp"
 #include "Grille.hpp"
 
@@ -60,7 +61,9 @@ Grille fenetrePosBateau(){
 	  y1 = gdRetourY(event.mouseButton.y);
 	  switch (cpt){
 	      case 1 :
-		placeBateau(&grille, x1, y1,2,rotate);
+	    verifPlaceNord(&grille, x1, y1, 5);
+	    //  posBateauNord(&grille, x1, y1, 2);
+		//placeBateau(&grille, x1, y1,2,rotate);  
 		//Place les bateaux dans la grille, vers le nord par défaut				
 		break;
 		// Rajouter: si pas possible vers le nord, rotate pour trouver une position valable

@@ -9,15 +9,21 @@
 
 
 
-void		placeBateau(Grille *, int, int, int, int);
+void		setBateau(Grille *, int, int, int, int);
 void		eraseBateau(Grille *, int, int, int, int);
+bool		verifMer(Grille *, int, int);
 
-bool		verifTypeNord(Grille *, int, int, int);
-bool		verifTypeSud(Grille *, int, int, int);
-bool		verifTypeOuest(Grille *, int, int, int);
-bool		verifTypeEst(Grille *, int, int, int);
+bool		verifPlaceNord(Grille *, int, int, int);
+bool		verifPlaceSud(Grille *, int, int, int);
+bool		verifPlaceOuest(Grille *, int, int, int);
+bool		verifPlaceEst(Grille *, int, int, int);
 
-bool		verfMer(Grille *, int, int);
+void		posBateauNord(Grille *, int, int, int);
+void		posBateauSud(Grille *, int, int, int);
+void		posBateauOuest(Grille *, int, int, int);
+void		posBateauEst(Grille *, int, int, int);
+
+
 
 #endif
 
