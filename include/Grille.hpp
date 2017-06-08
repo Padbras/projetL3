@@ -12,7 +12,7 @@ class Grille{
 	Grille();
 	void afficherGrille();
 	
-	void setPosCase(int x, int y);
+	void setPosCase( int, int, int, int);
 	void setColorCase( int, int, int, int, int, int);
 	typeCase getTypeCase( int, int);
 	void setTypeCase( int, int, enum typeCase);

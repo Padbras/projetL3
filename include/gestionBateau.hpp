@@ -4,14 +4,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "Grille.hpp"
+#include "gestionGrille.hpp"
 #include <iostream>
 #include <string>
 
 
 
-void		setBateau(Grille *, int, int, int, int);
+void		setBateau(Grille *, int, int);
 void		eraseBateau(Grille *, int, int, int, int);
 bool		verifMer(Grille *, int, int);
+void 		posBateau(Grille *, int, int, int, int);
 
 bool		verifPlaceNord(Grille *, int, int, int);
 bool		verifPlaceSud(Grille *, int, int, int);

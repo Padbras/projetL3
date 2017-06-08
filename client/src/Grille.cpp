@@ -39,8 +39,8 @@ void Grille::afficherGrille(){
 
 /////////////////////////// Getters et Setters /////////////////////////
 
-void Grille::setPosCase(int x, int y){
-	_grille[x][y]._case_rect.setPosition(x,y);
+void Grille::setPosCase(int x, int y, int pixX, int pixY){
+	_grille[x][y]._case_rect.setPosition(pixX,pixY);
 }
 
 void Grille::setColorCase(int x, int y, int r, int g, int b, int alpha){
