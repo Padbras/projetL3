@@ -101,37 +101,14 @@ Grille fenetrePosBateau(){
 
 	 case Event::KeyPressed : 
 	 
-	   if (event.key.code == Keyboard::R )
+	  if (event.key.code == Keyboard::R ){
 	     rotate++;
-	  if (rotate == 4)
-	     rotate =0;
-	// switch (cpt){
-	//       case 1 :
-	// 	placeBateau(&grille, x1, y1,2,rotate);
-	// 	//Place les bateaux dans la grille, vers le nord par défaut				
-	// 	break;
-	// 	// Rajouter: si pas possible vers le nord, rotate pour trouver une position valable
-	// 	// Et place le bateau par défaut dans une position valable
-	//       case 2 :
-	// 	placeBateau(&grille, x1, y1,3, rotate);
-	// 	break;
-								
-	//       case 3 :
-	// 	placeBateau(&grille, x1, y1,3, rotate);
-	// 	break;
-								
-	//       case 4 :
-	// 	placeBateau(&grille, x1, y1,4, rotate);
-	// 	break;
-								
-	//       case 5 :
-	// 	placeBateau(&grille, x1, y1,5, rotate);
-	// 	break;
-	//       }
-	  
-	//   std::cout << "rotate " <<rotate << std::endl;
-	//   break;
-	
+		 if (rotate == 4){
+	      rotate =0;
+	     }
+	  }
+	    break;
+	    
       default:					
 	break;
       }	
