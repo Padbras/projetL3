@@ -20,5 +20,9 @@ int gdRetourY(int mouseY);
 int ptRetourX(int mouseX);
 int ptRetourY(int mouseY);
 
+int pxX(int x);
+int pxY(int y);
+
 void		placeBateau(Grille *, int, int, int, int);
 #endif
+

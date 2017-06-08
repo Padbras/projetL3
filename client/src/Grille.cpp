@@ -35,3 +35,23 @@ void Grille::afficherGrille(){
 		cout<<endl;
 	}
 }
+
+
+/////////////////////////// Getters et Setters /////////////////////////
+
+void Grille::setPosCase(int x, int y, int pixX, int pixY){
+	_grille[x][y]._case_rect.setPosition(pixX,pixY);
+}
+
+void Grille::setColorCase(int x, int y, int r, int g, int b, int alpha){
+	_grille[x][y]._case_rect.setFillColor(sf::Color(r,g,b,alpha));
+}
+
+void Grille::setTypeCase(int x, int y, typeCase type){
+	_grille[x][y]._type = type;
+}
+
+typeCase Grille::getTypeCase(int x, int y){
+	return _grille[x][y]._type;
+}
+
