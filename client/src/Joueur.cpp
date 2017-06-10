@@ -5,15 +5,7 @@
 using namespace std;
 
 
-Joueur::Joueur(){
-	string pays;
-	cout<<"Choisissez votre nation : France, Allemagne, URSS, Japon, Pirate "<<endl;
-	cin>>pays;
-	pJoueur=Pays(pays);
-	
-	Grille gJoueur;
-	Grille gAdversaire;
-}
+Joueur::Joueur(){}
 
 
 

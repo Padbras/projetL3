@@ -2,12 +2,16 @@
 #define PAYS_HPP
 
 #include <string>
+#include "Grille.hpp"
 
 class Pays{
 	public:
-		std::string _nomPays;
+		int _cooldown;
+
+	public:
 		Pays();
-		Pays(std::string p);
+		Pays(int cooldown);
+		virtual typeCase pouvoir(int x,int y, Grille &){};
 };
 
 #endif
