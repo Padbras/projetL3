@@ -1,9 +1,17 @@
+#include        <SFML/System.hpp> 
 #include	"network.hpp"
 #include	"client.hpp"
 #include	"Grille.hpp"
   
 Grille		g_GrilleP2;
 Grille       	g_GrilleP1;
+int i =0;
+
+int nextPort; 
+
+
+
+
 
 bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
 {
@@ -180,10 +188,13 @@ void		beginGame(std::list<Joueur> joueurs, sf::TcpListener *listener,
 }
 
 std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
-			     std::list<sf::TcpSocket *> clients)
+			     std::list<sf::TcpSocket *> clients, bool IdentiteServeur)
 {
   bool		running = true;
   std::list<Joueur> joueurs;
+
+  if(IdentiteServeur == false)
+    std::cout << "Sub serveur" << std::endl; 
   
   while (running)
     {
@@ -226,40 +237,84 @@ std::list<Joueur> serverLoop(sf::TcpListener *listener, sf::SocketSelector *sele
 		}
 	    } 
 	}
-      if (joueurs.size() == 2)
+      if (joueurs.size() == 2 && IdentiteServeur == true)
 	{
-	  running = false;
+	  std::cout << nextPort << std::endl;
+	  nextPort++;
+	  sf::Packet myPacket;
+	  sf::Thread threadSub(&createSubServer, nextPort);
+	  // mythreads.push_back(&createSubServer, nextPort++);
+	 
+	  threadSub.launch();
+	  myPacket << nextPort;
+	  sendPacket(&myPacket, joueurs.front().socket);
+	  sendPacket(&myPacket, joueurs.back().socket);
+	  joueurs.clear();
+	 
 	}
+
+      else  if (joueurs.size() == 2 && IdentiteServeur == false)
+	
+	    beginGame(joueurs, listener, selector);
     }
-  beginGame(joueurs, listener, selector); 
+ 
   return joueurs;
 }
 
-void		createServer(int port)
+void		createMainServer(int port)
 {
+
   sf::TcpListener listener;
   std::list<Joueur> joueurs;
   std::list<sf::TcpSocket *> clients;
   sf::SocketSelector selector;
 
-  displayInfo("Server started");
+  displayInfo("MainServer started");
+  std::cout << port << std::endl;
   listener.listen(port);
   selector.add(listener);
 
-  joueurs = serverLoop(&listener, &selector, clients);
+  joueurs = serverLoop(&listener, &selector, clients, true );
+  //return true; 
+  // displayListJoueur(joueurs);
+}
+
+void		createSubServer(int port)
+{
+
+  sf::TcpListener listener;
+  std::list<Joueur> joueurs;
+  std::list<sf::TcpSocket *> clients;
+  sf::SocketSelector selector;
+
+  displayInfo("SubServer started");
+  std::cout << port << std::endl;
+  listener.listen(port);
+  selector.add(listener);
+
+  joueurs = serverLoop(&listener, &selector, clients, false );
+  //return true; 
   // displayListJoueur(joueurs);
 }
 
 
 int		main(int ac, char **av)
 {
+  
   if (ac != 2)
     {
       displayError("Only one argument, specify the port please.");
       displayInfo("usage : ./server.out [PORT]");
       exit(-1);
     }
-  createServer(atoi(av[1]));
+
+  nextPort = atoi(av[1]); 
+  sf::Thread thread1(&createMainServer, atoi(av[1]) );
+ 
+
+  thread1.launch();
+  
+ 
   return 0;
 }
 
