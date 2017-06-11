@@ -7,8 +7,15 @@
 #include	<sstream>
 #include	<thread>
 #include	<SFML/Network.hpp>
+#include        <SFML/System.hpp>
+
+#include	"client.hpp"
+#include	"Grille.hpp"
+
 
 #define		NB_MAX_THREAD 10;
+extern		int nextPort;
+extern		std::vector<sf::Thread*> myThreads;
 //std::vector<sf::Thread> mythreads;
 
 struct		Joueur
@@ -38,8 +45,25 @@ Joueur		*createJoueur(std::string, sf::TcpSocket *);
 void		displayJoueur(Joueur myJoueur);
 void		displayListJoueur(std::list<Joueur>);
 
-void		createSubServer(int port);
-void		createMainServer(int port);
+// server.cpp
+void		createServer(bool);
+
+// serverloop.cpp
+
+void		serverLoop(sf::TcpListener*, sf::SocketSelector *,
+		std::list<sf::TcpSocket *> , bool );
+
+// servergame.cpp
+void		gameLoop(Joueur, Joueur);  
+
+// serverbegin.cpp
+void		beginGame(std::list<Joueur>);
+void		whoBegin(Joueur, Joueur);
+
+// servertransmit.cpp
+bool		transmitFirstInfo(Joueur, Joueur);
+
+
 
 #endif		/* !NETWORK_HPP_ */
 
