@@ -15,7 +15,7 @@ class Joueur{
 		
 	public :	
 		Joueur();
-		int jouerCoup(Joueur &jAdv,int &cpt);
+		void jouerCoup(Grille &g,int x,int y);
 		void initGrille(Grille &g);
 
 };

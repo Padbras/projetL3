@@ -1,4 +1,5 @@
 #include "Jeu.hpp"
+#include "Case.hpp"
 
 #include <iostream>
 
@@ -10,6 +11,7 @@ void jouerPartie(){
 	Joueur j1;
 	j1.gJoueur=Grille();
 	j1.gAdversaire=Grille();
+	j1._p=new France(4);
 	j1.initGrille(j1.gJoueur);
 	cout<<endl;
 	cout<<endl;
@@ -26,9 +28,9 @@ void jouerPartie(){
 	bool gagne=false;
 	int cpt1=0; //compteur coup touché par j1
 	int cpt2=0; //compteur coup touché par j2
-	
 	while(!gagne){
-		
+		cout<<endl;
+		cout<<endl;
 		cout<<"------JOUEUR 1------"<<endl;
 		cout<<endl;
 		cpt1=j1.jouerCoup(j2,cpt1);
@@ -38,7 +40,7 @@ void jouerPartie(){
 			cout<<"------Joueur 1 gagne la partie ! Bien Joué ;)------"<<endl;
 			break;
 		}
-		
+		cout<<endl;cout<<endl;
 		cout<<"------JOUEUR 2------"<<endl;
 		cout<<endl;
 		cpt2=j2.jouerCoup(j1,cpt2);
