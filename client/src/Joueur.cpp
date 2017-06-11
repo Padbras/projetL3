@@ -5,38 +5,16 @@
 using namespace std;
 
 
-Joueur::Joueur(){
-	string pays;
-	cout<<"Choisissez votre nation : France, Allemagne, URSS, Japon, Pirate "<<endl;
-	cin>>pays;
-	pJoueur=Pays(pays);
-	
-	Grille gJoueur;
-	Grille gAdversaire;
-}
+Joueur::Joueur(){}
 
 
 
-int Joueur::jouerCoup(Joueur &jAdv,int &cpt){
-	
-	int x,y;
-	cout<<"Veuillez saisir les coordonnées à viser : "<< endl;
-		cout<<"x : ";
-		cin>>x;
-		cout<<"y : ";
-		cin>>y;
-	cout<<endl;
-	if(jAdv.gJoueur._grille[x][y]._type==boat && this->gAdversaire._grille[x][y]._type==mer){
-		cout<<"Touché ! "<<endl;
-		this->gAdversaire._grille[x][y]._type=touch;
-		cpt++;
-		cout<<"cpt = "<<cpt<<endl<<endl;
-	}else if(jAdv.gJoueur._grille[x][y]._type==mer){
-		cout<<"PLOUF ! Dommage ..."<<endl;
-		this->gAdversaire._grille[x][y]._type=miss;
+void Joueur::jouerCoup(Grille &g,int x,int y){
+	if(g._grille[x][y]._type==boat){
+		gAdversaire._grille[x][y]._type=touch;
+	}else if(g._grille[x][y]._type==mer){
+		g._grille[x][y]._type=miss;
 	}
-	this->gAdversaire.afficherGrille();
-	return cpt;
 }
 
 

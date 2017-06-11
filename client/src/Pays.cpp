@@ -1,11 +1,10 @@
 #include "Pays.hpp"
 
-
-
 Pays::Pays(){}
 
-Pays::Pays(std::string p) :
-	_nomPays(p)
+
+Pays::Pays(int cd) :
+	_cooldown(cd)
 {}
 
 

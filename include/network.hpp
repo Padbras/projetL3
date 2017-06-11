@@ -8,6 +8,9 @@
 #include	<thread>
 #include	<SFML/Network.hpp>
 
+#define		NB_MAX_THREAD 10;
+//std::vector<sf::Thread> mythreads;
+
 struct		Joueur
 {
   std::string	pseudo;
@@ -34,4 +37,10 @@ void		disonnectFromServer(sf::TcpSocket);
 Joueur		*createJoueur(std::string, sf::TcpSocket *);
 void		displayJoueur(Joueur myJoueur);
 void		displayListJoueur(std::list<Joueur>);
+
+void		createSubServer(int port);
+void		createMainServer(int port);
+
 #endif		/* !NETWORK_HPP_ */
+
+
