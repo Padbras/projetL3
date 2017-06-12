@@ -6,10 +6,7 @@
 bool		sendPacket(sf::Packet *myPacket, sf::TcpSocket *mySocket)
 {
   if ((*mySocket).send(*myPacket) != sf::Socket::Done)
-    {
-      displayError("Problem sending packet");
-      return false;
-    }
+    return false;
   return true;
 }
 

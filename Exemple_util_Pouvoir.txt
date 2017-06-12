@@ -1,0 +1,38 @@
+/*-----Declaration d'un joueur ----*/
+
+Joueur j1;
+	j1.gJoueur=Grille();
+	j1.gAdversaire=Grille();
+	j1._p=new France(4);     //on précise le pays ici du joueur ici
+	j1.initGrille(j1.gJoueur);
+
+/*-----fin déclaration -----*/
+
+/*-----Utilisation-----*/
+
+	//on suppose qu'il y a une boucle qui permet de compter les tours du j1
+	if(cpttoursj1==j1._p->_cooldown){    //si le nombres de tours du joueur = au cooldown du 											 
+										 //pays
+		//on dégrise le bouton "Pouvoir"
+		//quand bouton cliqué :
+			//on affiche la case observée provenant de la grille adverse en récuperant son type
+ 			
+			j1.gOpp[x][y]._type=j1._p->pouvoir(x,y,j2.gJoueur); //x et y étant récupérés par le 																
+																//biais de la souris
+			//affichage 
+
+			cpttourj1=0; //on remet le compteur a 0 pour le cooldown du pouvoir
+	}else{
+		cpttoursj1++; //sinon on incrémente le compteur
+	}
+
+
+/*-----Fin exemple utilisation-----*/
+
+
+j1.gOpp est la grille sur laquelle j1 tire
+j2.gJoueur est la grille sur laquelle le j2 a placé ses bateaux
+
+PS : la fonction "j1._p->pouvoir" renvoie un objet de type "typeCase" 
+		 
+
