@@ -32,9 +32,12 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   if (!fondEcran_tex.loadFromFile("../client/img/jeu.png")){
   }
 
-  RectangleShape bouton(Vector2f(300, 60));
-  bouton.setPosition(348,670);
-  bouton.setFillColor(Color(255, 0, 0, 50));
+  RectangleShape boutonValide(Vector2f(300, 60));
+  boutonValide.setPosition(348,670);
+  boutonValide.setFillColor(Color(0, 0, 0, 160));
+
+  RectangleShape fenetreGrise(Vector2f(1000, 800));
+  fenetreGrise.setPosition(0,0);
 
 
   //////////// creation des textes, sprites et textures //////////////
@@ -49,7 +52,6 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   int		tir_x, tir_y;
   tir_x = tir_y = -1;
   bool		myTurn;
-  int		cpt2 = 0;
   
   whoTurn.clear();
   whoTurn = receivePacket(mySocket);
@@ -57,15 +59,13 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   
   while (window.isOpen())
     {      
-      if (cpt < 1){
-	bouton.setFillColor(Color(128, 128, 128, 128));
-      }
-      else
-	bouton.setFillColor(Color(0,0,0,0));
+      if (cpt > 0){
+		boutonValide.setFillColor(Color(0, 0, 0, 0));
+	
       window.clear(Color::White); 	
 	      
       window.draw(fondEcran_spr);
-      window.draw(bouton);
+      window.draw(boutonValide);
       for (int j = 0; j < 10; j++)
 	for (int i = 0; i < 10; i++)
 	  {
@@ -82,6 +82,7 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 
       if (myTurn == false)
 	{
+	  fenetreGrise.setFillColor(Color(0, 0, 0, 160));
 	  cpt = 0;
 	  tir.clear();
 	  tir = receivePacket(mySocket);
@@ -94,7 +95,6 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 	      if (defaite == 0)
 		return -1;
 	    }
-	  std::cout << "tir x " << tir_x << " tir y " << tir_y << std::endl;
 	  whoTurn.clear();
 	  whoTurn = receivePacket(mySocket);
 	  whoTurn >> myTurn;
@@ -103,6 +103,7 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
       
       if (myTurn == true)
 	{
+	  fenetreGrise.setFillColor(Color(0, 0, 0, 0));
 	  while (window.pollEvent(event))
 	    {
 	      switch (event.type){				
@@ -111,7 +112,6 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 			event.mouseButton.y < 600 && event.mouseButton.y > 200){		
 		  x1 = ptRetourX(event.mouseButton.x);
 		  y1 = ptRetourY(event.mouseButton.y);
-		  cout << x1 << "  " << y1 << endl;
 		  grilleOpp._grille[x1][y1]._case_rect.setFillColor(sf::Color(128,128,128,128));
 		  cpt++;				
 		}
@@ -122,7 +122,6 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 		  {
 		    cpt = 0;
 		    tir.clear();
-		    std::cout << "x1 " << x1 << " y1 " << y1 << std::endl;
 		    tir << x1 << y1;
 		    if (sendPacket(&tir, mySocket) == false)
 		      {
@@ -135,7 +134,6 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 			victoire--;
 			if (victoire == 0)
 			  return 1;
-			//std::cout << "nombre de case restantes : " << victoire << std::endl;
 		      }
 		    else if (grilleOpp._grille[x1][y1]._type == mer)
 		      {
@@ -157,30 +155,18 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 		break;
 	      }
 	    }
+/*	    
+    //////////// gestion colorimetrie des boutons  ///////////////////////////
+	
+    if (cptBateauPos == 5 ){
+      boutonGuerre.setFillColor(Color(0, 0, 0, 0));
+    }
+	
 	  if (cpt < 1){
 	    bouton.setFillColor(Color(128, 128, 128, 128));
 	  }
 	  else
-	    bouton.setFillColor(Color(0,0,0,0));
-	  // window.clear(Color::White); 	
-	 
-	  // window.clear(Color::White); 	
-	      
-	  // window.draw(fondEcran_spr);
-	  // window.draw(bouton);
-	  // for (int j = 0; j < 10; j++)
-	  //   for (int i = 0; i < 10; i++)
-	  //     {
-	  // 	grilleMe._grille[i][j]._case_rect.setPosition(retGrGauchX(i), retGrGauchY(j));
-	  // 	window.draw(grilleMe._grille[i][j]._case_rect);	    
-	  //     }
-	  // for (int j = 0; j < 10; j++)
-	  //   for (int i = 0; i < 10; i++)
-	  //     {
-	  // 	grilleOpp._grille[i][j]._case_rect.setPosition(retGrDroitX(i), retGrDroitY(j));
-	  // 	window.draw(grilleOpp._grille[i][j]._case_rect);  
-	  //     }
-	  // window.display();
+	    bouton.setFillColor(Color(0,0,0,0));*/
 	}
     }
   return 0;

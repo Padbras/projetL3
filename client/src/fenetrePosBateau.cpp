@@ -52,7 +52,7 @@ Grille fenetrePosBateau(){
   while (window.isOpen()){
 
 	
-    //////////// gestion de la boule d'evenements///////////////////////
+  //////////// gestion de la boule d'evenements///////////////////////
 
     while (window.pollEvent(event)){
 			

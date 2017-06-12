@@ -28,7 +28,7 @@ int fenetreLoose(){
 
 	RectangleShape bouton(Vector2f(400, 78));
 	bouton.setPosition(300,116);
-	bouton.setFillColor(Color(0, 0, 0, 128));
+	bouton.setFillColor(Color(0, 0, 0, 160));
 
 
 //////////// creation des textes, sprites et textures //////////////
@@ -54,7 +54,7 @@ int fenetreLoose(){
 					//gestion du click sur le bouton
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 194 && event.mouseButton.y > 116 &&
-						time.asSeconds() > 4.0f){
+						time.asSeconds() > 3.0f){
 					  window.close();
 					}
 					break;
