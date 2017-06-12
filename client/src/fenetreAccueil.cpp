@@ -84,8 +84,8 @@ string		lancerFenetreAccueil()
 
     Text pseudoEntr_txt;
     pseudoEntr_txt.setFont(main_font);
-    pseudoEntr_txt.setCharacterSize(35);	
-    pseudoEntr_txt.setPosition(370,376);
+    pseudoEntr_txt.setCharacterSize(80);	
+    pseudoEntr_txt.setPosition(370,340);
     pseudoEntr_txt.setString(pseudoEntr_s);
 	
   /////////////////gestion colorimetrie du bouton ////////////////

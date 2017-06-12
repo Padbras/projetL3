@@ -59,7 +59,7 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   
   while (window.isOpen())
     {      
-      if (cpt > 0){
+      if (cpt > 0)
 		boutonValide.setFillColor(Color(0, 0, 0, 0));
 	
       window.clear(Color::White); 	
@@ -155,18 +155,7 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 		break;
 	      }
 	    }
-/*	    
-    //////////// gestion colorimetrie des boutons  ///////////////////////////
-	
-    if (cptBateauPos == 5 ){
-      boutonGuerre.setFillColor(Color(0, 0, 0, 0));
-    }
-	
-	  if (cpt < 1){
-	    bouton.setFillColor(Color(128, 128, 128, 128));
-	  }
-	  else
-	    bouton.setFillColor(Color(0,0,0,0));*/
+
 	}
     }
   return 0;
