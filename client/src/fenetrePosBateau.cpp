@@ -136,6 +136,15 @@ Grille fenetrePosBateau(){
 	      bateauValide = posBateau(&grille, x, y, taille[cptBateauPos], rotate);
 	    }
 	  }
+	 else if (event.key.code == Keyboard::Return && x >= 0 && y >= 0 && bateauValide)
+	  {
+	    x = y = xOld = yOld = bateauValide = -1;
+	    rotate = 0;
+	    cptBateauPos++;
+	    cptBateauPosOld = cptBateauPos;
+	    bateauValide = false;
+	}		  
+	  
 	break;
 	    
       default:					
