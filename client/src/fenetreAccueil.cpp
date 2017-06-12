@@ -1,5 +1,4 @@
 #include	"fenetreAccueil.hpp"
-#include	"fenetrePosBateau.hpp"
 
 using namespace sf;
 using namespace std;
