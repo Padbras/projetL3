@@ -1,8 +1,8 @@
 #include	"network.hpp"
 
-int nextPort; 
-
-void		createServer(bool role)
+int		nextPort;
+  
+void		createServer(defServer def)
 {
   sf::TcpListener listener;
   std::list<Joueur> joueurs;
@@ -10,23 +10,25 @@ void		createServer(bool role)
   sf::SocketSelector selector;
 
   displayInfo("Server started");
-  std::cout << "On port " << nextPort <<"With bool role " << role <<  std::endl;
-  listener.listen(nextPort);
+  std::cout << "On port " << def.port <<"With bool role " << def.role <<  std::endl;
+  listener.listen(def.port);
   selector.add(listener);
 
-  serverLoop(&listener, &selector, clients, role );
+  serverLoop(&listener, &selector, clients, def);
 }
 
 int		main(int ac, char **av)
-{ 
+{
+  defServer	def;
   if (ac != 2)
     {
       displayError("Only one argument, specify the port please.");
       displayInfo("usage : ./server.out [PORT]");
       exit(-1);
     }
-  nextPort = atoi(av[1]); 
-  sf::Thread fred(&createServer, true);
-  fred.launch();
+  def.role = true;
+  def.port = atoi(av[1]);
+  initSubServers(&mySubServers, def.port + 1);
+  createServer(def);
   return 0;
 }

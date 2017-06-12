@@ -2,16 +2,13 @@
 
 
 void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
-			     std::list<sf::TcpSocket *> clients, bool role)
+			     std::list<sf::TcpSocket *> clients, defServer def)
 {
   bool		running = true;
   std::list<Joueur> joueurs;
 
-  if(role == false)
+  if(def.role == false)
     std::cout << "Sub serveur" << std::endl;
-
- 
-  
   while (running)
     {
       if (selector->wait())
@@ -54,33 +51,42 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 		}
 	    } 
 	}
-      if (joueurs.size() == 2 && role == true)
+      if (joueurs.size() == 2 && def.role == true)
       	{
-      	  std::cout << nextPort << std::endl;
-      	  nextPort++;
       	  sf::Packet myPacket;
-      	  sf::Thread threadSub(&createServer, false);
-      	  myThreads.push_back(&threadSub);
-	 
-	  myThreads.back()->launch();
-      	  myPacket << nextPort;
+	  int portToSend;
+	  int subServerReady;
+
+	  subServerReady = returnFirstSubReady(mySubServers);
+	    
+	  if (subServerReady == -1)
+	    {
+	      displayError("Plus de subservers prets");
+	    }
+	  
+	  portToSend = returnPortSubServer(mySubServers, subServerReady);
+	  launchSubServer(&mySubServers, subServerReady);
+
+	  std::cout << "port recu par le thread " << portToSend << std::endl;
+	  myPacket << portToSend;
 	  
       	  if( sendPacket(&myPacket, joueurs.front().socket) == false)
-		 displayError("Pb envoi port au j1");
-	  else displayInfo("Nouveau port envoyé");
-       	   if( sendPacket(&myPacket, joueurs.back().socket) == false)
-		  displayError("Pb envoi port au j2");
-	   else displayInfo("Nouveau port envoyé");
-      	  joueurs.clear();
-	  clients.clear();
-	  std::cout << joueurs.size() << std::endl;	 
+	    displayError("Pb envoi port au j1");
+	  else
+	    displayInfo("Nouveau port envoyé");
+	  if( sendPacket(&myPacket, joueurs.back().socket) == false)
+	    displayError("Pb envoi port au j2");
+	  else
+	    displayInfo("Nouveau port envoyé");
+	  myPacket.clear();
+	  joueurs.clear();
+	  clients.clear();	 
       	}
 
-      else  if (joueurs.size() == 2 && role == false)
+      else  if (joueurs.size() == 2 && def.role == false)
       	{
       	  std::cout << "begin game" << std::endl;  
 	  beginGame(joueurs);
- 
       	}
       
 	   

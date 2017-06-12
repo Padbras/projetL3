@@ -15,14 +15,28 @@
 
 #define		NB_MAX_THREAD 10;
 extern		int nextPort;
-extern		std::vector<sf::Thread*> myThreads;
-//std::vector<sf::Thread> mythreads;
-
 struct		Joueur
 {
   std::string	pseudo;
   sf::TcpSocket	*socket;
 };
+
+struct defServer
+{
+  bool		role;
+  int		port ;
+  
+};
+
+struct myThreads
+{
+  int		id;
+  bool		isReady;
+  defServer	def;
+  sf::Thread	*myThread;
+};
+
+extern		std::vector<myThreads *> mySubServers;
 
 // display.cpp
 
@@ -46,12 +60,12 @@ void		displayJoueur(Joueur myJoueur);
 void		displayListJoueur(std::list<Joueur>);
 
 // server.cpp
-void		createServer(bool);
+void		createServer(defServer def);
 
 // serverloop.cpp
 
 void		serverLoop(sf::TcpListener*, sf::SocketSelector *,
-		std::list<sf::TcpSocket *> , bool );
+		std::list<sf::TcpSocket *> , defServer);
 
 // servergame.cpp
 void		gameLoop(Joueur, Joueur);  
@@ -63,7 +77,12 @@ void		whoBegin(Joueur, Joueur);
 // servertransmit.cpp
 bool		transmitFirstInfo(Joueur, Joueur);
 
+// subserver.cpp
 
+void		initSubServers(std::vector<myThreads *> *, int);
+void		launchSubServer(std::vector<myThreads *> *, int);
+int		returnFirstSubReady(std::vector<myThreads *>);
+int		returnPortSubServer(std::vector<myThreads *>, int);
 
 #endif		/* !NETWORK_HPP_ */
 

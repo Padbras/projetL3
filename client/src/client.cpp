@@ -66,6 +66,12 @@ bool		startClient(char *ip, int port)
       displayError("Failed to connect to server");
       return false;      
     }
+  else
+    {
+       displayInfo("Connected to server ");
+       std::cout << port << std::endl;
+    }
+ 
   if (sendPseudo(&socketToServer, pseudo) == false)
     {
       displayError("Failed to send packet");
@@ -75,7 +81,7 @@ bool		startClient(char *ip, int port)
    portPartie = receivePacket(&socketToServer);
   
   portPartie >> portGame;
-  std::cout << portGame << std::endl;
+  std::cout << "port recu par le server : " << portGame << std::endl;
 
   socketToServer.disconnect();
   
@@ -84,7 +90,6 @@ bool		startClient(char *ip, int port)
   
    if (connectToServer(&socketToServer, ip, portGame) == false)
     {
-      std::cout << port << std::endl; 
       displayError("Failed to connect to server");
       return false;      
     }
