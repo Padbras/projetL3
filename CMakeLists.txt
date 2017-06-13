@@ -25,6 +25,7 @@ add_executable(client.out client/src/Case.cpp
 			  client/src/fenetreWin.cpp
 			  client/src/infos.cpp
 			  client/src/gestionBateau.cpp
+			  client/src/fenetrePays.cpp
 			  serveur/src/client.cpp
 			  serveur/src/joueur.cpp
 			  serveur/src/connect.cpp
@@ -39,7 +40,14 @@ add_executable(server.out  serveur/src/client.cpp
 			   serveur/src/joueur.cpp
 			   serveur/src/packet.cpp
  			   serveur/src/server.cpp
-		       client/src/Grille.cpp
+               serveur/src/server.cpp
+	           serveur/src/serverbegin.cpp
+               serveur/src/servergame.cpp
+               serveur/src/serverloop.cpp
+               serveur/src/servertransmit.cpp
+
+	       serveur/src/subserver.cpp
+	       client/src/Grille.cpp
 			   client/src/Case.cpp)
 target_link_libraries(server.out ${SFML_LIBRARIES} )
 

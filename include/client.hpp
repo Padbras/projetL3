@@ -11,6 +11,8 @@
 #include	"fenetreWin.hpp"
 #include	"network.hpp"
 
+#include 	"fenetrePays.hpp"
+
 // infos.cpp
 
 // Surcharge des opérateurs >> et << de sf::Packet pour la

@@ -56,18 +56,55 @@ bool		startClient(char *ip, int port)
 {
   std::string	pseudo;
   sf::TcpSocket	socketToServer;
+  sf::Packet portPartie;   
+  int portGame;
   
   pseudo = lancerFenetreAccueil();
+
+  //a supp
+  int test = fenetrePays();  
+  
   if (connectToServer(&socketToServer, ip, port) == false)
     {
       displayError("Failed to connect to server");
       return false;      
     }
+  else
+    {
+       displayInfo("Connected to server ");
+       std::cout << port << std::endl;
+    }
+ 
   if (sendPseudo(&socketToServer, pseudo) == false)
     {
       displayError("Failed to send packet");
       return false;
     }
+
+   portPartie = receivePacket(&socketToServer);
+  
+  portPartie >> portGame;
+  std::cout << "port recu par le server : " << portGame << std::endl;
+
+  socketToServer.disconnect();
+  
+  std::cout << "Deco du serveur main" << std::endl;
+
+  
+   if (connectToServer(&socketToServer, ip, portGame) == false)
+    {
+      displayError("Failed to connect to server");
+      return false;      
+    }
+
+     if (sendPseudo(&socketToServer, pseudo) == false)
+    {
+      displayError("Failed to send packet");
+      return false;
+    }
+     
+
+  
   if (clientGameLoop(&socketToServer) == false)
     {
       displayError("Failed to load client loop");

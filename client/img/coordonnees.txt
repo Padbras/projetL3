@@ -1,0 +1,51 @@
+jeu.png :
+		centre du cercle :
+		x : 151, y : 700
+		rayon :
+		r : 85
+
+
+
+choixpays.png :
+		Suivent ce pattern :
+		coin haut gauche : x:y
+		coin bas gauche	 : x:y
+		coin haut droit	 : x:y
+		coin bas droit	 : x:y
+
+		bouton france :
+		50:161
+		50:239
+		450:161
+		450:239
+
+		bouton allemagne :
+		50:261
+		50:339
+		450:261
+		450:339
+
+		bouton russie :
+		50:361
+		50:439
+		450:361
+		450:439
+
+		bouton japon :
+		50:461
+		50:539
+		450:461
+		450:539
+
+		bouton pirate :
+		50:561
+		50:639
+		450:561
+		450:639
+
+		bouton valider :
+		300:711
+		300:789
+		700:711
+		700:789
+	

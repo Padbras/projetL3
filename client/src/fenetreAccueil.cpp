@@ -1,5 +1,4 @@
 #include	"fenetreAccueil.hpp"
-#include	"fenetrePosBateau.hpp"
 
 using namespace sf;
 using namespace std;
@@ -32,6 +31,9 @@ string		lancerFenetreAccueil()
   //////////// creation des sprites et textures //////////////////////
 			
   Sprite fondEcran_spr(fondEcran_tex);
+  RectangleShape boutonValide(Vector2f(400,72));
+  boutonValide.setPosition(300,628);
+  boutonValide.setFillColor(Color(0,0,0,160));
 	
 	
   //////////// affichage de la fenetre ///////////////////////////////
@@ -39,7 +41,7 @@ string		lancerFenetreAccueil()
   while (window.isOpen()){
 
 
-    //////////// gestion de la boule d'evenements///////////////////////
+  //////////// gestion de la boule d'evenements///////////////////////
 
     while (window.pollEvent(event)){
 			
@@ -77,24 +79,28 @@ string		lancerFenetreAccueil()
     }
 
 
-    //////////// creation des textes ////////////////////////////
+  //////////// creation des textes ////////////////////////////
 
     Text pseudoEntr_txt;
     pseudoEntr_txt.setFont(main_font);
-    pseudoEntr_txt.setCharacterSize(35);	
-    pseudoEntr_txt.setPosition(370,376);
+    pseudoEntr_txt.setCharacterSize(80);	
+    pseudoEntr_txt.setPosition(370,340);
     pseudoEntr_txt.setString(pseudoEntr_s);
-    //pseudoEntr_txt.setFillColor(Color::Red);
+	
+  /////////////////gestion colorimetrie du bouton ////////////////
+	
+	if(pseudoEntr_s.size() > 0)
+	  boutonValide.setFillColor(Color(0,0,0,0));
 
-	
-    ///////////// gestion de l'affichage ////////////////////////////
-	
+
+  ///////////// gestion de l'affichage ////////////////////////////	
+   
     window.clear(Color::White); 	
 	
     window.draw(fondEcran_spr);
     window.draw(pseudoEntr_txt);
-
-        
+	window.draw(boutonValide);
+   
     window.display();
         
   }

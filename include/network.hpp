@@ -7,15 +7,36 @@
 #include	<sstream>
 #include	<thread>
 #include	<SFML/Network.hpp>
+#include        <SFML/System.hpp>
+
+#include	"client.hpp"
+#include	"Grille.hpp"
+
 
 #define		NB_MAX_THREAD 10;
-//std::vector<sf::Thread> mythreads;
-
+extern		int nextPort;
 struct		Joueur
 {
   std::string	pseudo;
   sf::TcpSocket	*socket;
 };
+
+struct defServer
+{
+  bool		role;
+  int		port ;
+  
+};
+
+struct myThreads
+{
+  int		id;
+  bool		isReady;
+  defServer	def;
+  sf::Thread	*myThread;
+};
+
+extern		std::vector<myThreads *> mySubServers;
 
 // display.cpp
 
@@ -38,8 +59,30 @@ Joueur		*createJoueur(std::string, sf::TcpSocket *);
 void		displayJoueur(Joueur myJoueur);
 void		displayListJoueur(std::list<Joueur>);
 
-void		createSubServer(int port);
-void		createMainServer(int port);
+// server.cpp
+void		createServer(defServer def);
+
+// serverloop.cpp
+
+void		serverLoop(sf::TcpListener*, sf::SocketSelector *,
+		std::list<sf::TcpSocket *> , defServer);
+
+// servergame.cpp
+void		gameLoop(Joueur, Joueur);  
+
+// serverbegin.cpp
+void		beginGame(std::list<Joueur>);
+void		whoBegin(Joueur, Joueur);
+
+// servertransmit.cpp
+bool		transmitFirstInfo(Joueur, Joueur);
+
+// subserver.cpp
+
+void		initSubServers(std::vector<myThreads *> *, int);
+void		launchSubServer(std::vector<myThreads *> *, int);
+int		returnFirstSubReady(std::vector<myThreads *>);
+int		returnPortSubServer(std::vector<myThreads *>, int);
 
 #endif		/* !NETWORK_HPP_ */
 
