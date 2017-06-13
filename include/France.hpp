@@ -7,9 +7,8 @@
 
 class France : public Pays {
 	public :
-		France(){}
-		France(int cooldown);
-	 virtual typeCase pouvoir(int x,int y,Grille &g) override;
+		France();
+		void pouvoir(int x,int y,Grille &g);
 	 	
 };
 

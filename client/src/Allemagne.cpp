@@ -3,43 +3,19 @@
 
 using namespace std;
 
-Allemagne::Allemagne(int cooldown):
-	Pays(cooldown)
-{}
+Allemagne::Allemagne()
+{
+	_cooldown=7;
+}
 
-Grille Allemagne::pouvoir(Grille &g){ //tirer 2 fois au premier tour -> a vérifier avant
-	int x,y,x1,y1,x2,y2;
-	Event event;
-	switch (event.type){				
-		case Event::MouseButtonPressed :
-			if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
-				event.mouseButton.y < 600 && event.mouseButton.y > 200){		
-				x1 = ptRetourX(event.mouseButton.x);
-				y1 = ptRetourY(event.mouseButton.y);
-				g._grille[x1][y1]._case_rect.setFillColor(sf::Color(128,128,128,128));
-			}
-			if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
-				event.mouseButton.y < 730 && event.mouseButton.y > 670){
-					jouerCoup(g,x1,y1); //envoie de paquet a ajouter
-			}
-		break;
-	}			
+
+void Allemagne::pouvoir(int x,int y,Grille &g){ //tire 5fois (via boucle) tous les 7 tours
 	
-	switch (event.type){				
-		case Event::MouseButtonPressed :
-			if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
-				event.mouseButton.y < 600 && event.mouseButton.y > 200){		
-				x2 = ptRetourX(event.mouseButton.x);
-				y2 = ptRetourY(event.mouseButton.y);
-				g._grille[x1][y1]._case_rect.setFillColor(sf::Color(128,128,128,128));
-			}
-			if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
-				event.mouseButton.y < 730 && event.mouseButton.y > 670){
-					jouerCoup(g,x2,y2); //envoie de paquet a ajouter
-			}
-		break;
-	}	
-	return g;
-	
-	
+	//g.setColorCase(x,y,128,128,128,128);
+	if(g._grille[x][y]._type==boat){
+		g.setTypeCase(x,y,touch);
+		//g.setColorCase(x,y,255,0,0,128);
+	}else if(g._grille[x][y]._type==mer){
+		g.setTypeCase(x,y,miss);
+	}		
 }
