@@ -10,6 +10,7 @@ class Pays{
 
 	public:
 		Pays(){};
+		void choixPouvoir(int p,int x,int y,Grille &g);
 		virtual void pouvoir(int x,int y,Grille &g){};
 };
 
