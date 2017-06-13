@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include <string>
 #include "Grille.hpp"
 #include "Pays.hpp"
 #include "France.hpp"

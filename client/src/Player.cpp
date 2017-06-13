@@ -20,7 +20,7 @@ Player::setMyGrille(&grille grille){
 */
 
 void Player::setGrilleOpp(){
-	grilleOpp=// receive pays;
+	//grilleOpp= ;// receive pays;
 }
 
 void Player::setMyPseudo(){
@@ -29,7 +29,7 @@ void Player::setMyPseudo(){
 
 void Player::setPseudoOpp(){
 	//include la recption / socket
-	pseudoOpp =    ;
+	//pseudoOpp =    ;
 }
 
 void Player::setPays(){

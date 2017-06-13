@@ -5,7 +5,7 @@
 #include "Japon.hpp"
 #include "Pirates.hpp"
 
-
+/*
 void Pays::choixPouvoir(int p,int x,int y,Grille &g){
 	switch(p){
 		case 1:
@@ -29,3 +29,4 @@ void Pays::choixPouvoir(int p,int x,int y,Grille &g){
 		break;
 	}
 }
+*/
