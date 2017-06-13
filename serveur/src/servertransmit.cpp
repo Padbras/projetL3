@@ -3,7 +3,7 @@
 
 bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
 {
-  sf::Packet	myPacket;
+  sf::Packet	myPacket; // Rajouter touch et miss
   int		x, y, type;
 
   for (int j = 0; j < 10; j++)

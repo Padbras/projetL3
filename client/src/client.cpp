@@ -26,13 +26,15 @@ bool		clientGameLoop(sf::TcpSocket *mySocket)
       grilleMe.afficherGrille();
       if (fenetreJeu(grilleMe, grilleOpp, mySocket) == 1)
 	{
-	  mySocket->disconnect();
 	  fenetreWin();
+	  mySocket->disconnect();
+
 	}
       else
 	{
-	  mySocket->disconnect();
 	  fenetreLoose();
+	  mySocket->disconnect();
+
 	}
     }
   return true;

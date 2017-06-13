@@ -56,6 +56,9 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
   whoTurn.clear();
   whoTurn = receivePacket(mySocket);
   whoTurn >> myTurn;
+  std::cout << "Mon bool myTurn:" << myTurn << std::endl;
+
+  
   
   while (window.isOpen())
     {      
@@ -87,10 +90,12 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 	  tir.clear();
 	  tir = receivePacket(mySocket);
 	  tir >> tir_x >> tir_y;
+	  std::cout << "Tir x : " << tir_x << std::endl; 
 	  if (grilleMe._grille[tir_x][tir_y]._type == boat)
 	    {
 	      grilleMe._grille[tir_x][tir_y]._type = touch;
 	      grilleMe._grille[tir_x][tir_y]._case_rect.setFillColor(sf::Color(255,0,0,128));
+	      std::cout << "Cpt defaite" << " " << defaite << std::endl; 
 	      defaite--;
 	      if (defaite == 0)
 		return -1;
@@ -99,7 +104,7 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 	  whoTurn = receivePacket(mySocket);
 	  whoTurn >> myTurn;
 	}
-      //////////// gestion de la boule d'evenements///////////////////////
+      //////////// gestion de la boucle d'evenements///////////////////////
       
       if (myTurn == true)
 	{
@@ -123,10 +128,13 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 		    cpt = 0;
 		    tir.clear();
 		    tir << x1 << y1;
+		    
 		    if (sendPacket(&tir, mySocket) == false)
 		      {
-
+		        displayError("Failed to send target coord"); 
 		      }
+		    else
+		      displayInfo("Target sent");
 		    if (grilleOpp._grille[x1][y1]._type == boat)
 		      {
 		        grilleOpp._grille[x1][y1]._type = touch;
@@ -141,13 +149,14 @@ int fenetreJeu(Grille grilleMe, Grille grilleOpp, TcpSocket *mySocket){
 			grilleOpp._grille[x1][y1]._case_rect.setFillColor(sf::Color(255,0,0,128));
 		      }  
 		    grilleOpp.afficherGrille();
-		    myTurn = false;
+		    myTurn = true;
 		    whoTurn.clear();
 		    whoTurn << myTurn;
 		    if (sendPacket(&whoTurn, mySocket) == false)
 		      {
 
 		      }
+		    myTurn = false; 
 		  }
 		break;
 						
