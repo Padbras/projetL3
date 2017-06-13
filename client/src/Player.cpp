@@ -1,11 +1,83 @@
+#include <iostream>
+
+#include "gestionGrille.hpp"
 #include "Player.hpp"
 #include "Bateau.hpp"
-#include <iostream>
+
 
 using namespace std;
 
 
-Player::Player(){}
+void Player::Player(){}
+
+void Player::initMyGrille(){
+	myGrille=fenetrePosBateau();
+}
+/*
+Player::setMyGrille(&grille grille){
+	
+}
+*/
+
+void Player::setGrilleOpp(){
+	grilleOpp=// receive pays;
+}
+
+void Player::setMyPseudo(){
+	myPseudo=lancerFenetreAccueil();
+}
+
+void Player::setPseudoOpp(){
+	//include la recption / socket
+	pseudoOpp =    ;
+}
+
+void Player::setPays(){
+	pays = fenetrePays();
+}
+
+
+void Player::suppMyBoat(int supp){
+	myBoat = myBoat-supp;
+}
+
+void Player::addMyBoat(int add){
+	myBoat = myBoat+add;
+}
+
+void Player::suppboatOpp(int supp){
+	boatOpp = boatOpp - supp;
+}
+
+Grille Player::getMyGrille(){
+	return myGrille;
+}
+
+Grille Player::getGrilleOpp(){
+	return grilleOpp;
+}
+
+string Player::getMyPseudo(){
+	return myPseudo;
+}
+
+string Player::getPseudoOpp(){
+	return pseudoOpp;
+}
+
+int Player::getPays(){
+	return pays;
+}
+
+int Player::getMyBoat(){
+	return myBoat;
+}
+
+int Player::getBoatOpp(){
+	return boatOpp;
+}
+
+/*
 
 
 
@@ -49,3 +121,4 @@ void Player::initGrille(Grille &g){
 	
 	g.afficherGrille();
 }
+*/

@@ -26,6 +26,7 @@ add_executable(client.out client/src/Case.cpp
 			  client/src/infos.cpp
 			  client/src/gestionBateau.cpp
 			  client/src/fenetrePays.cpp
+			  client/src/Player.cpp
 			  serveur/src/client.cpp
 			  serveur/src/joueur.cpp
 			  serveur/src/connect.cpp
