@@ -9,7 +9,7 @@
 #include "Bateau.hpp"
 #include "Jeu.hpp"
 //#include "fenetreAccueil.hpp"
-#include "Joueur.hpp"
+#include "Player.hpp"
 
 using namespace std;
 using namespace sf;

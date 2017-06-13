@@ -3,15 +3,20 @@
 
 using namespace std;
 
-Pirates::Pirates(int cooldown):
-	Pays(cooldown)
-{}
+Pirates::Pirates()	
+{
+	_cooldown=5;
+}
 
-typeCase Pirates::pouvoir(int x,int y,Grille &g){
-	if(g._grille[x][y]._type!=touch){
-		Pirates::pouvoir(x,y,g);
-	}else{
-		return g._grille[x][y]._type=boat;
-	}	
+void Pirates::pouvoir(int x,int y,Grille &g){ //repare une case de bateau via les coordonnées passées en parametres
 	
+	if(g.getTypeCase(x,y)==touch){
+		g.setTypeCase(x,y,boat);
+		g.afficherGrille();
+	}else{
+		int x1,y1;
+		cin>>x1;
+		cin>>y1;
+		Pirates::pouvoir(x1,y1,g);
+	}
 }
