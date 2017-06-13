@@ -3,13 +3,17 @@
 
 using namespace std;
 
-France::France(int cooldown):
-	Pays(cooldown)
-{}
+France::France()
+{ 
+	_cooldown=4;
+}
 
-typeCase France::pouvoir(int x,int y,Grille &g){
+
+void France::pouvoir(int x,int y,Grille &g){ //revoie le type d'une case de la grille adverse
+	
 	if(g._grille[x][y]._type!=mer && g._grille[x][y]._type!=boat){
 		pouvoir(x,y,g);
+	}else{
+		cout<<g.getTypeCase(x,y)<<endl;
 	}
-	return g._grille[x][y]._type;
 }

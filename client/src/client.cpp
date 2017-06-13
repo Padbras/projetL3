@@ -62,6 +62,9 @@ bool		startClient(char *ip, int port)
   int portGame;
   
   pseudo = lancerFenetreAccueil();
+
+  //a supp
+  int test = fenetrePays();  
   
   if (connectToServer(&socketToServer, ip, port) == false)
     {

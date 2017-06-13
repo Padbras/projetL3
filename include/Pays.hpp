@@ -9,9 +9,9 @@ class Pays{
 		int _cooldown;
 
 	public:
-		Pays();
-		Pays(int cooldown);
-		virtual typeCase pouvoir(int x,int y, Grille &){};
+		Pays(){};
+		void choixPouvoir(int p,int x,int y,Grille &g);
+		virtual void pouvoir(int x,int y,Grille &g){};
 };
 
 #endif

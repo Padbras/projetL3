@@ -3,32 +3,54 @@
 
 using namespace std;
 
-Russie::Russie(int cooldown):
-	Pays(cooldown)
-{}
+Russie::Russie()
+{
+	_cooldown=4;
+}
 
-Grille Russie::pouvoir(Grille &g){ //tir en croix avec x et y coordonnées centre récuperées par la souris
-	int x,y,x1,y1;
-	Event event;
-	switch (event.type){				
-		case Event::MouseButtonPressed :
-			if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
-				event.mouseButton.y < 600 && event.mouseButton.y > 200){		
-				x1 = ptRetourX(event.mouseButton.x);
-				y1 = ptRetourY(event.mouseButton.y);	
-				g._grille[x1-1][y1]._case_rect.setFillColor(sf::Color(128,128,128,128));		
-				g._grille[x1+1][y1]._case_rect.setFillColor(sf::Color(128,128,128,128));		
-				g._grille[x1][y1-1]._case_rect.setFillColor(sf::Color(128,128,128,128));		
-				g._grille[x1][y1+1]._case_rect.setFillColor(sf::Color(128,128,128,128));		
-			}
-			if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
-				event.mouseButton.y < 730 && event.mouseButton.y > 670){
-				jouerCoup(g,x1-1,y1); //envoi de paquet a ajouter
-				jouerCoup(g,x1+1,y1); //envoi de paquet a ajouter
-				jouerCoup(g,x1,y1-1); //envoi de paquet a ajouter
-				jouerCoup(g,x1,y1+1); //envoi de paquet a ajouter
-			}
-		break;
+void Russie::pouvoir(int x,int y,Grille &g){ //tir en croix avec x et y coordonnées centre récuperées par la souris
+	/*---coloration des cases visées---*/
+	
+	/*g.setColorCase(x-1,y,128,128,128,128);
+	g.setColorCase(x+1,y,128,128,128,128);
+	g.setColorCase(x,y-1,128,128,128,128);
+	g.setColorCase(x,y+1,128,128,128,128);*/
+	
+	
+	//case gauche
+	if(g._grille[x-1][y]._type==boat){
+		g.setTypeCase(x-1,y,touch);
+		//g.setColorCase(x-1,y,255,0,0,128);
+	}else if(g._grille[x-1][y]._type==mer){
+		g.setTypeCase(x-1,y,miss);
 	}
-	return g;  //permet de juste renvoyer la grille modifiée , facilite l'affichage et la transmission de paquets
+	
+	
+	//case droite
+	if(g._grille[x+1][y]._type==boat){
+		g.setTypeCase(x+1,y,touch);
+		//g.setColorCase(x+1,y,255,0,0,128);
+	}else if(g._grille[x+1][y]._type==mer){
+		g.setTypeCase(x+1,y,miss);
+	}
+	
+	
+	//case haut
+	if(g._grille[x][y-1]._type==boat){
+		g.setTypeCase(x,y-1,touch);
+		//g.setColorCase(x,y-1,255,0,0,128);
+	}else if(g._grille[x][y-1]._type==mer){
+		g.setTypeCase(x,y-1,miss);
+	}
+	
+	
+	//case bas
+	if(g._grille[x][y+1]._type==boat){
+		g.setTypeCase(x,y+1,touch);
+		//g.setColorCase(x,y+1,255,0,0,128);
+	}else if(g._grille[x][y+1]._type==mer){
+		g.setTypeCase(x,y+1,miss);
+	}
+	
+	
 }

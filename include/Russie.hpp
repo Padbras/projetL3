@@ -7,9 +7,8 @@
 
 class Russie : public Pays {
 	public :
-		Russie(){}
-		Russie(int cooldown);
-		virtual Grille pouvoir(int x,int y,Grille &g);
+		Russie();
+		virtual void pouvoir(int x,int y,Grille &g);
 	 	
 };
 

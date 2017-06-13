@@ -1,10 +1,10 @@
 #ifndef JEU_HPP
 #define JEU_HPP
 
-#include "Joueur.hpp"
+#include "Player.hpp"
 
 void jouerPartie();
-bool win(Joueur &j,int cpt);
+bool win(Player &j,int cpt);
 
 
 #endif

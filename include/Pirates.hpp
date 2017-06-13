@@ -7,9 +7,8 @@
 
 class Pirates : public Pays {
 	public :
-		Pirates(){}
-		Pirates(int cooldown);
-		virtual typeCase pouvoir(int x,int y,Grille &g);
+		Pirates();
+		virtual void pouvoir(int x,int y,Grille &g);
 	 	
 };
 
