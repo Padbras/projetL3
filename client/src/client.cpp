@@ -16,7 +16,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
 	  return false;
 	}
       displayInfo("First info sent");
-      //myThread.launch();
+     // myThread.launch();
       
       player->setGrilleOpp(receiveGrille(mySocket));
       player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());
@@ -99,7 +99,7 @@ sf::Thread myThread(&fenetreAttente, 1);
 
 	
   portPartie = receivePacket(&socketToServer);
-  //myThread.terminate();
+ // myThread.terminate();
   portPartie >> portGame;
   std::cout << "port recu par le server : " << portGame << std::endl;
 

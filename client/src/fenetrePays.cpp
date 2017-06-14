@@ -25,6 +25,31 @@ int		fenetrePays()
   {
   }
   
+  sf::Texture france_tex;
+  if (!france_tex.loadFromFile("../client/img/france.png"/*,sf::IntRect(575,245,878,571)*/))
+  {
+  }
+  
+  sf::Texture allemagne_tex;
+  if (!allemagne_tex.loadFromFile("../client/img/allemagne.png"))
+  {
+  }
+  
+  sf::Texture russie_tex;
+  if (!russie_tex.loadFromFile("../client/img/russie.png"))
+  {
+  }
+  
+  sf::Texture japon_tex;
+  if (!japon_tex.loadFromFile("../client/img/japon.png"))
+  {
+  }
+  
+  sf::Texture pirate_tex;
+  if (!pirate_tex.loadFromFile("../client/img/pirate.png"))
+  {
+  }
+  
   sf::Font main_font;
   main_font.loadFromFile("../client/fonts/main_font.ttf");
 
@@ -50,6 +75,17 @@ int		fenetrePays()
   
   sf::RectangleShape boutonPirates(sf::Vector2f(400,78));
   boutonPirates.setPosition(50,561);
+  
+  sf::Sprite france_spr(france_tex);
+  france_spr.setPosition(575,245);
+  sf::Sprite allemagne_spr(allemagne_tex);
+  allemagne_spr.setPosition(575,245);
+  sf::Sprite russie_spr(russie_tex);
+  russie_spr.setPosition(575,245);
+  sf::Sprite japon_spr(japon_tex);
+  japon_spr.setPosition(575,245);
+  sf::Sprite pirate_spr(pirate_tex);
+  pirate_spr.setPosition(575,245);
 	
 	
   //////////// affichage de la fenetre ///////////////////////////////
@@ -80,72 +116,39 @@ int		fenetrePays()
 	//bouton france
 	else if(event.mouseButton.x < 450 && event.mouseButton.x >50 && 
 			event.mouseButton.y < 239 && event.mouseButton.y > 161)
+	{
 		choix = 1;
-	
+	}
 	//bouton allemagne	
 	else if(event.mouseButton.x < 450 && event.mouseButton.x >50 && 
 			event.mouseButton.y < 339 && event.mouseButton.y > 261)
+	{
 		choix = 2;
-	
+	}
 	//bouton Russie
 	else if(event.mouseButton.x < 450 && event.mouseButton.x >50 && 
 			event.mouseButton.y < 439 && event.mouseButton.y > 361)
+	{
 		choix = 3;
-	
+	}
 	//bouton Japon
 	else if(event.mouseButton.x < 450 && event.mouseButton.x >50 && 
 			event.mouseButton.y < 539 && event.mouseButton.y > 461)
+	{
 		choix = 4;
-	
+	}
 	//bouton Pirates	
 	else if(event.mouseButton.x < 450 && event.mouseButton.x >50 && 
 			event.mouseButton.y < 639 && event.mouseButton.y > 561)
+	{
 		choix = 5;				
-			
+	}		
 	break;
 			
       default:
 	break;
       }	
     }
-
-
-  //////////// creation des textes ////////////////////////////
-
-	// texte de la france
-    sf::Text france_txt;
-    france_txt.setFont(main_font);
-    france_txt.setCharacterSize(50);	
-    france_txt.setPosition(510,171);
-    france_txt.setString("France");
-
-	// texte de l'Allemagne
-    sf::Text allemagne_txt;
-    allemagne_txt.setFont(main_font);
-    allemagne_txt.setCharacterSize(50);	
-    allemagne_txt.setPosition(510,171);
-    allemagne_txt.setString("Allemagne");
-    
-	// texte de la Russie
-    sf::Text russie_txt;
-    russie_txt.setFont(main_font);
-    russie_txt.setCharacterSize(50);	
-    russie_txt.setPosition(510,171);
-    russie_txt.setString("Russie");
-    
-	// texte du Japon
-    sf::Text japon_txt;
-    japon_txt.setFont(main_font);
-    japon_txt.setCharacterSize(50);	
-    japon_txt.setPosition(510,171);
-    japon_txt.setString("Japon");
-    
-	// texte des Pirates
-    sf::Text pirates_txt;
-    pirates_txt.setFont(main_font);
-    pirates_txt.setCharacterSize(50);	
-    pirates_txt.setPosition(510,171);
-    pirates_txt.setString("France");
     
     
   /////////////////gestion colorimetrie des boutons ////////////////
@@ -160,6 +163,8 @@ int		fenetrePays()
 	// on degrise la validation si on a fait son choix
 	if(choix > 0)
 	  boutonValide.setFillColor(sf::Color(0,0,0,0));
+	
+////////////affichage partie 1 //////////////////////////////////	
 	
 	//on degrise le pays selectionné  
 	switch(choix){
@@ -201,23 +206,23 @@ int		fenetrePays()
 	switch(choix){ // affichage du texte en fonction du choix
 		
 		case 1 : 
-			window.draw(france_txt);
+			window.draw(france_spr);
 		break;
 
 		case 2 : 
-			window.draw(allemagne_txt);
+			window.draw(allemagne_spr);
 		break;
 
 		case 3 : 
-			window.draw(russie_txt);
+			window.draw(russie_spr);
 		break;
 		
 		case 4 : 
-			window.draw(japon_txt);
+			window.draw(japon_spr);
 		break;
 		
 		case 5 : 
-			window.draw(pirates_txt);
+			window.draw(pirate_spr);
 		break;		
 		
 	}
@@ -227,6 +232,5 @@ int		fenetrePays()
   }
   return -1;
 }
-
 
 
