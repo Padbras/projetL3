@@ -1,30 +1,28 @@
 #include	"client.hpp"
 
-bool		clientGameLoop(sf::TcpSocket *mySocket)
+bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
 {
   bool		isOk = false;
   sf::Packet	toReceive;
-  Grille	grilleMe;
-  Grille	grilleOpp;	
+	
 
-  grilleMe = fenetrePosBateau();
   toReceive = receivePacket(mySocket);
   toReceive >> isOk;
   if (isOk)
     {
-      if (sendInfo(mySocket, grilleMe) == false)
+      if (sendInfo(mySocket, player->getMyGrille()) == false)
 	{
 	  displayError("Failed to send infos");
 	  return false;
 	}
       displayInfo("First info sent");
-      grilleOpp = receiveInfo(mySocket);
+      player->setGrilleOpp(receiveInfo(mySocket));
       displayInfo("First info received");
       std::cout << "grille adversaire" << std::endl;
-      grilleOpp.afficherGrille();
+      player->getGrilleOpp().afficherGrille();
       std::cout << "ma grille" << std::endl;
-      grilleMe.afficherGrille();
-      if (fenetreJeu(grilleMe, grilleOpp, mySocket) == 1)
+      player->getMyGrille().afficherGrille();
+      if (fenetreJeu(player, mySocket) == 1)
 	{
 	  fenetreWin();
 	  mySocket->disconnect();
@@ -60,11 +58,12 @@ bool		startClient(char *ip, int port)
   sf::TcpSocket	socketToServer;
   sf::Packet portPartie;   
   int portGame;
+  Player player;
+  Grille tmp; 
   
-  pseudo = lancerFenetreAccueil();
+  player.setMyPseudo();
+  
 
-  //a supp
-  int test = fenetrePays();  
   
   if (connectToServer(&socketToServer, ip, port) == false)
     {
@@ -90,9 +89,7 @@ bool		startClient(char *ip, int port)
 
   socketToServer.disconnect();
   
-  std::cout << "Deco du serveur main" << std::endl;
-
-  
+  std::cout << "Deco du serveur main" << std::endl;  
    if (connectToServer(&socketToServer, ip, portGame) == false)
     {
       displayError("Failed to connect to server");
@@ -105,9 +102,15 @@ bool		startClient(char *ip, int port)
       return false;
     }
      
+     player.setPaysId();
+     tmp = fenetrePosBateau();
+     player.initMyGrille(tmp);
+     // sf::Packet strReceive;
+     // std::string myStr;
+     // strReceive = receivePacket(&socketToServer);
+     // player.setPseudoOpp(myStr);
 
-  
-  if (clientGameLoop(&socketToServer) == false)
+     if (clientGameLoop(&socketToServer, &player) == false)
     {
       displayError("Failed to load client loop");
       return false;

@@ -30,3 +30,18 @@ void Pays::choixPouvoir(int p,int x,int y,Grille &g){
 	}
 }
 */
+
+Pays::Pays()
+{
+
+}
+
+void		Pays::setId(int newId)
+{
+  id = newId;
+}
+
+int		Pays::getId()
+{
+  return id;
+}

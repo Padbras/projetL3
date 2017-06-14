@@ -2,39 +2,38 @@
 #define JOUEUR_HPP
 
 #include <string>
-
-#include <string>
 #include "Grille.hpp"
 #include "Pays.hpp"
-#include "France.hpp"
-
+#include "fenetrePays.hpp"
+#include "fenetrePosBateau.hpp"
+#include "fenetreAccueil.hpp"
 
 class Player{
 	private :
 		Grille myGrille;
 		Grille grilleOpp;
-		string myPseudo;
-		String pseudoOpp;
-		int pays;
+		std::string myPseudo;
+		std::string pseudoOpp;
+		Pays pays;
 		int myBoat = 17;
 		int boatOpp = 17;
 		
 	public :	
 		Player();
-		void initMyGrille();
-		//setMyGrille(&grille);
-		void setGrilleOpp();
+		void initMyGrille(Grille);
+		void setGrilleOpp(Grille);
 		void setMyPseudo();
-		void setPseudoOpp();
-		void setPays();
+		void setPseudoOpp(std::string);
+		void setPaysId();
 		void suppMyBoat(int);
 		void addMyBoat(int);
-		void setboatOpp();
+		void suppboatOpp(int);
 		Grille getMyGrille();
+		Grille * getMyModifGrille();
 		Grille getGrilleOpp();
-		string getMyPseudo();
-		string getPseudoOpp();
-		int getPays();
+		std::string getMyPseudo();
+		std::string getPseudoOpp();
+		int getPaysId();
 		int getMyBoat();
 		int getBoatOpp();
 };

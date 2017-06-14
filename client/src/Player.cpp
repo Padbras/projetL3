@@ -3,37 +3,32 @@
 #include "gestionGrille.hpp"
 #include "Player.hpp"
 #include "Bateau.hpp"
+#include "Pays.hpp"
 
 
 using namespace std;
 
 
-void Player::Player(){}
+Player::Player(){}
 
-void Player::initMyGrille(){
-	myGrille=fenetrePosBateau();
+void Player::initMyGrille(Grille grille){
+	myGrille = grille;
 }
-/*
-Player::setMyGrille(&grille grille){
-	
-}
-*/
 
-void Player::setGrilleOpp(){
-	//grilleOpp= ;// receive pays;
+void Player::setGrilleOpp(Grille grille){
+	grilleOpp = grille ;
 }
 
 void Player::setMyPseudo(){
 	myPseudo=lancerFenetreAccueil();
 }
 
-void Player::setPseudoOpp(){
-	//include la recption / socket
-	//pseudoOpp =    ;
+void Player::setPseudoOpp(string pseudo){
+	pseudoOpp = pseudo    ;
 }
 
-void Player::setPays(){
-	pays = fenetrePays();
+void Player::setPaysId(){
+  pays.setId(fenetrePays());
 }
 
 
@@ -47,6 +42,11 @@ void Player::addMyBoat(int add){
 
 void Player::suppboatOpp(int supp){
 	boatOpp = boatOpp - supp;
+}
+
+Grille *Player::getMyModifGrille()
+{
+  return &myGrille;
 }
 
 Grille Player::getMyGrille(){
@@ -65,8 +65,8 @@ string Player::getPseudoOpp(){
 	return pseudoOpp;
 }
 
-int Player::getPays(){
-	return pays;
+int Player::getPaysId(){
+  return pays.getId();
 }
 
 int Player::getMyBoat(){
@@ -76,49 +76,3 @@ int Player::getMyBoat(){
 int Player::getBoatOpp(){
 	return boatOpp;
 }
-
-/*
-
-
-
-int Player::jouerCoup(Player &j,int cpt){
-	int x,y;
-	cout<<"Coordonnées a viser : ";
-	cin>>x>>y;
-	if(j.gJoueur.getTypeCase(x,y)==boat){
-		gAdversaire.setTypeCase(x,y,touch);
-		j.gJoueur.setTypeCase(x,y,touch);
-		cpt++;
-	}else if(j.gJoueur.getTypeCase(x,y)==mer){
-		gAdversaire.setTypeCase(x,y,miss);
-		j.gJoueur.setTypeCase(x,y,miss);
-	}
-	return cpt;
-}
-
-
-void Player::initGrille(Grille &g){
-	Bateau b1;
-	Bateau b2;
-	Bateau b3;
-	Bateau b4;
-	Bateau b5;
-	
-	g.afficherGrille();
-	b1.posBateau(g,2);
-	
-	g.afficherGrille();
-	b2.posBateau(g,3);
-	
-	g.afficherGrille();
-	b3.posBateau(g,3);
-	
-	g.afficherGrille();
-	b4.posBateau(g,4);
-	
-	g.afficherGrille();
-	b5.posBateau(g,5);
-	
-	g.afficherGrille();
-}
-*/

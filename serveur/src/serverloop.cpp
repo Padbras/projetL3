@@ -14,8 +14,7 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
       if (selector->wait())
 	{
 	  if (selector->isReady(*listener))
-	    {
-	      
+	    {	      
 	      // We found a connection
 	      sf::TcpSocket *client = new sf::TcpSocket;
 	      if (listener->accept(*client) == sf::Socket::Done)

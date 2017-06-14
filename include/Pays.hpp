@@ -5,13 +5,16 @@
 #include "Grille.hpp"
 
 class Pays{
-	public:
-		int _cooldown;
+	private:
+		int cooldown;
+		int id;	
 
 	public:
-		Pays(){};
-		void choixPouvoir(int p,int x,int y,Grille &g);
-		virtual void pouvoir(int x,int y,Grille &g){};
+		Pays();
+  //	 	void choixPouvoir(int p,int x,int y,Grille &g);
+  //	virtual void pouvoir(int x,int y,Grille &g);
+		void setId(int);
+		int getId();
 };
 
 #endif

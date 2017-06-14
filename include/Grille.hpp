@@ -7,8 +7,9 @@
 
 
 class Grille{
-	public :
+	public:
 	Case _grille[10][10];
+  
 	Grille();
 	void afficherGrille();
 	
@@ -16,6 +17,7 @@ class Grille{
 	void setColorCase( int, int, int, int, int, int);
 	typeCase getTypeCase( int, int);
 	void setTypeCase( int, int, enum typeCase);
+	sf::RectangleShape getRect(int , int);
 };
 
 #endif

@@ -72,7 +72,7 @@ void		gameLoop(Joueur, Joueur);
 
 // serverbegin.cpp
 void		beginGame(std::list<Joueur>);
-void		whoBegin(Joueur, Joueur);
+void		whoPlays(Joueur, Joueur, int);
 
 // servertransmit.cpp
 bool		transmitFirstInfo(Joueur, Joueur);
