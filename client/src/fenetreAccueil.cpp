@@ -52,7 +52,8 @@ string		lancerFenetreAccueil()
 	break;
 				
       case Event::TextEntered :
-	pseudoEntr_s.push_back((char)event.text.unicode);
+      if(pseudoEntr_s.size() < 20)
+		pseudoEntr_s.push_back((char)event.text.unicode);
 						
 	break;
 
@@ -83,9 +84,10 @@ string		lancerFenetreAccueil()
 
     Text pseudoEntr_txt;
     pseudoEntr_txt.setFont(main_font);
-    pseudoEntr_txt.setCharacterSize(80);	
-    pseudoEntr_txt.setPosition(370,340);
+    pseudoEntr_txt.setCharacterSize(60);	
+    pseudoEntr_txt.setPosition(575,355);
     pseudoEntr_txt.setString(pseudoEntr_s);
+	pseudoEntr_txt.setColor(Color(100,53,1));
 	
   /////////////////gestion colorimetrie du bouton ////////////////
 	
