@@ -66,6 +66,16 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 	  portToSend = returnPortSubServer(mySubServers, subServerReady);
 	  launchSubServer(&mySubServers, subServerReady);
 
+	  std::cout << " pseudo j1 envoyé j2  "<< joueurs.front().pseudo << std::endl; 
+	 std::cout << " pseudo j2 envoyé j1  "<< joueurs.back().pseudo << std::endl; 
+	myPacket.clear();
+  myPacket << joueurs.front().pseudo;
+  sendPacket(&myPacket, joueurs.back().socket);
+  myPacket.clear();
+  myPacket << joueurs.back().pseudo;
+  sendPacket(&myPacket, joueurs.front().socket);
+  myPacket.clear();
+  
 	  std::cout << "port recu par le thread " << portToSend << std::endl;
 	  myPacket << portToSend;
 	  

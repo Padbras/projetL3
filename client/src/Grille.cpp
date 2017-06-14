@@ -59,8 +59,3 @@ sf::RectangleShape Grille::getRect(int x, int y)
 {
   return _grille[x][y]._case_rect;
 }
-
-// sf::Vector2f Grille::getPosCase(int x, int y)
-// {
-//   return _grille[x][y]._case_rect.getPosition();
-// }

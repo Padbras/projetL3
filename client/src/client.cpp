@@ -1,27 +1,32 @@
 #include	"client.hpp"
-
+#include "fenetreAttente.hpp"
 bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
 {
   bool		isOk = false;
+  
+  sf::Thread myThread(&fenetreAttente, 2);
   sf::Packet	toReceive;
-	
-
   toReceive = receivePacket(mySocket);
   toReceive >> isOk;
   if (isOk)
     {
-      if (sendInfo(mySocket, player->getMyGrille()) == false)
+      if (sendGrille(mySocket, player->getMyGrille()) == false)
 	{
 	  displayError("Failed to send infos");
 	  return false;
 	}
       displayInfo("First info sent");
-      player->setGrilleOpp(receiveInfo(mySocket));
+      //myThread.launch();
+      
+      player->setGrilleOpp(receiveGrille(mySocket));
+      
+      //myThread.terminate();
       displayInfo("First info received");
       std::cout << "grille adversaire" << std::endl;
       player->getGrilleOpp().afficherGrille();
       std::cout << "ma grille" << std::endl;
       player->getMyGrille().afficherGrille();
+      
       if (fenetreJeu(player, mySocket) == 1)
 	{
 	  fenetreWin();
@@ -76,14 +81,25 @@ bool		startClient(char *ip, int port)
        std::cout << port << std::endl;
     }
  
-  if (sendPseudo(&socketToServer, pseudo) == false)
+  if (sendPseudo(&socketToServer, player.getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
     }
+sf::Thread myThread(&fenetreAttente, 1);
+	//myThread.launch();
+	
+      sf::Packet strReceive;
+      std::string myStr;
+      strReceive = receivePacket(&socketToServer);
+      strReceive >> myStr;
+      std::cout<< "mystr " << myStr << std::endl;
+      player.setPseudoOpp(myStr);
+      std::cout<< "getpseudopp   "<<player.getPseudoOpp()<<std::endl;
 
-   portPartie = receivePacket(&socketToServer);
-  
+	
+  portPartie = receivePacket(&socketToServer);
+  //myThread.terminate();
   portPartie >> portGame;
   std::cout << "port recu par le server : " << portGame << std::endl;
 
@@ -96,7 +112,7 @@ bool		startClient(char *ip, int port)
       return false;      
     }
 
-     if (sendPseudo(&socketToServer, pseudo) == false)
+     if (sendPseudo(&socketToServer, player.getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
@@ -105,10 +121,8 @@ bool		startClient(char *ip, int port)
      player.setPaysId();
      tmp = fenetrePosBateau();
      player.initMyGrille(tmp);
-     // sf::Packet strReceive;
-     // std::string myStr;
-     // strReceive = receivePacket(&socketToServer);
-     // player.setPseudoOpp(myStr);
+     
+
 
      if (clientGameLoop(&socketToServer, &player) == false)
     {

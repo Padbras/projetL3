@@ -75,6 +75,8 @@ void		beginGame(std::list<Joueur>);
 void		whoPlays(Joueur, Joueur, int);
 
 // servertransmit.cpp
+bool		sendGrille(sf::TcpSocket *, Grille);
+Grille		receiveGrille(sf::TcpSocket *);
 bool		transmitFirstInfo(Joueur, Joueur);
 
 // subserver.cpp

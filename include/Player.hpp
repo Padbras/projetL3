@@ -29,7 +29,8 @@ class Player{
 		void addMyBoat(int);
 		void suppboatOpp(int);
 		Grille getMyGrille();
-		Grille * getMyModifGrille();
+		Grille *getMyModifGrille();
+		Grille *getModifGrilleOpp();
 		Grille getGrilleOpp();
 		std::string getMyPseudo();
 		std::string getPseudoOpp();

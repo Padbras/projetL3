@@ -37,12 +37,6 @@ void		beginGame(std::list<Joueur> joueurs)
   Joueur	joueurUn = joueurs.front();
   Joueur	joueurDeux = joueurs.back();
 
-  // myPacket << joueurUn.pseudo;
-  // sendPacket(&myPacket, joueurDeux.socket);
-  // myPacket.clear();
-  // myPacket << joueurDeux.pseudo;
-  // sendPacket(&myPacket, joueurUn.socket);
-  // myPacket.clear();
   
   myPacket << true; // La partie est trouvée, et prête à lancer
   if (sendPacket(&myPacket, joueurUn.socket) == false)

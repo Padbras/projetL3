@@ -57,6 +57,10 @@ Grille Player::getGrilleOpp(){
 	return grilleOpp;
 }
 
+Grille *Player::getModifGrilleOpp(){
+	return &grilleOpp;
+}
+
 string Player::getMyPseudo(){
 	return myPseudo;
 }

@@ -14,8 +14,12 @@ bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
 	y = myGrille._grille[i][j]._y;
 	if (myGrille._grille[i][j]._type == mer)
 	  type = 0;
-	else
+	else if (myGrille._grille[i][j]._type == boat)
 	  type = 1;
+	else if (myGrille._grille[i][j]._type == touch)
+	  type = 2;
+	else if (myGrille._grille[i][j]._type == miss)
+	  type = 3;
 	myPacket << x << y << type;
 	if (sendPacket(&myPacket, mySocket) == false)
 	  return false;
@@ -39,8 +43,13 @@ Grille		receiveGrille(sf::TcpSocket *mySocket)
 		 >> type;
 	if (type == 0)
 	  myGrille._grille[i][j]._type = mer;
-	else
+	else if (type == 1)
 	  myGrille._grille[i][j]._type = boat;
+	else if (type == 2)
+	  myGrille._grille[i][j]._type = touch;
+	else if (type == 3)
+	  myGrille._grille[i][j]._type = miss;
+	  
       }
   myGrille.afficherGrille();
   return myGrille;
@@ -48,8 +57,6 @@ Grille		receiveGrille(sf::TcpSocket *mySocket)
 
 bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
 {
-  sf::Packet	myPacket1;
-  sf::Packet	myPacket2;
   Grille       	GrilleP2;
   Grille       	GrilleP1;
   
