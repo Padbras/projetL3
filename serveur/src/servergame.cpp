@@ -8,10 +8,12 @@ void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
   bool running = true;
   sf::Packet myPacket; 
   Grille grille;
-  whoPlays(joueurUn, joueurDeux, tour);
+  //whoPlays(joueurUn, joueurDeux, tour);
 
   while(running)
     {
+		      whoPlays(joueurUn, joueurDeux, tour);
+
       myPacket.clear();
       if(tour % 2 != 0) // Joueur Un joue
 	{
@@ -49,6 +51,5 @@ void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
 	  myPacket >> tour;
 	  std::cout << "Nouveau tour : " << tour << std ::endl;
 	}
-      whoPlays(joueurUn, joueurDeux, tour);
     }
 }

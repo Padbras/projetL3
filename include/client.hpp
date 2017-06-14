@@ -10,6 +10,9 @@
 #include	"fenetreLoose.hpp"
 #include	"fenetreWin.hpp"
 #include	"network.hpp"
+#include 	"gestionGrille.hpp"
+#include "fenetreAttente.hpp"
+#include "Player.hpp"
 
 #include 	"fenetrePays.hpp"
 

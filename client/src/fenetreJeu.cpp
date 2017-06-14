@@ -24,28 +24,35 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
   ////////////////// creation et init des variables //////////////////
 
   int cpt = 0;
-  int valide = 0;
+  int valide =0;
+
   Grille tmp;
-  int x1 , x2 , x3, x4, x5, y1, y2, y3, y4, y5;
-  x1 = x2 = x3 = x4 = x5 = y1 = y2 = y3 = y4 = y5 =0;
+  int x1 , y1, xOld, yOld;
+  x1 = y1 = xOld = yOld = -1;
   Event event;
 
 
   ////////////////// chargement des fonts et textures /////////////////
 
   Texture fondEcran_tex;
-  if (!fondEcran_tex.loadFromFile("../client/img/jeu.png")){
+  if (!fondEcran_tex.loadFromFile("../client/img/jeu.png"))
+  {
   }
+  
   Font main_font;
-  main_font.loadFromFile("../client/fonts/main_font.ttf");
+  if(!main_font.loadFromFile("../client/fonts/main_font.ttf"))
+  {
+  }
+  
   
   RectangleShape boutonValide(Vector2f(300, 60));
   boutonValide.setPosition(348,670);
   boutonValide.setFillColor(Color(0, 0, 0, 160));
-
+  
   RectangleShape fenetreGrise(Vector2f(1000, 800));
   fenetreGrise.setPosition(0,0);
-
+  fenetreGrise.setFillColor(Color(0, 0, 0, 200));
+  
 
   //////////// creation des textes, sprites et textures //////////////
 			
@@ -65,7 +72,14 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
     pseudoOpp_txt.setString(player->getPseudoOpp());
 	pseudoOpp_txt.setColor(Color(255,255,255));
 	
+  Text attente_txt;
+ attente_txt.setFont(main_font);
+     attente_txt.setCharacterSize(60);	
+    attente_txt.setPosition(260,20);
+    attente_txt.setString("Votre adversaire joue son tour.");
+	attente_txt.setColor(Color(255,255,255));
 	
+		
   //////////// affichage de la fenetre ///////////////////////////////
 
   Packet	whoTurn;
@@ -88,8 +102,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		boutonValide.setFillColor(Color(0, 0, 0, 0));
 
       if (myTurn == false)
-	{
-	  fenetreGrise.setFillColor(Color(0, 0, 0, 160));
+	{  	  
+	 
 	  std::cout << "myturn false" << std::endl; 
 	  cpt = 0;
 
@@ -115,13 +129,25 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
     window.draw(myPseudo_txt);
     window.draw(pseudoOpp_txt);
     window.draw(fenetreGrise);
-      
-
-      window.display();
-      std::cout << "f attend myGrille"<< std::endl;
+    window.draw(attente_txt);
+   
+    window.display();
+      // reception et conversion de ma grille
 	player->initMyGrille(receiveGrille(mySocket));
-      std::cout << "f attend Grilleopp"<< std::endl;
+	player->getMyGrille().convertGrilleGauche(player->getMyModifGrille());
+	// reception et conversion la grille adversaire
 	player->setGrilleOpp(receiveGrille(mySocket));
+	player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());    
+      
+		     std::cout << "ma grille | pas mon tour" << std::endl;
+		    player->getGrilleOpp().afficherGrille();
+		    
+		     std::cout << "grille adv | pas mon tour" << std::endl;
+		    player->getMyGrille().afficherGrille();
+      //std::cout << "f attend myGrille"<< std::endl;
+
+      //std::cout << "f attend Grilleopp"<< std::endl;
+
 	  whoTurn.clear();
 	        std::cout << "f attend myturn"<< std::endl;
 	  whoTurn = receivePacket(mySocket);
@@ -133,8 +159,9 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
       
       if (myTurn == true)
 	{
+		
 	//	std::cout << "on rentre dans mon tour" << std::endl;
-	  fenetreGrise.setFillColor(Color(0, 0, 0, 0));
+	
 	  while (window.pollEvent(event))
 	    {
 	      switch (event.type)
@@ -145,19 +172,28 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			event.mouseButton.y < 600 && event.mouseButton.y > 200)
 			{	
 			cpt = 0;
+			if (x1 != -1)
+			{
+			xOld = x1;
+			yOld = y1;
+			
+		  // effacement des tirs precedents te non validés
+		   player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
+	   }
 		  x1 = ptRetourX(event.mouseButton.x);
 		  y1 = ptRetourY(event.mouseButton.y);
 		        std::cout << "x "<< x1 << "y " << y1<< std::endl;
 		  player->getModifGrilleOpp()->setColorCase(x1,y1,128,128,128,128);
 		  cpt++;				
+		  
 		}
 					
 		//gestion du click sur le bouton valider
 		if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
 			event.mouseButton.y < 730 && event.mouseButton.y > 670 && cpt == 1)
 		  {
+			 cpt = 0;
 			  std::cout << "on clique sur le btn valider " << std::endl;
-		    cpt = 0;
 		    valide++;
 		      tour = tour + 2;
 		     if (player->getGrilleOpp().getTypeCase(x1, y1) == boat)
@@ -165,13 +201,16 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		        player->getModifGrilleOpp()->setTypeCase(x1, y1, touch);
 		        player->getModifGrilleOpp()->setColorCase(x1, y1, 0, 255, 0, 128);
 		     }
-		     else if (player->getGrilleOpp().getTypeCase(x1, y1) == boat)
+		     else if (player->getGrilleOpp().getTypeCase(x1, y1) == mer)
 		      {
 		        player->getModifGrilleOpp()->setTypeCase(x1, y1, miss);
 		        player->getModifGrilleOpp()->setColorCase(x1, y1, 255, 0, 0, 128);
 		     }
+		     std::cout << "ma grille | mon tour" << std::endl;
 		    player->getGrilleOpp().afficherGrille();
 		    
+		     std::cout << "grille adv | mon tour" << std::endl;
+		    player->getMyGrille().afficherGrille();
 		    if (sendGrille(mySocket, player->getGrilleOpp()) == false)
 		    {
 				
@@ -192,6 +231,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		    whoTurn = receivePacket(mySocket);
 		    
 		    whoTurn >> myTurn;
+
+			 x1 = y1 = -1;
 		    valide = 0;
 		    }
 	  }
@@ -207,27 +248,20 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
       window.draw(boutonValide);
       for (int j = 0; j < 10; j++)
       	for (int i = 0; i < 10; i++)
-      	  {
-	   
+      	  {   
       	    player->getMyModifGrille()->setPosCase(i,j,retGrGauchX(i), retGrGauchY(j));
 			tmp._grille[i][j]._case_rect = player->getMyGrille().getRect(i,j);
-			window.draw(tmp._grille[i][j]._case_rect);
-			
-      	//    player->getMyModifGrille()->setPosCase(i,j,retGrGauchX(i), retGrGauchY(j));
-      	  //  window.draw(player->getMyGrille().getRect(i,j));	    
+			window.draw(tmp._grille[i][j]._case_rect);  
       	  }
       for (int j = 0; j < 10; j++)
       	for (int i = 0; i < 10; i++)
       	  {
       	    player->getMyModifGrille()->setPosCase(i,j,retGrDroitX(i), retGrDroitY(j));
 			tmp._grille[i][j]._case_rect = player->getGrilleOpp().getRect(i,j);
-			window.draw(tmp._grille[i][j]._case_rect);
-	   // player->getGrilleOpp().setPosCase(i,j,retGrDroitX(i), retGrDroitY(j));
-      	 //   window.draw(player->getGrilleOpp().getRect(i,j));	    	    
+			window.draw(tmp._grille[i][j]._case_rect);  	    
       	  }
       window.draw(myPseudo_txt);
     window.draw(pseudoOpp_txt);
-      window.draw(fenetreGrise); 
 
       window.display();
  

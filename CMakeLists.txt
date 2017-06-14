@@ -46,6 +46,7 @@ add_executable(server.out
                serveur/src/servergame.cpp
                serveur/src/serverloop.cpp
                serveur/src/servertransmit.cpp
+			   client/src/gestionGrille.cpp
 
 	       serveur/src/subserver.cpp
 	       client/src/Grille.cpp

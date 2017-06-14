@@ -1,5 +1,5 @@
 #include	"client.hpp"
-#include "fenetreAttente.hpp"
+
 bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
 {
   bool		isOk = false;
@@ -19,8 +19,8 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
       //myThread.launch();
       
       player->setGrilleOpp(receiveGrille(mySocket));
-      
-      //myThread.terminate();
+      player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());
+     // myThread.terminate();
       displayInfo("First info received");
       std::cout << "grille adversaire" << std::endl;
       player->getGrilleOpp().afficherGrille();
@@ -121,6 +121,7 @@ sf::Thread myThread(&fenetreAttente, 1);
      player.setPaysId();
      tmp = fenetrePosBateau();
      player.initMyGrille(tmp);
+     player.getMyGrille().convertGrilleGauche(player.getMyModifGrille());
      
 
 
