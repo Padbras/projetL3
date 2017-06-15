@@ -15,8 +15,8 @@ class Player{
 		std::string pseudoOpp;
 		int idPays;
 		int cooldown;
-		int myBoat = 17;
-		int boatOpp = 17;
+		int myBoat = 2;
+		int boatOpp = 2;
 		
 	public :	
 		Player();
@@ -44,10 +44,10 @@ class Player{
 };
 
 
-void pouvoirAllemagne(int, int, Grille *);
+int pouvoirAllemagne(int, int, Grille *);
 void pouvoirFrance(int, int, Grille *);
-void pouvoirRussie(int, int, Grille *);
-void pouvoirJapon(int, int, Grille *);
+int pouvoirRussie(int, int, Grille *);
+int pouvoirJapon(int, int, Grille *);
 void pouvoirPirate(Grille *);
 
 #endif

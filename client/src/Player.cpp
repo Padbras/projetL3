@@ -9,7 +9,7 @@ using namespace std;
 
 void pouvoirFrance(int x, int y, Grille *g)
 {
-	/// \brief Fonction qui gère le pouvoir de la France
+  /// \brief Définition du pouvoir de la France
 	std::cout << "pvr france" << std::endl;
 	if (g->getTypeCase(x, y) == mer)
 		g->setColorCase(x, y, 255,0,0,160);
@@ -17,15 +17,16 @@ void pouvoirFrance(int x, int y, Grille *g)
 		g->setColorCase(x, y, 0, 255, 0, 160);
 }
 
-void pouvoirRussie(int x, int y, Grille *g)
+int pouvoirRussie(int x, int y, Grille *g)
 {
-	/// \brief Fonction qui gère le pouvoir de la Russie
+   /// \brief Définition du pouvoir de la Russie
 	std::cout << "pvr russe" << std::endl;
-
+	int nbTouch = 0;
 	//case gauche
 	if(g->getTypeCase(x - 1, y) == boat && x - 1 >= 0)
 	{
 		g->setTypeCase(x-1,y,touch);
+		nbTouch++;
 		g->setColorCase(x-1,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x - 1, y) == mer && x - 1 >= 0)
@@ -39,6 +40,7 @@ void pouvoirRussie(int x, int y, Grille *g)
 	if(g->getTypeCase(x + 1, y) == boat && x + 1 <= 10)
 	{
 		g->setTypeCase(x + 1, y, touch);
+		nbTouch++;
 		g->setColorCase(x+1,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x + 1, y) == mer && x + 1 <= 10)
@@ -52,6 +54,7 @@ void pouvoirRussie(int x, int y, Grille *g)
 	if(g->getTypeCase(x, y - 1) == boat && y - 1 >= 0)
 	{
 		g->setTypeCase(x, y - 1, touch);
+		nbTouch++;
 		g->setColorCase(x,y-1,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y - 1) == mer && y - 1 >= 0)
@@ -65,6 +68,7 @@ void pouvoirRussie(int x, int y, Grille *g)
 	if(g->getTypeCase(x, y + 1) == boat && y + 1 <= 10)
 	{
 		g->setTypeCase(x, y + 1, touch);
+		nbTouch++;
 		g->setColorCase(x, y + 1, 0, 255, 0, 128);
 	}
 	else if(g->getTypeCase(x, y + 1) == mer && y + 1 <= 10)
@@ -72,15 +76,17 @@ void pouvoirRussie(int x, int y, Grille *g)
 		g->setTypeCase(x, y + 1, miss);
 		g->setColorCase(x, y + 1, 255, 0, 0, 128);
 	}
-	
+	return nbTouch;
 }
 
-void pouvoirAllemagne(int x, int y, Grille *g)
+int pouvoirAllemagne(int x, int y, Grille *g)
 {
-	/// \brief Fonction qui gère le pouvoir de l'Allemagne
+   /// \brief Définition du pouvoir de l'Allemagne
+	int nbTouch = 0;
 	if(g->getTypeCase(x, y) == boat)
 	{
 		g->setTypeCase(x,y,touch);
+		nbTouch++;
 		g->setColorCase(x,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y)==mer)
@@ -88,14 +94,17 @@ void pouvoirAllemagne(int x, int y, Grille *g)
 		g->setTypeCase(x,y,miss);
 		g->setColorCase(x,y,255,0,0,128);
 	}		
+	return nbTouch;
 }
 
-void pouvoirJapon(int x, int y, Grille *g)
+int pouvoirJapon(int x, int y, Grille *g)
 {
-	/// \brief Fonction qui gère le pouvoir du Japon
+   /// \brief Définition du pouvoir du Japon
+	int nbTouch;
 		if(g->getTypeCase(x, y) == boat)
 	{
 		g->setTypeCase(x,y,touch);
+		nbTouch++;
 		g->setColorCase(x,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y)==mer)
@@ -103,10 +112,11 @@ void pouvoirJapon(int x, int y, Grille *g)
 		g->setTypeCase(x,y,miss);
 		g->setColorCase(x,y,255,0,0,128);
 	}		
+	return nbTouch;
 }
 void pouvoirPirate(Grille *g)
 {
-	/// \brief Fonction qui gère le pouvoir des Pirates
+   /// \brief Définition du pouvoir des Pirates
 	for (int j = 0; j < 10; j++)
 		for (int i = 0; i < 10; i++)
 			{
@@ -119,93 +129,106 @@ void pouvoirPirate(Grille *g)
 			}
 }
 
-Player::Player(){} /// \brief Constructeur par defaut
+Player::Player(){
+  /// \brief Constructeur par défaut
+}
 
 void Player::initMyGrille(Grille grille){
-	/// \brief Initialise la grille du joueur avec la grille retournée par fenetrePosBateau (cf #fenetrePosBateau)
+  /// \brief Initialise la grille du joueur
 	myGrille = grille;
 }
 
 void Player::setGrilleOpp(Grille grille){
-	/// \brief Initialise la grille sur laquelle le joueur tire avec la grille retournée par fenetrePosBateau (cf #fenetrePosBateau)
+  /// \brief Définit la grille de l'opposant 
 	grilleOpp = grille ;
 }
 
+
 void Player::setMyPseudo(){
-	 /// \brief Initialise le pseudo du joueur via la fenetre d'accueil (cf #lancerFenetreAccueil)
+  /// \brief Définit le pseudo via la fenêtre d'accueil
 	myPseudo=lancerFenetreAccueil();
 }
 
-void Player::setPseudoOpp(string pseudo){ 
-	/// \brief Initialise le pseudo du joueur adverse passé en paramètre
+void Player::setPseudoOpp(string pseudo){
+  /// \brief définit le pseudo du joueur adverse 
 	pseudoOpp = pseudo    ;
 }
 
-void Player::setPaysId(){ 
-	/// \brief affecte un identifiant a chaque pays via #fenetrePays
-  pays.setId(fenetrePays());
+void Player::setPaysId(){
+  /// \brief Affecte un id au pays du joueur en fonction de la valeur
+  /// renvoyée par fenetrePays()
+  idPays = fenetrePays();
+
 }
 
-
 void Player::suppMyBoat(int supp){
-	/// \brief Décremente le compteur de cases de bateaux restantes du joueur, utilisé pour gérer la defaite
+  /// \brief Décrémente le nombre de parties de bateaux touchées
 	myBoat = myBoat-supp;
 }
 
 void Player::addMyBoat(int add){
-	/// \brief Incrémente le compteur de cases de bateaux restantes du joueur, utilisé pour gérer la defaite
+   /// \brief Incrémente le nombre de parties de bateaux touchées
 	myBoat = myBoat+add;
 }
 
+void Player::setMyBoat(int nbBoat)
+{
+  /// \brief Définit le nombre de partie de bateaux à toucher
+	myBoat = nbBoat;
+}
+
 void Player::suppboatOpp(int supp){
-	/// \brief Décremente le compteur de cases de bateaux restantes du joueur adverse, utilisé pour gérer la victoire
+  /// \brief Décrémente le nombre de parties de bateaux touchées du joueurOpp
 	boatOpp = boatOpp - supp;
 }
 
-Grille *Player::getMyModifGrille(){
-	/// \brief Renvoie la grille du joueur afin de pouvoir la modifier
+Grille *Player::getMyModifGrille()
+{
+  /// \brief Renvoie un pointeur sur la grille du joueur afin de pouvoir
+  /// la modifier
   return &myGrille;
 }
 
 Grille Player::getMyGrille(){
-	/// \brief Renvoie une copie de la grille du joueur
+   /// \brief Renvoie la grille du joueur
 	return myGrille;
 }
 
 Grille Player::getGrilleOpp(){
-	/// \brief Renvoie une copie de la grille du joueur adverse
+  /// \brief Renvoie la grille du joueur adverse
 	return grilleOpp;
 }
 
 Grille *Player::getModifGrilleOpp(){
-	/// \brief Renvoie la grille du joueur adverse afin de pouvoir la modifier
+  /// \brief Renvoie un pointeur sur la grille du joueur adverse
+  ///afin de pouvoir la modifier
 	return &grilleOpp;
 }
 
 string Player::getMyPseudo(){
-	/// \brief Renvoie le pseudo du joueur courant
+  /// \brief Retourne le pseudo du joueur
 	return myPseudo;
 }
 
 string Player::getPseudoOpp(){
-	/// \brief Renvoie le pseudo du joueur adverse
+  /// \brief Retourne le pseudo du joueur adverse
 	return pseudoOpp;
 }
 
-
 int Player::getPaysId(){
-	/// \brief Renvoie l'identifiant du pays du joueur courant
+  /// \brief Retourne l'id du pays du joueur 
   return idPays;
 }
 
 int Player::getCooldown()
 {
-	/// \brief Retourne le cooldown du pays 
+  /// \brief Renvoie le cooldown du joueur 
 	return cooldown;
 }
 void Player::callPvr(int idPays, int x, int y, Grille *grille)
 {
-	/// \brief Appelle la fonction de pouvoir du pays en fonction de l'identifiant
+  /// \brief Appelle le pouvoir d'un pays en fonction de l'id passé en
+  /// paramêtre
 	switch(idPays)
 	{
 		case 1:
@@ -224,8 +247,8 @@ void Player::callPvr(int idPays, int x, int y, Grille *grille)
 }
 
 void Player::setCooldown(int idPays)
-{	
-	/// \brief Définit le cooldown du pays en fonction de son identifiant
+{
+  /// \brief Définit le cooldown du joueur en fonction de l'id du pays choisi
 	switch(idPays)
 	{
 		case 1:
@@ -247,11 +270,13 @@ void Player::setCooldown(int idPays)
 }
 
 int Player::getMyBoat(){
-	/// \brief Renvoie le compteur de cases de bateaux restantes, gère la defaite
-	return myBoat;
+  /// \brief Renvoie le nombre de parties de bateaux du joueur
+  /// permet de gérer la défaite
+  return myBoat;
 }
 
 int Player::getBoatOpp(){
-	/// \brief Renvoie le compteur de cases de bateaux restantes du joueur adverse, gère la victoire
+  /// \brief Renvoie le nombre de parties de bateaux du joueur adverse
+   /// permet de gérer la victoire
 	return boatOpp;
 }
