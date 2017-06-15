@@ -4,6 +4,7 @@ int		nextPort;
   
 void		createServer(defServer def)
 {
+	/// \brief Permet de créer un serveur en fonction du "rôle" et du port du defServeur
   sf::TcpListener listener;
   std::list<Joueur> joueurs;
   std::list<sf::TcpSocket *> clients;
@@ -19,6 +20,7 @@ void		createServer(defServer def)
 
 int		main(int ac, char **av)
 {
+	/// \brief Permet de lancer un serveur de jeu
   defServer	def;
   if (ac != 2)
     {

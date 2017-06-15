@@ -8,6 +8,7 @@ using namespace	std;
 
 static void    	display_hour()
 {
+	/// \brief Affiche l'heure du serveur
   time_t	now = time(0);
   tm		*ltm = localtime(&now);
   
@@ -18,12 +19,14 @@ static void    	display_hour()
 
 void		displayInfo(const char *msg)
 {
+	/// \brief Affiche les informations utiles du serveur
   display_hour();
   cout << INFO << " : " << msg << endl;
 }
 
 void		displayError(const char *msg)
 {
+	/// \brief Affiche les erreurs du serveurs quand il y en à
   display_hour();
   cout << ERRO << " : " << msg << endl;
 }

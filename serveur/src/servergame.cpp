@@ -2,6 +2,7 @@
 
 void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
 {
+		/// \brief Permet de définir la boucle de jeu au niveau du serveur, avec les envois de paquets associés
   int tour = 0;
   int tmpBoat;
   bool running = true;

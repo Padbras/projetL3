@@ -2,6 +2,7 @@
 
 void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
 {
+	/// \brief Ordonnanceur des tours de jeu 
   sf::Packet	begin;
 
   if (tour % 2 != 0)
@@ -32,6 +33,7 @@ void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
 
 void		beginGame(std::list<Joueur> joueurs)
 {
+	/// \brief Permet de commencer une partie de bataille navale, et de déclancher la boucle de jeu
   std::cout << "Entre dans begin game" << std::endl; 
   sf::Packet	myPacket;
   Joueur	joueurUn = joueurs.front();

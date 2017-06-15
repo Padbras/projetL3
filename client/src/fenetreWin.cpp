@@ -6,7 +6,7 @@ using namespace std;
 
 // return true si rejoue, sinon false
 bool fenetreWin(){
-
+	/// \brief Lance la fenetre de victoire si le joueur à gagné 
 ////////////////// creation et init de la fenetre //////////////////
 
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : GGWP Cap'tain ",Style::Titlebar);

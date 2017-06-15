@@ -9,6 +9,7 @@ using namespace std;
 
 // verifie que la case clickée soit bien de la mer
 bool		verifMer(Grille *grille, int x, int y){
+	/// \brief Permet de vérifier si le type de la case est de la mer 
 				if(grille->getTypeCase(x,y) == mer)				
 					return true;
 				else		
@@ -16,6 +17,7 @@ bool		verifMer(Grille *grille, int x, int y){
 }
 
 bool		verifBoat(Grille *grille, int x, int y){
+	/// \brief Permet de vérifier si le type de la case est un bateau
 				if(grille->getTypeCase(x,y) == boat)				
 					return true;
 				else		
@@ -25,6 +27,7 @@ bool		verifBoat(Grille *grille, int x, int y){
 // verifie l'uniformité des cases (toutes du meme type sur une taille donnée
 
 bool 		verifPlace(Grille *grille, int x, int y, int taille, int rotate){
+	/// \brief Permet de vérifier si la place pour le bateau est disponible
 				switch (rotate){
 					case 0:
 						if (taille > 2 && (grille->getTypeCase(x,y) == grille->getTypeCase(x,y-1)))

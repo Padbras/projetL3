@@ -2,6 +2,7 @@
 
 bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port)
 {
+	/// \brief Gère la boucle de jeu côté client
   bool		isOk = false;
   
   sf::Thread myThread(&fenetreAttente, 2);
@@ -63,6 +64,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 
 bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
 {
+	/// \brief Permet d'envoyer un pseudonyme dans un paquet
   sf::Packet	toSend;
 
   toSend << pseudo;
@@ -77,6 +79,7 @@ bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
 // booleen isfirstgame = true si c'est la premiere partie, sinon false
 bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
 {
+	/// \brief Permet de démarer le client
   std::string	pseudo;
   sf::TcpSocket	socketToServer;
   sf::Packet portPartie;   
@@ -161,6 +164,7 @@ sf::Thread myThread(&fenetreAttente, 1);
 
 int		main(int ac, char **av)
 {
+	/// \brief sert a lancer un client 
 	Player player;
   if (ac != 3)
     {

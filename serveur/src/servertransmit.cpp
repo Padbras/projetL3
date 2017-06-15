@@ -3,6 +3,7 @@
 
 bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
 {
+	/// \brief Permet d'envoyer une grille
   sf::Packet	myPacket; // Rajouter touch et miss
   int		x, y, type;
 
@@ -29,6 +30,7 @@ bool		sendGrille(sf::TcpSocket *mySocket, Grille myGrille)
 
 Grille		receiveGrille(sf::TcpSocket *mySocket)
 {
+	/// \brief Permet de recevoir une grille
   sf::Packet	myPacket;
   Grille	myGrille;
   int		type;
@@ -57,6 +59,7 @@ Grille		receiveGrille(sf::TcpSocket *mySocket)
 
 bool		transmitFirstInfo(Joueur joueurUn, Joueur joueurDeux)
 {
+	/// \brief Permet d'envoyer les grilles des adversaires afin de commencer la partie
   Grille       	GrilleP2;
   Grille       	GrilleP1;
   

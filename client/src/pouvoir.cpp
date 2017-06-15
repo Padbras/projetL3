@@ -2,6 +2,7 @@
 
 void pouvoirFrance(int x, int y, Grille *g)
 {
+	/// \brief Fonction qui gère le pouvoir de la France
 	std::cout << "pvr france" << std::endl;
 	if (g->getTypeCase(x, y) == mer)
 		g->setColorCase(x, y, 255,0,0,160);
@@ -11,6 +12,7 @@ void pouvoirFrance(int x, int y, Grille *g)
 
 void pouvoirRussie(int x, int y, Grille *g)
 {
+	/// \brief Fonction qui gère le pouvoir de la Russie
 		std::cout << "pvr russe" << std::endl;
 
 	//case gauche
@@ -68,6 +70,7 @@ void pouvoirRussie(int x, int y, Grille *g)
 
 void pouvoirAllemagne(int x, int y, Grille *g)
 {
+	/// \brief Fonction qui gère le pouvoir de l'Allemagne
 		//g.setColorCase(x,y,128,128,128,128);
 	if(g->getTypeCase(x, y)==boat){
 		g->setTypeCase(x,y,touch);
@@ -80,9 +83,9 @@ void pouvoirAllemagne(int x, int y, Grille *g)
 
 void pouvoirJapon(int x, int y, Grille *g)
 {
-	
+	/// \brief Fonction qui gère le pouvoir du Japon
 }
 void pouvoirPirate(int x, int y, Grille *g)
 {
-	
+	/// \brief Fonction qui gère le pouvoir des Pirates
 }

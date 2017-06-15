@@ -5,7 +5,7 @@ using namespace std;
 
 int		fenetrePays()
 {
-
+	/// \brief Fenêtre qui gère le choix du pays
   ////////////////// creation et init de la fenetre //////////////////
 
 	sf::RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La bataille",sf::Style::Default);
