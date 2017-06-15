@@ -29,6 +29,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
       
       if (fenetreJeu(player, mySocket) == 1)
 	{
+		std::cout << "on quitte fenetre jeu" << std::endl;
 	  if (fenetreWin() == true)
 	  {
 		mySocket->disconnect();

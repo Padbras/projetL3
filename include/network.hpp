@@ -71,7 +71,7 @@ void		serverLoop(sf::TcpListener*, sf::SocketSelector *,
 void		gameLoop(Joueur, Joueur);  
 
 // serverbegin.cpp
-void		beginGame(std::list<Joueur>);
+int		beginGame(std::list<Joueur>);
 void		whoPlays(Joueur, Joueur, int);
 
 // servertransmit.cpp
@@ -85,7 +85,7 @@ void		initSubServers(std::vector<myThreads *> *, int);
 void		launchSubServer(std::vector<myThreads *> *, int);
 int		returnFirstSubReady(std::vector<myThreads *>);
 int		returnPortSubServer(std::vector<myThreads *>, int);
-
+void	stopSubServer(std::vector<myThreads *> *, int);
 #endif		/* !NETWORK_HPP_ */
 
 

@@ -30,6 +30,18 @@ void		launchSubServer(std::vector<myThreads*> *mySubServers, int i)
   mySubServers->at(i)->myThread->launch();
 }
 
+void	stopSubServer(std::vector<myThreads *> *mySubServers, int port)
+{
+  for (int i = 0; i < 10; i++)
+    {
+      if (mySubServers->at(i)->def.port == port)
+      {
+		mySubServers->at(i)->myThread->terminate();
+		mySubServers->at(i)->isReady = true;
+	  }
+    }
+}
+
 int		returnFirstSubReady(std::vector<myThreads *> mySubServers)
 {
   for (int i = 0; i < 10; i++)

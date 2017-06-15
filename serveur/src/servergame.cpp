@@ -20,6 +20,8 @@ void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
 	  myBoat.clear();
 	  myBoat = receivePacket(joueurUn.socket);
 	  myBoat >> tmpBoat;
+	  if (tmpBoat == 0)
+		running = false;
 	  std::cout << "tmpboat envoyé par j1 : " << tmpBoat << std::endl;
 	  myBoat.clear();
 	  myBoat << tmpBoat;
@@ -55,6 +57,8 @@ void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
 	  myBoat.clear();
 	  myBoat = receivePacket(joueurDeux.socket);
 	  myBoat >> tmpBoat;
+	  if (tmpBoat == 0)
+		running = false;
 	  std::cout << "tmpboat envoyé par j2 : " << tmpBoat << std::endl;
 	  myBoat.clear();
 	  myBoat << tmpBoat;

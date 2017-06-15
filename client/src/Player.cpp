@@ -16,14 +16,15 @@ void pouvoirFrance(int x, int y, Grille *g)
 		g->setColorCase(x, y, 0, 255, 0, 160);
 }
 
-void pouvoirRussie(int x, int y, Grille *g)
+int pouvoirRussie(int x, int y, Grille *g)
 {
 	std::cout << "pvr russe" << std::endl;
-
+	int nbTouch = 0;
 	//case gauche
 	if(g->getTypeCase(x - 1, y) == boat && x - 1 >= 0)
 	{
 		g->setTypeCase(x-1,y,touch);
+		nbTouch++;
 		g->setColorCase(x-1,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x - 1, y) == mer && x - 1 >= 0)
@@ -37,9 +38,10 @@ void pouvoirRussie(int x, int y, Grille *g)
 	if(g->getTypeCase(x + 1, y) == boat && x + 1 <= 10)
 	{
 		g->setTypeCase(x + 1, y, touch);
+		nbTouch++;
 		g->setColorCase(x+1,y,0,255,0,128);
 	}
-	else if(g->getTypeCase(x + 1, y) == mer && x + 1 <= 10)
+	else if(g->getTypeCase(x + 1, y) == mer && x + 1 <= 9)
 	{
 		g->setTypeCase(x + 1, y, miss);
 		g->setColorCase(x+1,y,255,0,0,128);
@@ -50,6 +52,7 @@ void pouvoirRussie(int x, int y, Grille *g)
 	if(g->getTypeCase(x, y - 1) == boat && y - 1 >= 0)
 	{
 		g->setTypeCase(x, y - 1, touch);
+		nbTouch++;
 		g->setColorCase(x,y-1,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y - 1) == mer && y - 1 >= 0)
@@ -60,9 +63,10 @@ void pouvoirRussie(int x, int y, Grille *g)
 	
 	
 	//case bas
-	if(g->getTypeCase(x, y + 1) == boat && y + 1 <= 10)
+	if(g->getTypeCase(x, y + 1) == boat && y + 1 <= 9)
 	{
 		g->setTypeCase(x, y + 1, touch);
+		nbTouch++;
 		g->setColorCase(x, y + 1, 0, 255, 0, 128);
 	}
 	else if(g->getTypeCase(x, y + 1) == mer && y + 1 <= 10)
@@ -70,14 +74,16 @@ void pouvoirRussie(int x, int y, Grille *g)
 		g->setTypeCase(x, y + 1, miss);
 		g->setColorCase(x, y + 1, 255, 0, 0, 128);
 	}
-	
+	return nbTouch;
 }
 
-void pouvoirAllemagne(int x, int y, Grille *g)
+int pouvoirAllemagne(int x, int y, Grille *g)
 {
+	int nbTouch = 0;
 	if(g->getTypeCase(x, y) == boat)
 	{
 		g->setTypeCase(x,y,touch);
+		nbTouch++;
 		g->setColorCase(x,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y)==mer)
@@ -85,13 +91,16 @@ void pouvoirAllemagne(int x, int y, Grille *g)
 		g->setTypeCase(x,y,miss);
 		g->setColorCase(x,y,255,0,0,128);
 	}		
+	return nbTouch;
 }
 
-void pouvoirJapon(int x, int y, Grille *g)
+int pouvoirJapon(int x, int y, Grille *g)
 {
+	int nbTouch =0 ;
 		if(g->getTypeCase(x, y) == boat)
 	{
 		g->setTypeCase(x,y,touch);
+		nbTouch++;
 		g->setColorCase(x,y,0,255,0,128);
 	}
 	else if(g->getTypeCase(x, y)==mer)
@@ -99,6 +108,7 @@ void pouvoirJapon(int x, int y, Grille *g)
 		g->setTypeCase(x,y,miss);
 		g->setColorCase(x,y,255,0,0,128);
 	}		
+	return nbTouch;
 }
 void pouvoirPirate(Grille *g)
 {
@@ -212,19 +222,19 @@ void Player::setCooldown(int idPays)
 	switch(idPays)
 	{
 		case 1:
-			cooldown = 4;
+			cooldown = 1; //4;
 		break;
 		case 2:
-			cooldown = 7;
+			cooldown = 1; //7;
 		break;
 		case 3:
-			cooldown = 8;
+			cooldown = 1; //8;
 		break;
 		case 4:
-			cooldown = 3;
+			cooldown =1; // 3;
 		break;
 		case 5:
-			cooldown = 5;
+			cooldown = 1; //5;
 		break;
 	}
 }

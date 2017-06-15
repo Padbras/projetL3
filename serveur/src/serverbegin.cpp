@@ -30,7 +30,7 @@ void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
     } 
 }
 
-void		beginGame(std::list<Joueur> joueurs)
+int		beginGame(std::list<Joueur> joueurs)
 {
   std::cout << "Entre dans begin game" << std::endl; 
   sf::Packet	myPacket;
@@ -57,5 +57,6 @@ void		beginGame(std::list<Joueur> joueurs)
       displayInfo("First Info transmit");
       displayInfo("Game start");
       gameLoop(joueurUn, joueurDeux);
-    }  
+    }
+    return joueurUn.socket->getLocalPort();  
 }

@@ -53,8 +53,9 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
       if (joueurs.size() == 2 && def.role == true)
       	{
       	  sf::Packet myPacket;
+		  int subServerReady;
+
 	  int portToSend;
-	  int subServerReady;
 
 	  subServerReady = returnFirstSubReady(mySubServers);
 	    
@@ -94,10 +95,10 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 
       else  if (joueurs.size() == 2 && def.role == false)
       	{
+			int portToClose;
       	  std::cout << "begin game" << std::endl;  
-	  beginGame(joueurs);
-      	}
-      
-	   
+			portToClose = beginGame(joueurs);
+			stopSubServer(&mySubServers, portToClose);
+      	}  
     }
 }

@@ -160,6 +160,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		nbBoat = receivePacket(mySocket);
 		nbBoat >> tmpBoat;
 		player->setMyBoat(tmpBoat);
+		
 		if (player->getMyBoat() == 0)
 		{
 			return -1;
@@ -211,7 +212,6 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			}
 		      x1 = ptRetourX(event.mouseButton.x);
 		      y1 = ptRetourY(event.mouseButton.y);
-		      std::cout << "x "<< x1 << "y " << y1<< std::endl;
 		      player->getModifGrilleOpp()->setColorCase(x1,y1,128,128,128,128);
 		      cpt++;				
 		  
@@ -234,8 +234,9 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			
 		      x1 = ptRetourX(event.mouseButton.x);
 		      y1 = ptRetourY(event.mouseButton.y);
-		      if (player->getPaysId() != 2 && player->getPaysId() != 4)
+		      if (player->getPaysId() < 2 && player->getPaysId() > 4)
 		      {
+				  
 				player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
 				
 		      onFire = false;
@@ -243,7 +244,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		      else if (player->getPaysId() == 2)
 		      {
 				  
-					player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
+					player->suppboatOpp(pouvoirAllemagne(x1, y1, player->getModifGrilleOpp()));
 				 cptAll++;
 				 if (cptAll == 5)
 				 {
@@ -253,14 +254,18 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  }
 			  else if (player->getPaysId() == 4)
 			  {
-				  
-					player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
+				  player->suppboatOpp(pouvoirJapon(x1, y1, player->getModifGrilleOpp()));
 				cptJap++;
 				if (cptJap == 2)
 			{
 					onFire = false;
 					cptJap = 0;
 				}
+			  }
+			  else if (player->getPaysId() == 3)
+			  {
+				player->suppboatOpp(pouvoirRussie(x1, y1, player->getModifGrilleOpp()));
+				onFire = false;
 			  }
 		    }
 		// gestion du click bouton pouvoir		
@@ -276,6 +281,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			else
 			{
 				pouvoirPirate(player->getMyModifGrille());
+				player->addMyBoat(1);
 				pvrStocke--;
 			}
 		    }
@@ -293,6 +299,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  player->getModifGrilleOpp()->setTypeCase(x1, y1, touch);
 			  player->getModifGrilleOpp()->setColorCase(x1, y1, 0, 255, 0, 128);
 			  player->suppboatOpp(1);
+			  std::cout << "nb bateau ennemi : " << player->getBoatOpp() << std::endl;
+			  std::cout << "nb mes bat : " << player->getMyBoat() << std::endl;			  
 			}
 		      else if (player->getGrilleOpp().getTypeCase(x1, y1) == mer)
 			{
@@ -314,6 +322,9 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		{
 			displayError("Failed to send packet");
 		}
+		
+			if (player->getBoatOpp() == 0)
+				return 1;
 		      if (sendGrille(mySocket, player->getGrilleOpp()) == false)
 			{
 			displayError("Failed to send grille");
@@ -342,8 +353,6 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  x1 = y1 = -1;
 			  valide = 0;
 			}
-			if (player->getBoatOpp() == 0)
-				return 1;
 		    }
 		  break;
 						
