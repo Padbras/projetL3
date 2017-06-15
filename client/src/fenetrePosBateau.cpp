@@ -8,7 +8,8 @@ using namespace sf;
 using namespace std;
 
 Grille fenetrePosBateau(){
-
+	/// \brief Permet au joueur de placer ses bateaux sur le plateau de jeu 
+	/// \return La grille avec du joueur avec les bateaux placés dessus
   ////////////////// creation et init de la fenetre //////////////////
 
   RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionnes tes bateaux Matelot !!",Style::Titlebar);

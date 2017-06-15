@@ -6,7 +6,9 @@ using namespace std;
 
 string		lancerFenetreAccueil()
 {
-
+	
+	/// \brief Permet de lancer la fenêtre d'accueil au lancement du jeu
+	/// \return Le pseudo du joueur
   ////////////////// creation et init de la fenetre //////////////////
 
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La bataille",Style::Default);

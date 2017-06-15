@@ -6,7 +6,7 @@ using namespace std;
 
 // return true si rejoue, sinon false
 bool fenetreLoose(){
-
+/// \brief Lance la fenetre de défaite si le joueur a perdu 
 ////////////////// creation et init de la fenetre //////////////////
 
 	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Tu ne sera jamais Capitaine !! ",Style::Titlebar);

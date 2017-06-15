@@ -5,6 +5,7 @@
 
 bool		sendPacket(sf::Packet *myPacket, sf::TcpSocket *mySocket)
 {
+	/// \brief Permet d'envoyer un paquet et vérifier qu'il a bien été envoyé
   if ((*mySocket).send(*myPacket) != sf::Socket::Done)
     return false;
   return true;
@@ -15,6 +16,7 @@ bool		sendPacket(sf::Packet *myPacket, sf::TcpSocket *mySocket)
 
 sf::Packet	receivePacket(sf::TcpSocket *mySocket)
 {
+	/// \brief Permet de recevoir un paquet et vérifier qu'il a bien été reçu
   sf::Packet	myPacket;
 
   if (mySocket->receive(myPacket) != sf::Socket::Done)

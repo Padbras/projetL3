@@ -9,6 +9,7 @@ using namespace std;
 
 void pouvoirFrance(int x, int y, Grille *g)
 {
+  /// \brief Définition du pouvoir de la France
 	std::cout << "pvr france" << std::endl;
 	if (g->getTypeCase(x, y) == mer)
 		g->setColorCase(x, y, 255,0,0,160);
@@ -18,6 +19,7 @@ void pouvoirFrance(int x, int y, Grille *g)
 
 int pouvoirRussie(int x, int y, Grille *g)
 {
+   /// \brief Définition du pouvoir de la Russie
 	std::cout << "pvr russe" << std::endl;
 	int nbTouch = 0;
 	//case gauche
@@ -79,6 +81,7 @@ int pouvoirRussie(int x, int y, Grille *g)
 
 int pouvoirAllemagne(int x, int y, Grille *g)
 {
+   /// \brief Définition du pouvoir de l'Allemagne
 	int nbTouch = 0;
 	if(g->getTypeCase(x, y) == boat)
 	{
@@ -96,6 +99,7 @@ int pouvoirAllemagne(int x, int y, Grille *g)
 
 int pouvoirJapon(int x, int y, Grille *g)
 {
+   /// \brief Définition du pouvoir du Japon
 	int nbTouch =0 ;
 		if(g->getTypeCase(x, y) == boat)
 	{
@@ -112,6 +116,7 @@ int pouvoirJapon(int x, int y, Grille *g)
 }
 void pouvoirPirate(Grille *g)
 {
+   /// \brief Définition du pouvoir des Pirates
 	for (int j = 0; j < 10; j++)
 		for (int i = 0; i < 10; i++)
 			{
@@ -124,82 +129,106 @@ void pouvoirPirate(Grille *g)
 			}
 }
 
-Player::Player(){}
+Player::Player(){
+  /// \brief Constructeur par défaut
+}
 
 void Player::initMyGrille(Grille grille){
+  /// \brief Initialise la grille du joueur
 	myGrille = grille;
 }
 
 void Player::setGrilleOpp(Grille grille){
+  /// \brief Définit la grille de l'opposant 
 	grilleOpp = grille ;
 }
 
 
 void Player::setMyPseudo(){
+  /// \brief Définit le pseudo via la fenêtre d'accueil
 	myPseudo=lancerFenetreAccueil();
 }
 
 void Player::setPseudoOpp(string pseudo){
+  /// \brief définit le pseudo du joueur adverse 
 	pseudoOpp = pseudo    ;
 }
 
 void Player::setPaysId(){
+  /// \brief Affecte un id au pays du joueur en fonction de la valeur
+  /// renvoyée par fenetrePays()
   idPays = fenetrePays();
 
 }
 
 void Player::suppMyBoat(int supp){
+  /// \brief Décrémente le nombre de parties de bateaux touchées
 	myBoat = myBoat-supp;
 }
 
 void Player::addMyBoat(int add){
+   /// \brief Incrémente le nombre de parties de bateaux touchées
 	myBoat = myBoat+add;
 }
 
 void Player::setMyBoat(int nbBoat)
 {
+  /// \brief Définit le nombre de partie de bateaux à toucher
 	myBoat = nbBoat;
 }
 
 void Player::suppboatOpp(int supp){
+  /// \brief Décrémente le nombre de parties de bateaux touchées du joueurOpp
 	boatOpp = boatOpp - supp;
 }
 
 Grille *Player::getMyModifGrille()
 {
+  /// \brief Renvoie un pointeur sur la grille du joueur afin de pouvoir
+  /// la modifier
   return &myGrille;
 }
 
 Grille Player::getMyGrille(){
+   /// \brief Renvoie la grille du joueur
 	return myGrille;
 }
 
 Grille Player::getGrilleOpp(){
+  /// \brief Renvoie la grille du joueur adverse
 	return grilleOpp;
 }
 
 Grille *Player::getModifGrilleOpp(){
+  /// \brief Renvoie un pointeur sur la grille du joueur adverse
+  ///afin de pouvoir la modifier
 	return &grilleOpp;
 }
 
 string Player::getMyPseudo(){
+  /// \brief Retourne le pseudo du joueur
 	return myPseudo;
 }
 
 string Player::getPseudoOpp(){
+  /// \brief Retourne le pseudo du joueur adverse
 	return pseudoOpp;
 }
 
 int Player::getPaysId(){
+  /// \brief Retourne l'id du pays du joueur 
   return idPays;
 }
 
 int Player::getCooldown()
 {
+  /// \brief Renvoie le cooldown du joueur 
 	return cooldown;
 }
 void Player::callPvr(int idPays, int x, int y, Grille *grille)
 {
+  /// \brief Appelle le pouvoir d'un pays en fonction de l'id passé en
+  /// paramêtre
 	switch(idPays)
 	{
 		case 1:
@@ -218,7 +247,8 @@ void Player::callPvr(int idPays, int x, int y, Grille *grille)
 }
 
 void Player::setCooldown(int idPays)
-{	
+{
+  /// \brief Définit le cooldown du joueur en fonction de l'id du pays choisi
 	switch(idPays)
 	{
 		case 1:
@@ -240,9 +270,13 @@ void Player::setCooldown(int idPays)
 }
 
 int Player::getMyBoat(){
-	return myBoat;
+  /// \brief Renvoie le nombre de parties de bateaux du joueur
+  /// permet de gérer la défaite
+  return myBoat;
 }
 
 int Player::getBoatOpp(){
+  /// \brief Renvoie le nombre de parties de bateaux du joueur adverse
+   /// permet de gérer la victoire
 	return boatOpp;
 }

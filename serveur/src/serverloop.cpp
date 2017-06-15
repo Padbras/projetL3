@@ -4,6 +4,7 @@
 void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 			     std::list<sf::TcpSocket *> clients, defServer def)
 {
+	/// \brief Permet de gérer les connections et la création de sous-serveurs
   bool		running = true;
   std::list<Joueur> joueurs;
 

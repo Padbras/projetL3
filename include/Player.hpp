@@ -15,8 +15,8 @@ class Player{
 		std::string pseudoOpp;
 		int idPays;
 		int cooldown;
-		int myBoat = 17;
-		int boatOpp = 17;
+		int myBoat = 2;
+		int boatOpp = 2;
 		
 	public :	
 		Player();
