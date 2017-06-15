@@ -1,6 +1,6 @@
 #include	"client.hpp"
 
-bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
+bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port)
 {
   bool		isOk = false;
   
@@ -29,15 +29,33 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player)
       
       if (fenetreJeu(player, mySocket) == 1)
 	{
-	  fenetreWin();
-	  mySocket->disconnect();
-
+	  if (fenetreWin() == true)
+	  {
+		mySocket->disconnect();
+		if (startClient(ip, port, false, player) == false)
+			return false;
+		return true;
+	  }
+	  else
+	  {
+		mySocket->disconnect();
+		return true;
+	  }
 	}
       else
 	{
-	  fenetreLoose();
-	  mySocket->disconnect();
-
+	  if (fenetreLoose() == true)
+	  {
+		mySocket->disconnect();  
+		if (startClient(ip, port, false, player) == false)
+			return false;
+		return true;
+	  }
+	  else
+	  {
+		  mySocket->disconnect();
+		  return true;
+	  }
 	}
     }
   return true;
@@ -56,18 +74,24 @@ bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
   displayInfo("Pseudo sent");
   return true;
 }
-
-bool		startClient(char *ip, int port)
+// booleen isfirstgame = true si c'est la premiere partie, sinon false
+bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
 {
   std::string	pseudo;
   sf::TcpSocket	socketToServer;
   sf::Packet portPartie;   
   int portGame;
-  Player player;
-  Grille tmp; 
+  Grille tmp;
+  std::string tmpStr;
   
-  player.setMyPseudo();
   
+  if (isFirstGame == true)
+	player->setMyPseudo();
+  else
+  {
+	  tmpStr = player->getMyPseudo();
+	  player = new Player;
+  }
 
   
   if (connectToServer(&socketToServer, ip, port) == false)
@@ -81,7 +105,7 @@ bool		startClient(char *ip, int port)
        std::cout << port << std::endl;
     }
  
-  if (sendPseudo(&socketToServer, player.getMyPseudo()) == false)
+  if (sendPseudo(&socketToServer, player->getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
@@ -94,8 +118,8 @@ sf::Thread myThread(&fenetreAttente, 1);
       strReceive = receivePacket(&socketToServer);
       strReceive >> myStr;
       std::cout<< "mystr " << myStr << std::endl;
-      player.setPseudoOpp(myStr);
-      std::cout<< "getpseudopp   "<<player.getPseudoOpp()<<std::endl;
+      player->setPseudoOpp(myStr);
+      std::cout<< "getpseudopp   "<<player->getPseudoOpp()<<std::endl;
 
 	
   portPartie = receivePacket(&socketToServer);
@@ -112,20 +136,21 @@ sf::Thread myThread(&fenetreAttente, 1);
       return false;      
     }
 
-     if (sendPseudo(&socketToServer, player.getMyPseudo()) == false)
+     if (sendPseudo(&socketToServer, player->getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
     }
      
-     player.setPaysId();
+     player->setPaysId();
+     player->setCooldown(player->getPaysId());
      tmp = fenetrePosBateau();
-     player.initMyGrille(tmp);
-     player.getMyGrille().convertGrilleGauche(player.getMyModifGrille());
+     player->initMyGrille(tmp);
+     player->getMyGrille().convertGrilleGauche(player->getMyModifGrille());
      
 
 
-     if (clientGameLoop(&socketToServer, &player) == false)
+     if (clientGameLoop(&socketToServer, player, ip, port) == false)
     {
       displayError("Failed to load client loop");
       return false;
@@ -136,13 +161,14 @@ sf::Thread myThread(&fenetreAttente, 1);
 
 int		main(int ac, char **av)
 {
+	Player player;
   if (ac != 3)
     {
       displayError("Need two arguments, specify the ip and the port");
       displayInfo("Usage : ./client.out [IP] [PORT]");                                      
       return -1;  
     }
-  if (startClient(av[1], atoi(av[2])) == false)
+  if (startClient(av[1], atoi(av[2]), true, &player) == false)
     {
       displayInfo("Failed to start client");
       return -1;

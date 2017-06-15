@@ -5,6 +5,6 @@
 #include <SFML/System.hpp>
 #include <iostream>
 
-int fenetreLoose();
+bool fenetreLoose();
 
 #endif

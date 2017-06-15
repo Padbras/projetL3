@@ -45,7 +45,6 @@ void Grille::setPosCase(int x, int y, int pixX, int pixY){
 
 void Grille::setColorCase(int x, int y, int r, int g, int b, int alpha){
 	_grille[x][y]._case_rect.setFillColor(sf::Color(r,g,b,alpha));
-	std::cout << "setposcase  x :" << x << "  y  : " << y << std::endl;
 }
 
 void Grille::setTypeCase(int x, int y, typeCase type){

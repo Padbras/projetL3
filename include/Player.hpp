@@ -3,7 +3,6 @@
 
 #include <string>
 #include "Grille.hpp"
-#include "Pays.hpp"
 #include "fenetrePays.hpp"
 #include "fenetrePosBateau.hpp"
 #include "fenetreAccueil.hpp"
@@ -14,7 +13,8 @@ class Player{
 		Grille grilleOpp;
 		std::string myPseudo;
 		std::string pseudoOpp;
-		Pays pays;
+		int idPays;
+		int cooldown;
 		int myBoat = 17;
 		int boatOpp = 17;
 		
@@ -37,6 +37,17 @@ class Player{
 		int getPaysId();
 		int getMyBoat();
 		int getBoatOpp();
+		int getCooldown();
+		void setCooldown(int);
+		void setMyBoat(int );
+		void callPvr(int, int, int, Grille *);
 };
+
+
+void pouvoirAllemagne(int, int, Grille *);
+void pouvoirFrance(int, int, Grille *);
+void pouvoirRussie(int, int, Grille *);
+void pouvoirJapon(int, int, Grille *);
+void pouvoirPirate(Grille *);
 
 #endif

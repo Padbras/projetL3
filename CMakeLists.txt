@@ -12,11 +12,8 @@ include_directories( ${SFML_INCLUDE_DIRS} include/)
 
 add_executable(client.out client/src/Case.cpp
 			  client/src/client.cpp
-			  client/src/Pays.cpp
 			  client/src/Grille.cpp
-			  client/src/Bateau.cpp
 		   	  client/src/Case.cpp
-		   	  client/src/Joueur.cpp
 			  client/src/fenetreAccueil.cpp
 			  client/src/fenetrePosBateau.cpp
 			  client/src/gestionGrille.cpp
