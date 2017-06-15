@@ -11,8 +11,6 @@ using namespace std;
 int fenetreJeu(Player *player, TcpSocket *mySocket){
 
   ////////////////// creation et init de la fenetre //////////////////
-  cout << "mon pseudo : " << player->getMyPseudo() << endl;
-  cout << "pseudo adv : " << player->getPseudoOpp() << endl;
   
   RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La Bataille ",Style::Titlebar);
   window.setPosition(Vector2i(10, 10));
@@ -112,19 +110,19 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
   whoTurn.clear();
   whoTurn = receivePacket(mySocket);
   whoTurn >> myTurn;
-  std::cout << "Mon bool myTurn:" << myTurn << std::endl;
 
   if(myTurn)
     tour = -1;
   
   while (window.isOpen())
     {      
+			boutonValide.setFillColor(Color(0, 0, 0, 160));
+
       if (cpt > 0 && !onFire)
 	boutonValide.setFillColor(Color(0, 0, 0, 0));
 
       if (myTurn == false)
 	{
-	  std::cout << "myturn false" << std::endl; 
 	  cpt = 0;
 		
 
@@ -177,10 +175,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 	  player->getMyGrille().afficherGrille();
 
 	  whoTurn.clear();
-	  std::cout << "f attend myturn"<< std::endl;
 	  whoTurn = receivePacket(mySocket);
 	  whoTurn >> myTurn;
-	  std::cout << "f myturn : "<< myTurn << std::endl;
 	  sameTour = 0;
 	  
 	}
@@ -298,20 +294,13 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			{
 			  player->getModifGrilleOpp()->setTypeCase(x1, y1, touch);
 			  player->getModifGrilleOpp()->setColorCase(x1, y1, 0, 255, 0, 128);
-			  player->suppboatOpp(1);
-			  std::cout << "nb bateau ennemi : " << player->getBoatOpp() << std::endl;
-			  std::cout << "nb mes bat : " << player->getMyBoat() << std::endl;			  
+			  player->suppboatOpp(1);	  
 			}
 		      else if (player->getGrilleOpp().getTypeCase(x1, y1) == mer)
 			{
 			  player->getModifGrilleOpp()->setTypeCase(x1, y1, miss);
 			  player->getModifGrilleOpp()->setColorCase(x1, y1, 255, 0, 0, 128);
 			}
-		      std::cout << "ma grille | mon tour" << std::endl;
-		      player->getGrilleOpp().afficherGrille();
-		    
-		      std::cout << "grille adv | mon tour" << std::endl;
-		      player->getMyGrille().afficherGrille();
 		      
 		  
 		  nbBoat.clear();

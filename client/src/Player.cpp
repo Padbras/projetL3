@@ -252,19 +252,19 @@ void Player::setCooldown(int idPays)
 	switch(idPays)
 	{
 		case 1:
-			cooldown = 1; //4;
+			cooldown = 4;
 		break;
 		case 2:
-			cooldown = 1; //7;
+			cooldown = 7;
 		break;
 		case 3:
-			cooldown = 1; //8;
+			cooldown = 8;
 		break;
 		case 4:
-			cooldown =1; // 3;
+			cooldown = 3;
 		break;
 		case 5:
-			cooldown = 1; //5;
+			cooldown = 5;
 		break;
 	}
 }

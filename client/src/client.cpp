@@ -5,7 +5,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 	/// \brief Gère la boucle de jeu côté client
   bool		isOk = false;
   
-  sf::Thread myThread(&fenetreAttente, 2);
+  //sf::Thread myThread(&fenetreAttente, 2);
   sf::Packet	toReceive;
   toReceive = receivePacket(mySocket);
   toReceive >> isOk;
@@ -16,21 +16,14 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 	  displayError("Failed to send infos");
 	  return false;
 	}
-      displayInfo("First info sent");
-     // myThread.launch();
+     //myThread.launch();
       
       player->setGrilleOpp(receiveGrille(mySocket));
       player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());
-     // myThread.terminate();
-      displayInfo("First info received");
-      std::cout << "grille adversaire" << std::endl;
-      player->getGrilleOpp().afficherGrille();
-      std::cout << "ma grille" << std::endl;
-      player->getMyGrille().afficherGrille();
+     //myThread.terminate();
       
       if (fenetreJeu(player, mySocket) == 1)
 	{
-		std::cout << "on quitte fenetre jeu" << std::endl;
 	  if (fenetreWin() == true)
 	  {
 		mySocket->disconnect();
@@ -114,26 +107,22 @@ bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
       displayError("Failed to send packet");
       return false;
     }
-sf::Thread myThread(&fenetreAttente, 1);
+//sf::Thread myThread(&fenetreAttente, 1);
 	//myThread.launch();
 	
       sf::Packet strReceive;
       std::string myStr;
       strReceive = receivePacket(&socketToServer);
       strReceive >> myStr;
-      std::cout<< "mystr " << myStr << std::endl;
       player->setPseudoOpp(myStr);
-      std::cout<< "getpseudopp   "<<player->getPseudoOpp()<<std::endl;
 
 	
   portPartie = receivePacket(&socketToServer);
- // myThread.terminate();
+  //myThread.terminate();
   portPartie >> portGame;
-  std::cout << "port recu par le server : " << portGame << std::endl;
 
   socketToServer.disconnect();
-  
-  std::cout << "Deco du serveur main" << std::endl;  
+   
    if (connectToServer(&socketToServer, ip, portGame) == false)
     {
       displayError("Failed to connect to server");
