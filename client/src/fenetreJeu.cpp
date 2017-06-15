@@ -169,10 +169,6 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 	  // reception et conversion la grille adversaire
 	  player->setGrilleOpp(receiveGrille(mySocket));
 	  player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());    
-      
-	  player->getGrilleOpp().afficherGrille();
-		    
-	  player->getMyGrille().afficherGrille();
 
 	  whoTurn.clear();
 	  whoTurn = receivePacket(mySocket);

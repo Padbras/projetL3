@@ -1,10 +1,24 @@
+#include <SFML/Audio.hpp>
 #include	"client.hpp"
 
 bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port)
 {
 	/// \brief Gère la boucle de jeu côté client
   bool		isOk = false;
-  
+	sf::SoundBuffer buffer1;
+	sf::SoundBuffer buffer2;
+	if (!buffer1.loadFromFile("../client/sound/victoire.wav"))
+	{
+		// error...
+	}
+	sf::Sound sound1;
+	sf::Sound sound2;
+	sound1.setBuffer(buffer1);
+	if (!buffer2.loadFromFile("../client/sound/defaite.wav"))
+	{
+		// error...
+	}
+	sound2.setBuffer(buffer2);
   //sf::Thread myThread(&fenetreAttente, 2);
   sf::Packet	toReceive;
   toReceive = receivePacket(mySocket);
@@ -24,6 +38,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
       
       if (fenetreJeu(player, mySocket) == 1)
 	{
+		sound1.play();
 	  if (fenetreWin() == true)
 	  {
 		mySocket->disconnect();
@@ -39,6 +54,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 	}
       else
 	{
+		sound2.play();
 	  if (fenetreLoose() == true)
 	  {
 		mySocket->disconnect();  
@@ -156,12 +172,21 @@ int		main(int ac, char **av)
 {
 	/// \brief sert a lancer un client 
 	Player player;
+sf::Music music;
   if (ac != 3)
     {
       displayError("Need two arguments, specify the ip and the port");
       displayInfo("Usage : ./client.out [IP] [PORT]");                                      
       return -1;  
     }
+if (!music.openFromFile("../client/sound/ambiance.wav"))
+{
+    // error...
+}
+
+music.setLoop(true);
+music.play();
+
   if (startClient(av[1], atoi(av[2]), true, &player) == false)
     {
       displayInfo("Failed to start client");
