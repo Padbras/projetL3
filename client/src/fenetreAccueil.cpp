@@ -106,6 +106,7 @@ string		lancerFenetreAccueil()
     window.display();
         
   }
+  return pseudoEntr_s;
 }
 
 

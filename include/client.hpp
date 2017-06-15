@@ -3,7 +3,6 @@
 
 #include	"Case.hpp"
 #include	"Grille.hpp"
-#include	"Bateau.hpp"
 #include	"fenetreAccueil.hpp"
 #include	"fenetrePosBateau.hpp"
 #include	"fenetreJeu.hpp"
