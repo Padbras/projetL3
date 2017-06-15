@@ -16,8 +16,7 @@ class Case{
 		sf::RectangleShape _case_rect;
 		
 		
-		Case(int px, int py, typeCase t, sf::RectangleShape _case_rect);
-		Case(int px, int py, typeCase t);
+		Case(int, int, typeCase, sf::RectangleShape);
 		Case();
 
 };

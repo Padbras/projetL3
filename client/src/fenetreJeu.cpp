@@ -103,7 +103,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
   Text stackPvr_txt;
   stackPvr_txt.setFont(main_font);
   stackPvr_txt.setCharacterSize(60);	
-  stackPvr_txt.setPosition(130,665);
+  stackPvr_txt.setPosition(142,665);
   stackPvr_txt.setColor(Color(255,255,255));
 		
   //////////// affichage de la fenetre ///////////////////////////////
@@ -204,11 +204,11 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  yOld = y1;
 			
 			  // effacement des tirs precedents te non validés
-		  if (player->getPaysId() != 2 && player->getPaysId() != 4
-				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
+		  if (//player->getPaysId() != 2 && player->getPaysId() != 4 &&
+				 player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
 				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
-				
 			  player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
+
 			}
 		      x1 = ptRetourX(event.mouseButton.x);
 		      y1 = ptRetourY(event.mouseButton.y);
@@ -219,7 +219,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		    }
 		    // gestion de click dans la grille de tir AVEC pouvoir
 		  if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
-			event.mouseButton.y < 600 && event.mouseButton.y > 200 && onFire)
+			event.mouseButton.y < 600 && event.mouseButton.y > 200 && onFire && cpt == 0)
 		    {	
 				std::cout << "IF TIR onfire : " << onFire << std::endl;
 		      cpt = 0;
@@ -229,8 +229,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  yOld = y1;
 			
 			  // effacement des tirs precedents te non validés
-			  if (player->getPaysId() != 2 && player->getPaysId() != 4
-				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
+			  if (//player->getPaysId() != 2 && player->getPaysId() != 4 &&
+				 player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
 				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
 				player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
 			}
@@ -249,7 +249,10 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 					player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
 				 cptAll++;
 				 if (cptAll == 5)
+				 {
 					onFire = false;
+					cptAll = 0 ;
+				}
 			  }
 			  else if (player->getPaysId() == 4)
 			  {
@@ -257,7 +260,10 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 					player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
 				cptJap++;
 				if (cptJap == 2)
+			{
 					onFire = false;
+					cptJap = 0;
+				}
 			  }
 		      
 		      std::cout << "x "<< x1 << "y " << y1<< std::endl;
@@ -368,24 +374,16 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 				pvrStocke++;
 				prochainPvr = 0;
 			}
-			std::cout << "1 :" << player->getMyBoat() % 3 << " 2 :" << player->getPaysId() << " 3 :" << player->getMyBoat() << std::endl;
-			
-		
 		} 
 		
 		stringstream ss;
 		ss << pvrStocke;
 		myStr=ss.str();
 		stackPvr_txt.setString(myStr);		
-	/*	myStr=ss.str();		
-		ss << prochainPvr;
-		
-		myStr=string(strcat("Nombre de tour avant votre prochain pouvoir : ", myStr));
-		cooldown_txt.setString(myStr);*/
-		
+
 		if (pvrStocke == 0)
 			boutonPouvoir.setFillColor(Color(0,0,0,160));
-		else
+		else if (pvrStocke != 0 && cpt == 0)
 			boutonPouvoir.setFillColor(Color(0,0,0,0));
 
 	    
