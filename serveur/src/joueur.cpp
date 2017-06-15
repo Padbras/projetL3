@@ -2,7 +2,7 @@
 
 void		displayListJoueur(std::list<Joueur> myList)
 {
-	/// \brief Affiche la liste des joueurs connectés au serveur
+  /// \brief Affiche la liste des joueurs connectés au serveur
   for (std::list<Joueur>::iterator it = myList.begin();
        it != myList.end(); ++it)
     {
@@ -14,7 +14,7 @@ void		displayListJoueur(std::list<Joueur> myList)
 
 void		displayJoueur(Joueur myJoueur)
 {
-	/// \brief Affiche les informations d'un joueur
+  /// \brief Affiche les informations d'un joueur
   displayInfo("Player informations :");
   std::cout << "Pseudo : " << myJoueur.pseudo << std::endl;
   std::cout << "Ip : " << myJoueur.socket->getRemoteAddress().toString() << std::endl;
@@ -23,7 +23,7 @@ void		displayJoueur(Joueur myJoueur)
 
 Joueur		*createJoueur(std::string pseudo, sf::TcpSocket *socket)
 {
-	/// \brief Crée un joueur avec son socket et son pseudo associé puis le retourne
+  /// \brief Crée un joueur avec son socket et son pseudo associé puis le retourne
   Joueur	*myJoueur;
 
   myJoueur = new Joueur;

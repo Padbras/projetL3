@@ -1,24 +1,24 @@
-#include <SFML/Audio.hpp>
+#include	<SFML/Audio.hpp>
 #include	"client.hpp"
 
 bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port)
 {
-	/// \brief Gère la boucle de jeu côté client
+  /// \brief Gère la boucle de jeu côté client
   bool		isOk = false;
-	sf::SoundBuffer buffer1;
-	sf::SoundBuffer buffer2;
-	if (!buffer1.loadFromFile("../client/sound/victoire.wav"))
-	{
-		// error...
-	}
-	sf::Sound sound1;
-	sf::Sound sound2;
-	sound1.setBuffer(buffer1);
-	if (!buffer2.loadFromFile("../client/sound/defaite.wav"))
-	{
-		// error...
-	}
-	sound2.setBuffer(buffer2);
+  sf::SoundBuffer buffer1;
+  sf::SoundBuffer buffer2;
+  if (!buffer1.loadFromFile("../client/sound/victoire.wav"))
+    {
+      return false;
+    }
+  sf::Sound	sound1;
+  sf::Sound	sound2;
+  sound1.setBuffer(buffer1);
+  if (!buffer2.loadFromFile("../client/sound/defaite.wav"))
+    {
+      return false;
+    }
+  sound2.setBuffer(buffer2);
   //sf::Thread myThread(&fenetreAttente, 2);
   sf::Packet	toReceive;
   toReceive = receivePacket(mySocket);
@@ -30,43 +30,41 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 	  displayError("Failed to send infos");
 	  return false;
 	}
-     //myThread.launch();
-      
+      //myThread.launch();
       player->setGrilleOpp(receiveGrille(mySocket));
       player->getGrilleOpp().convertGrilleDroit(player->getModifGrilleOpp());
-     //myThread.terminate();
-      
+      //myThread.terminate();      
       if (fenetreJeu(player, mySocket) == 1)
 	{
-		sound1.play();
+	  sound1.play();
 	  if (fenetreWin() == true)
-	  {
-		mySocket->disconnect();
-		if (startClient(ip, port, false, player) == false)
-			return false;
-		return true;
-	  }
+	    {
+	      mySocket->disconnect();
+	      if (startClient(ip, port, false, player) == false)
+		return false;
+	      return true;
+	    }
 	  else
-	  {
-		mySocket->disconnect();
-		return true;
-	  }
+	    {
+	      mySocket->disconnect();
+	      return true;
+	    }
 	}
       else
 	{
-		sound2.play();
+	  sound2.play();
 	  if (fenetreLoose() == true)
-	  {
-		mySocket->disconnect();  
-		if (startClient(ip, port, false, player) == false)
-			return false;
-		return true;
-	  }
+	    {
+	      mySocket->disconnect();  
+	      if (startClient(ip, port, false, player) == false)
+		return false;
+	      return true;
+	    }
 	  else
-	  {
-		  mySocket->disconnect();
-		  return true;
-	  }
+	    {
+	      mySocket->disconnect();
+	      return true;
+	    }
 	}
     }
   return true;
@@ -74,7 +72,7 @@ bool		clientGameLoop(sf::TcpSocket *mySocket, Player *player, char *ip, int port
 
 bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
 {
-	/// \brief Permet d'envoyer un pseudonyme dans un paquet
+  /// \brief Permet d'envoyer un pseudonyme dans un paquet
   sf::Packet	toSend;
 
   toSend << pseudo;
@@ -86,27 +84,26 @@ bool		sendPseudo(sf::TcpSocket *socket, std::string pseudo)
   displayInfo("Pseudo sent");
   return true;
 }
+
 // booleen isfirstgame = true si c'est la premiere partie, sinon false
+
 bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
 {
-	/// \brief Permet de démarer le client
+  /// \brief Permet de démarer le client
   std::string	pseudo;
   sf::TcpSocket	socketToServer;
-  sf::Packet portPartie;   
-  int portGame;
-  Grille tmp;
-  std::string tmpStr;
-  
+  sf::Packet	portPartie;   
+  int		portGame;
+  Grille	tmp;
+  std::string	tmpStr;
   
   if (isFirstGame == true)
-	player->setMyPseudo();
+    player->setMyPseudo();
   else
-  {
-	  tmpStr = player->getMyPseudo();
-	  player = new Player;
-  }
-
-  
+    {
+      tmpStr = player->getMyPseudo();
+      player = new Player;
+    }
   if (connectToServer(&socketToServer, ip, port) == false)
     {
       displayError("Failed to connect to server");
@@ -114,52 +111,41 @@ bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
     }
   else
     {
-       displayInfo("Connected to server ");
-       std::cout << port << std::endl;
+      displayInfo("Connected to server ");
+      std::cout << port << std::endl;
     }
- 
   if (sendPseudo(&socketToServer, player->getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
     }
-//sf::Thread myThread(&fenetreAttente, 1);
-	//myThread.launch();
-	
-      sf::Packet strReceive;
-      std::string myStr;
-      strReceive = receivePacket(&socketToServer);
-      strReceive >> myStr;
-      player->setPseudoOpp(myStr);
-
-	
+  //sf::Thread myThread(&fenetreAttente, 1);
+  //myThread.launch();
+  sf::Packet strReceive;
+  std::string myStr;
+  strReceive = receivePacket(&socketToServer);
+  strReceive >> myStr;
+  player->setPseudoOpp(myStr);
   portPartie = receivePacket(&socketToServer);
   //myThread.terminate();
   portPartie >> portGame;
-
   socketToServer.disconnect();
-   
-   if (connectToServer(&socketToServer, ip, portGame) == false)
+  if (connectToServer(&socketToServer, ip, portGame) == false)
     {
       displayError("Failed to connect to server");
       return false;      
     }
-
-     if (sendPseudo(&socketToServer, player->getMyPseudo()) == false)
+  if (sendPseudo(&socketToServer, player->getMyPseudo()) == false)
     {
       displayError("Failed to send packet");
       return false;
     }
-     
-     player->setPaysId();
-     player->setCooldown(player->getPaysId());
-     tmp = fenetrePosBateau();
-     player->initMyGrille(tmp);
-     player->getMyGrille().convertGrilleGauche(player->getMyModifGrille());
-     
-
-
-     if (clientGameLoop(&socketToServer, player, ip, port) == false)
+  player->setPaysId();
+  player->setCooldown(player->getPaysId());
+  tmp = fenetrePosBateau();
+  player->initMyGrille(tmp);
+  player->getMyGrille().convertGrilleGauche(player->getMyModifGrille());
+  if (clientGameLoop(&socketToServer, player, ip, port) == false)
     {
       displayError("Failed to load client loop");
       return false;
@@ -170,23 +156,21 @@ bool		startClient(char *ip, int port, bool isFirstGame, Player *player)
 
 int		main(int ac, char **av)
 {
-	/// \brief sert a lancer un client 
-	Player player;
-sf::Music music;
+  /// \brief sert a lancer un client 
+  Player player;
+  sf::Music music;
   if (ac != 3)
     {
       displayError("Need two arguments, specify the ip and the port");
       displayInfo("Usage : ./client.out [IP] [PORT]");                                      
       return -1;  
     }
-if (!music.openFromFile("../client/sound/ambiance.wav"))
-{
-    // error...
-}
-
-music.setLoop(true);
-music.play();
-
+  if (!music.openFromFile("../client/sound/ambiance.wav"))
+    {
+      return -1;
+    }
+  music.setLoop(true);
+  music.play();
   if (startClient(av[1], atoi(av[2]), true, &player) == false)
     {
       displayInfo("Failed to start client");

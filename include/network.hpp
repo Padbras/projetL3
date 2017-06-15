@@ -60,6 +60,7 @@ void		displayJoueur(Joueur myJoueur);
 void		displayListJoueur(std::list<Joueur>);
 
 // server.cpp
+
 void		createServer(defServer def);
 
 // serverloop.cpp
@@ -68,13 +69,16 @@ void		serverLoop(sf::TcpListener*, sf::SocketSelector *,
 		std::list<sf::TcpSocket *> , defServer);
 
 // servergame.cpp
+
 void		gameLoop(Joueur, Joueur);  
 
 // serverbegin.cpp
+
 int		beginGame(std::list<Joueur>);
 void		whoPlays(Joueur, Joueur, int);
 
 // servertransmit.cpp
+
 bool		sendGrille(sf::TcpSocket *, Grille);
 Grille		receiveGrille(sf::TcpSocket *);
 bool		transmitFirstInfo(Joueur, Joueur);
@@ -85,7 +89,8 @@ void		initSubServers(std::vector<myThreads *> *, int);
 void		launchSubServer(std::vector<myThreads *> *, int);
 int		returnFirstSubReady(std::vector<myThreads *>);
 int		returnPortSubServer(std::vector<myThreads *>, int);
-void	stopSubServer(std::vector<myThreads *> *, int);
+void		stopSubServer(std::vector<myThreads *> *, int);
+
 #endif		/* !NETWORK_HPP_ */
 
 

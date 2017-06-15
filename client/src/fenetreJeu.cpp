@@ -106,7 +106,6 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		
   //////////// affichage de la fenetre ///////////////////////////////
 
-  
   whoTurn.clear();
   whoTurn = receivePacket(mySocket);
   whoTurn >> myTurn;
@@ -116,7 +115,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
   
   while (window.isOpen())
     {      
-			boutonValide.setFillColor(Color(0, 0, 0, 160));
+      boutonValide.setFillColor(Color(0, 0, 0, 160));
 
       if (cpt > 0 && !onFire)
 	boutonValide.setFillColor(Color(0, 0, 0, 0));
@@ -124,8 +123,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
       if (myTurn == false)
 	{
 	  cpt = 0;
-		
-
+	        
 	  window.clear(Color::White); 	
 
 	  window.draw(fondEcran_spr);
@@ -152,17 +150,17 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
    
 	  window.display();
 	  
-		// recevoir packet victoire/defaite -> myBoat
-		nbBoat.clear();
-		tmpBoat = 10;
-		nbBoat = receivePacket(mySocket);
-		nbBoat >> tmpBoat;
-		player->setMyBoat(tmpBoat);
+	  // recevoir packet victoire/defaite -> myBoat
+	  nbBoat.clear();
+	  tmpBoat = 10;
+	  nbBoat = receivePacket(mySocket);
+	  nbBoat >> tmpBoat;
+	  player->setMyBoat(tmpBoat);
 		
-		if (player->getMyBoat() == 0)
-		{
-			return -1;
-		}
+	  if (player->getMyBoat() == 0)
+	    {
+	      return -1;
+	    }
 	  // reception et conversion de ma grille
 	  player->initMyGrille(receiveGrille(mySocket));
 	  player->getMyGrille().convertGrilleGauche(player->getMyModifGrille());
@@ -197,9 +195,9 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  yOld = y1;
 			
 			  // effacement des tirs precedents te non validés
-		  if ( player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
-				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
-			  player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
+			  if ( player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
+			       && player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
+			    player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
 
 			}
 		      x1 = ptRetourX(event.mouseButton.x);
@@ -208,7 +206,7 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 		      cpt++;				
 		  
 		    }
-		    // gestion de click dans la grille de tir AVEC pouvoir
+		  // gestion de click dans la grille de tir AVEC pouvoir
 		  if(	event.mouseButton.x < 933 && event.mouseButton.x >533 && 
 			event.mouseButton.y < 600 && event.mouseButton.y > 200 && onFire)
 		    {	
@@ -220,66 +218,66 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			
 			  // effacement des tirs precedents te non validés
 			  if ( player->getGrilleOpp().getTypeCase(xOld, yOld) != touch
-				&& player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
-				player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
+			       && player->getGrilleOpp().getTypeCase(xOld, yOld) != miss)
+			    player->getModifGrilleOpp()->setColorCase(xOld,yOld,128,128,128,0);
 			}
-			
 		      x1 = ptRetourX(event.mouseButton.x);
 		      y1 = ptRetourY(event.mouseButton.y);
 		      if (player->getPaysId() < 2 && player->getPaysId() > 4)
-		      {
+			{
 				  
-				player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
+			  player->callPvr(player->getPaysId(), x1, y1, player->getModifGrilleOpp());
 				
-		      onFire = false;
+			  onFire = false;
 			}
 		      else if (player->getPaysId() == 2)
-		      {
-				  
-					player->suppboatOpp(pouvoirAllemagne(x1, y1, player->getModifGrilleOpp()));
-				 cptAll++;
-				 if (cptAll == 5)
-				 {
-					onFire = false;
-					cptAll = 0 ;
-				}
-			  }
-			  else if (player->getPaysId() == 4)
-			  {
-				  player->suppboatOpp(pouvoirJapon(x1, y1, player->getModifGrilleOpp()));
-				cptJap++;
-				if (cptJap == 2)
 			{
-					onFire = false;
-					cptJap = 0;
-				}
-			  }
-			  else if (player->getPaysId() == 3)
-			  {
-				player->suppboatOpp(pouvoirRussie(x1, y1, player->getModifGrilleOpp()));
-				onFire = false;
-			  }
+			  player->suppboatOpp(pouvoirAllemagne(x1, y1, player->getModifGrilleOpp()));
+			  cptAll++;
+			  if (cptAll == 5)
+			    {
+			      onFire = false;
+			      cptAll = 0 ;
+			    }
+			}
+		      else if (player->getPaysId() == 4)
+			{
+			  player->suppboatOpp(pouvoirJapon(x1, y1, player->getModifGrilleOpp()));
+			  cptJap++;
+			  if (cptJap == 2)
+			    {
+			      onFire = false;
+			      cptJap = 0;
+			    }
+			}
+		      else if (player->getPaysId() == 3)
+			{
+			  player->suppboatOpp(pouvoirRussie(x1, y1, player->getModifGrilleOpp()));
+			  onFire = false;
+			}
 		    }
-		// gestion du click bouton pouvoir		
-		  if(	event.mouseButton.x < 230 && event.mouseButton.x >100 && 
-			event.mouseButton.y < 765 && event.mouseButton.y > 635 && (pvrStocke > 0 ||
-			(player->getPaysId() == 5 && player->getMyBoat() != 17)))
+		  
+		  // gestion du click bouton pouvoir		
+
+		  if(event.mouseButton.x < 230 && event.mouseButton.x >100 && 
+		     event.mouseButton.y < 765 && event.mouseButton.y > 635 &&
+		     (pvrStocke > 0 || (player->getPaysId() == 5 && player->getMyBoat() != 17)))
 		    {	
-				if (player->getPaysId() != 5)
-				{
-				pvrStocke--;
-				onFire = true;
-			}
-			else
+		      if (player->getPaysId() != 5)
 			{
-				pouvoirPirate(player->getMyModifGrille());
-				player->addMyBoat(1);
-				pvrStocke--;
+			  pvrStocke--;
+			  onFire = true;
+			}
+		      else
+			{
+			  pouvoirPirate(player->getMyModifGrille());
+			  player->addMyBoat(1);
+			  pvrStocke--;
 			}
 		    }
-				
-					
+							
 		  //gestion du click sur le bouton valider
+
 		  if(	event.mouseButton.x < 648 && event.mouseButton.x >348 && 
 			event.mouseButton.y < 730 && event.mouseButton.y > 670 && cpt == 1 && !onFire)
 		    {
@@ -297,37 +295,20 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  player->getModifGrilleOpp()->setTypeCase(x1, y1, miss);
 			  player->getModifGrilleOpp()->setColorCase(x1, y1, 255, 0, 0, 128);
 			}
-		      
-		  
-		  nbBoat.clear();
-		nbBoat << player->getBoatOpp();
-		
-		 
-		if (sendPacket(&nbBoat, mySocket) == false)
-		{
+		      nbBoat.clear();
+		      nbBoat << player->getBoatOpp();
+		      if (sendPacket(&nbBoat, mySocket) == false)
 			displayError("Failed to send packet");
-		}
-		
-			if (player->getBoatOpp() == 0)
-				return 1;
+		      if (player->getBoatOpp() == 0)
+			return 1;
 		      if (sendGrille(mySocket, player->getGrilleOpp()) == false)
-			{
 			displayError("Failed to send grille");
-				
-			}
-			
 		      if (sendGrille(mySocket, player->getMyGrille()) == false)
-			{
 			displayError("Failed to send grille");
-				
-			}
 		      whoTurn.clear();
 		      whoTurn << tour;
 		      if (sendPacket(&whoTurn, mySocket) == false)
-			{
 			displayError("Failed to send packet");
-
-			}
 		      if (valide > 0)
 			{
 			  whoTurn.clear();
@@ -339,46 +320,42 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 			  valide = 0;
 			}
 		    }
-		  break;
-						
+		  break;					
 		default:
 		  break;
 		}
 	    }
-	    
-	    if (sameTour == 0)
+	  if (sameTour == 0)
 	    {
-			prochainPvr++;
-			if (prochainPvr == player->getCooldown() && player->getPaysId() != 4)
-				{
-					pvrStocke++;
-					prochainPvr = 0;
-				}
-			else if (player->getMyBoat() % 3 == 2 && player->getPaysId() == 4
-						&& player->getMyBoat() != 17)
-			{
-				pvrStocke++;
-				prochainPvr = 0;
-			}
-		} 
-		
-		stringstream ss;
-		ss << pvrStocke;
-		myStr=ss.str();
-		stackPvr_txt.setString(myStr);		
+	      prochainPvr++;
+	      if (prochainPvr == player->getCooldown() && player->getPaysId() != 4)
+		{
+		  pvrStocke++;
+		  prochainPvr = 0;
+		}
+	      else if (player->getMyBoat() % 3 == 2 && player->getPaysId() == 4
+		       && player->getMyBoat() != 17)
+		{
+		  pvrStocke++;
+		  prochainPvr = 0;
+		}
+	    } 
+	  stringstream ss;
+	  ss << pvrStocke;
+	  myStr=ss.str();
+	  stackPvr_txt.setString(myStr);		
 
-		if (pvrStocke == 0)
-			boutonPouvoir.setFillColor(Color(0,0,0,160));
-		else
-			boutonPouvoir.setFillColor(Color(0,0,0,0));
-
+	  if (pvrStocke == 0)
+	    boutonPouvoir.setFillColor(Color(0,0,0,160));
+	  else
+	    boutonPouvoir.setFillColor(Color(0,0,0,0));
 	    
 	  window.clear(Color::White); 	
 	      
 	  window.draw(fondEcran_spr);
 	  window.draw(boutonValide);
 	  if(onFire)
-		 window.draw(pouvoir_txt);
+	    window.draw(pouvoir_txt);
 	  window.draw(stackPvr_txt);
 	  window.draw(cooldown_txt);
 	  window.draw(boutonPouvoir);
@@ -400,11 +377,8 @@ int fenetreJeu(Player *player, TcpSocket *mySocket){
 	  window.draw(pseudoOpp_txt);
 
 	  window.display();
- sameTour++;
-
+	  sameTour++;
 	}
     }
   return 0;
 }
-
-

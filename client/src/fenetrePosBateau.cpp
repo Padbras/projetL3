@@ -8,8 +8,8 @@ using namespace sf;
 using namespace std;
 
 Grille fenetrePosBateau(){
-	/// \brief Permet au joueur de placer ses bateaux sur le plateau de jeu 
-	/// \return La grille avec du joueur avec les bateaux placés dessus
+  /// \brief Permet au joueur de placer ses bateaux sur le plateau de jeu 
+  /// \return La grille avec du joueur avec les bateaux placés dessus
   ////////////////// creation et init de la fenetre //////////////////
 
   RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : Positionnes tes bateaux Matelot !!",Style::Titlebar);
@@ -53,7 +53,7 @@ Grille fenetrePosBateau(){
   while (window.isOpen()){
 
 	
-  //////////// gestion de la boule d'evenements///////////////////////
+    //////////// gestion de la boule d'evenements///////////////////////
 
     while (window.pollEvent(event)){
 			
@@ -137,14 +137,14 @@ Grille fenetrePosBateau(){
 	      bateauValide = posBateau(&grille, x, y, taille[cptBateauPos], rotate);
 	    }
 	  }
-	 else if (event.key.code == Keyboard::Return && x >= 0 && y >= 0 && bateauValide)
+	else if (event.key.code == Keyboard::Return && x >= 0 && y >= 0 && bateauValide)
 	  {
 	    x = y = xOld = yOld = bateauValide = -1;
 	    rotate = 0;
 	    cptBateauPos++;
 	    cptBateauPosOld = cptBateauPos;
 	    bateauValide = false;
-	}		  
+	  }		  
 	  
 	break;
 	    
@@ -181,11 +181,7 @@ Grille fenetrePosBateau(){
       i = 0;
       j++;
     }
-      
-    window.display();
-        
+    window.display();       
   }
   return grille;
 }
-  
-

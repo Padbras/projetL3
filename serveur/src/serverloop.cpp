@@ -2,9 +2,9 @@
 
 
 void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
-			     std::list<sf::TcpSocket *> clients, defServer def)
+		std::list<sf::TcpSocket *> clients, defServer def)
 {
-	/// \brief Permet de gérer les connections et la création de sous-serveurs
+  /// \brief Permet de gérer les connections et la création de sous-serveurs
   bool		running = true;
   std::list<Joueur> joueurs;
 
@@ -54,12 +54,10 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
       if (joueurs.size() == 2 && def.role == true)
       	{
       	  sf::Packet myPacket;
-		  int subServerReady;
-
+	  int subServerReady;
 	  int portToSend;
 
 	  subServerReady = returnFirstSubReady(mySubServers);
-	    
 	  if (subServerReady == -1)
 	    {
 	      displayError("Plus de subservers prets");
@@ -67,18 +65,15 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 	  
 	  portToSend = returnPortSubServer(mySubServers, subServerReady);
 	  launchSubServer(&mySubServers, subServerReady);
-
 	  std::cout << " pseudo j1 envoyé j2  "<< joueurs.front().pseudo << std::endl; 
-	 std::cout << " pseudo j2 envoyé j1  "<< joueurs.back().pseudo << std::endl; 
-	myPacket.clear();
-  myPacket << joueurs.front().pseudo;
-  sendPacket(&myPacket, joueurs.back().socket);
-  myPacket.clear();
-  myPacket << joueurs.back().pseudo;
-  sendPacket(&myPacket, joueurs.front().socket);
-  myPacket.clear();
-  
-	  std::cout << "port recu par le thread " << portToSend << std::endl;
+	  std::cout << " pseudo j2 envoyé j1  "<< joueurs.back().pseudo << std::endl; 
+	  myPacket.clear();
+	  myPacket << joueurs.front().pseudo;
+	  sendPacket(&myPacket, joueurs.back().socket);
+	  myPacket.clear();
+	  myPacket << joueurs.back().pseudo;
+	  sendPacket(&myPacket, joueurs.front().socket);
+	  myPacket.clear();
 	  myPacket << portToSend;
 	  
       	  if( sendPacket(&myPacket, joueurs.front().socket) == false)
@@ -96,10 +91,10 @@ void serverLoop(sf::TcpListener *listener, sf::SocketSelector *selector,
 
       else  if (joueurs.size() == 2 && def.role == false)
       	{
-			int portToClose;
+	  int portToClose;
       	  std::cout << "begin game" << std::endl;  
-			portToClose = beginGame(joueurs);
-			stopSubServer(&mySubServers, portToClose);
+	  portToClose = beginGame(joueurs);
+	  stopSubServer(&mySubServers, portToClose);
       	}  
     }
 }

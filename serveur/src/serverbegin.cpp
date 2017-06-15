@@ -2,7 +2,7 @@
 
 void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
 {
-	/// \brief Ordonnanceur des tours de jeu 
+  /// \brief Ordonnanceur des tours de jeu 
   sf::Packet	begin;
 
   if (tour % 2 != 0)
@@ -33,7 +33,7 @@ void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
 
 int		beginGame(std::list<Joueur> joueurs)
 {
-	/// \brief Permet de commencer une partie de bataille navale, et de déclancher la boucle de jeu
+  /// \brief Permet de commencer une partie de bataille navale, et de déclancher la boucle de jeu
   std::cout << "Entre dans begin game" << std::endl; 
   sf::Packet	myPacket;
   Joueur	joueurUn = joueurs.front();
@@ -60,5 +60,5 @@ int		beginGame(std::list<Joueur> joueurs)
       displayInfo("Game start");
       gameLoop(joueurUn, joueurDeux);
     }
-    return joueurUn.socket->getLocalPort();  
+  return joueurUn.socket->getLocalPort();  
 }

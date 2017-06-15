@@ -7,12 +7,12 @@ using namespace std;
 string		lancerFenetreAccueil()
 {
 	
-	/// \brief Permet de lancer la fenêtre d'accueil au lancement du jeu
-	/// \return Le pseudo du joueur
+  /// \brief Permet de lancer la fenêtre d'accueil au lancement du jeu
+  /// \return Le pseudo du joueur
   ////////////////// creation et init de la fenetre //////////////////
 
-	RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La bataille",Style::Default);
-	window.setPosition(Vector2i(10, 10));
+  RenderWindow window(sf::VideoMode(1000, 800), "Peaceful Shadow Online : La bataille",Style::Default);
+  window.setPosition(Vector2i(10, 10));
 
 
   ////////////////// creation et init des variables //////////////////
@@ -43,7 +43,7 @@ string		lancerFenetreAccueil()
   while (window.isOpen()){
 
 
-  //////////// gestion de la boule d'evenements///////////////////////
+    //////////// gestion de la boule d'evenements///////////////////////
 
     while (window.pollEvent(event)){
 			
@@ -54,8 +54,8 @@ string		lancerFenetreAccueil()
 	break;
 				
       case Event::TextEntered :
-      if(pseudoEntr_s.size() < 20)
-		pseudoEntr_s.push_back((char)event.text.unicode);
+	if(pseudoEntr_s.size() < 20)
+	  pseudoEntr_s.push_back((char)event.text.unicode);
 						
 	break;
 
@@ -81,32 +81,30 @@ string		lancerFenetreAccueil()
       }	
     }
 
-
-  //////////// creation des textes ////////////////////////////
+    //////////// creation des textes ////////////////////////////
 
     Text pseudoEntr_txt;
     pseudoEntr_txt.setFont(main_font);
     pseudoEntr_txt.setCharacterSize(60);	
     pseudoEntr_txt.setPosition(575,355);
     pseudoEntr_txt.setString(pseudoEntr_s);
-	pseudoEntr_txt.setColor(Color(100,53,1));
+    pseudoEntr_txt.setColor(Color(100,53,1));
 	
-  /////////////////gestion colorimetrie du bouton ////////////////
+    /////////////////gestion colorimetrie du bouton ////////////////
 	
-	if(pseudoEntr_s.size() > 0)
-	  boutonValide.setFillColor(Color(0,0,0,0));
+    if(pseudoEntr_s.size() > 0)
+      boutonValide.setFillColor(Color(0,0,0,0));
 
 
-  ///////////// gestion de l'affichage ////////////////////////////	
+    ///////////// gestion de l'affichage ////////////////////////////	
    
     window.clear(Color::White); 	
 	
     window.draw(fondEcran_spr);
     window.draw(pseudoEntr_txt);
-	window.draw(boutonValide);
+    window.draw(boutonValide);
    
-    window.display();
-        
+    window.display();        
   }
   return pseudoEntr_s;
 }

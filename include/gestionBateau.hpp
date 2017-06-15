@@ -1,5 +1,6 @@
 #ifndef GESTIONBATEAU_HPP
 #define GESTIONBATEAU_HPP
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
