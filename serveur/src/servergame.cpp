@@ -2,65 +2,79 @@
 
 void		gameLoop(Joueur joueurUn, Joueur joueurDeux)
 {
-  bool		running = true;
-  bool		turnUn = true;
-  bool		turnDeux = false;
-  int		x, y;
-  sf::Packet	tir;
-  sf::Packet	turn;
-  
-  whoBegin(joueurUn, joueurDeux);
-  while (running)
-    {
-      displayInfo("tour joueur 1");
-      tir.clear();
-      tir = receivePacket(joueurUn.socket);
-      tir >> x >> y;
-      std::cout << "x " << x << " y " << y << std::endl;
-      turn.clear();
-      turn = receivePacket(joueurUn.socket);
-      turn >> turnUn;
-      
-      if (turnUn == false)
-	{
-	  tir.clear();
-	  tir << x << y;
-	  if (sendPacket(&tir, joueurDeux.socket) == false)
-	    {
-	      displayError("Probleme pour envoyer eul tir");
-	    }
-	     
-	  displayInfo("debut tour joueur 2");
-	  turn.clear();
-	  turn << true;
-	  if (sendPacket(&turn, joueurDeux.socket) == false)
-	    {
+  int tour = 0;
+  int tmpBoat;
+  bool running = true;
+  sf::Packet myPacket; 
+  Grille grille;
+  sf::Packet myBoat;
 
-	    }
-	}
-      displayInfo("tour joueur 2");
-      tir.clear();
-      tir = receivePacket(joueurDeux.socket);
-      tir >> x >> y;
-      std::cout << "x " << x << " y " << y << std::endl;
-      turn.clear();
-      turn = receivePacket(joueurDeux.socket);
-      turn >> turnDeux;
-      if (turnDeux == false)
+  while(running)
+    {
+	  whoPlays(joueurUn, joueurDeux, tour);
+     // myPacket.clear();
+      if(tour % 2 != 0) // Joueur Un joue
 	{
-	  tir.clear();
-	  tir << x << y;
-	  if (sendPacket(&tir, joueurUn.socket) == false)
-	    {
-	      displayError("Probleme pour envoyer eul tir");
-	    }
-	  displayInfo("debut tour joueur 2");
-	  turn.clear();
-	  turn << true;
-	  if (sendPacket(&turn, joueurUn.socket) == false)
-	    {
-	      
-	    }
+	  std::cout << "dans le if" << std::endl; 
+	  std::cout << "tour = " << tour << std::endl;
+	  myBoat.clear();
+	  myBoat = receivePacket(joueurUn.socket);
+	  myBoat >> tmpBoat;
+	  std::cout << "tmpboat envoyé par j1 : " << tmpBoat << std::endl;
+	  myBoat.clear();
+	  myBoat << tmpBoat;
+	  if (sendPacket(&myBoat, joueurDeux.socket) == false)
+	  {
+		  displayInfo("Failed to send nb boat");
+		  return ;
+	  }
+	  grille = receiveGrille(joueurUn.socket);
+	  if (sendGrille(joueurDeux.socket, grille) == false)
+	  {
+		  displayInfo("Failed to send grille");
+		  return;
+	  }
+	  grille = receiveGrille(joueurUn.socket);
+	  if (sendGrille(joueurDeux.socket, grille) == false)
+	  {
+		  displayInfo("Failed to send grille");
+		  return;
+	  }
+	  myPacket.clear();
+	  myPacket = receivePacket(joueurUn.socket);
+	  myPacket >> tour;
+	  myPacket << false;
+	  
+	  std::cout << "Nouveau tour : " << tour << std::endl; 
+	  
+	}
+      else // Joueur Deux joue
+	{
+	  std::cout << "dans le else" << std::endl; 
+	  std::cout << "tour = " << tour << std::endl;
+	  myBoat.clear();
+	  myBoat = receivePacket(joueurDeux.socket);
+	  myBoat >> tmpBoat;
+	  std::cout << "tmpboat envoyé par j2 : " << tmpBoat << std::endl;
+	  myBoat.clear();
+	  myBoat << tmpBoat;
+	  if (sendPacket(&myBoat, joueurUn.socket) == false)
+	  {
+		  displayInfo("Failed to send nb boat");
+		  return ;
+	  }
+	   grille = receiveGrille(joueurDeux.socket);
+	  if (sendGrille(joueurUn.socket, grille) == false)
+	  {
+	  }
+	  grille = receiveGrille(joueurDeux.socket);
+	  if (sendGrille(joueurUn.socket, grille) == false)
+	  {
+	  } 
+	  myPacket.clear();
+	  myPacket = receivePacket(joueurDeux.socket);
+	  myPacket >> tour;
+	  std::cout << "Nouveau tour : " << tour << std ::endl;
 	}
     }
 }

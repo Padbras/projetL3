@@ -5,7 +5,7 @@
 #include <SFML/System.hpp>
 #include <iostream>
 
-int fenetreWin();
+bool fenetreWin();
 
 #endif
 

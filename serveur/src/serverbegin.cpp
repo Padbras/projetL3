@@ -1,45 +1,44 @@
-#include <time.h>
-#include "network.hpp"
+#include	"network.hpp"
 
-
-void		whoBegin(Joueur joueurUn, Joueur joueurDeux)
+void		whoPlays(Joueur joueurUn, Joueur joueurDeux, int tour)
 {
   sf::Packet	begin;
-  srand(time(NULL));
 
-  if (rand()%2 == 0)
+  if (tour % 2 != 0)
     {
-      begin << true;
+      begin << true; // Tour pair
       if (sendPacket(&begin, joueurUn.socket) == false)
 	displayError("Failed to send begin packet");
-
+      
       begin.clear();
       begin << false;
+      
       if (sendPacket(&begin, joueurDeux.socket) == false)
-	displayError("Failed to send begin packet");
+	displayError("Failed to send begin packet");	
     }
-  
   else
     {
-      begin << false;
+      begin << false; //Tour impair
       if (sendPacket(&begin, joueurUn.socket) == false)
 	displayError("Failed to send begin packet");
+      
       begin.clear();
       begin << true;
+      
       if (sendPacket(&begin, joueurDeux.socket) == false)
-	displayError("Failed to send begin packet");
+	displayError("Failed to send begin packet"); 
     } 
 }
 
 void		beginGame(std::list<Joueur> joueurs)
 {
   std::cout << "Entre dans begin game" << std::endl; 
-  bool		running = true;
   sf::Packet	myPacket;
   Joueur	joueurUn = joueurs.front();
   Joueur	joueurDeux = joueurs.back();
 
-  myPacket << true;
+  
+  myPacket << true; // La partie est trouvée, et prête à lancer
   if (sendPacket(&myPacket, joueurUn.socket) == false)
     {
       displayError("Failed to send packet (bool to j1)");
@@ -53,7 +52,10 @@ void		beginGame(std::list<Joueur> joueurs)
     {
       displayError("Failed to transmit");
     }
-  displayInfo("First Info transmit");
-  displayInfo("Game start");
-  gameLoop(joueurUn, joueurDeux);
+  else
+    {
+      displayInfo("First Info transmit");
+      displayInfo("Game start");
+      gameLoop(joueurUn, joueurDeux);
+    }  
 }

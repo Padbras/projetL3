@@ -63,7 +63,7 @@ Grille fenetrePosBateau(){
       
 	// gestion de click dans la grille
 	if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
-		event.mouseButton.y < 700 && event.mouseButton.y > 300 && cptBateauPos < 6
+		event.mouseButton.y < 700 && event.mouseButton.y > 300 && cptBateauPos < 5
 		)
 	  {		
 	    if(x != -1)
@@ -184,6 +184,7 @@ Grille fenetrePosBateau(){
     window.display();
         
   }
+  return grille;
 }
   
 

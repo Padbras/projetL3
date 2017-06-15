@@ -4,8 +4,8 @@
 using namespace sf;
 using namespace std;
 
-
-int fenetreLoose(){
+// return true si rejoue, sinon false
+bool fenetreLoose(){
 
 ////////////////// creation et init de la fenetre //////////////////
 
@@ -26,9 +26,14 @@ int fenetreLoose(){
 	if (!fondEcran_tex.loadFromFile("../client/img/loose.png")){
 	}
 
-	RectangleShape bouton(Vector2f(400, 78));
-	bouton.setPosition(300,116);
-	bouton.setFillColor(Color(0, 0, 0, 160));
+	RectangleShape boutonRejouer(Vector2f(400, 78));
+	boutonRejouer.setPosition(300,116);
+	boutonRejouer.setFillColor(Color(0, 0, 0, 160));
+	
+	RectangleShape boutonQuitter(Vector2f(400, 78));
+	boutonQuitter.setPosition(300,218);
+	boutonQuitter.setFillColor(Color(0, 0, 0, 160));
+	
 
 
 //////////// creation des textes, sprites et textures //////////////
@@ -51,11 +56,20 @@ int fenetreLoose(){
 				
 				case Event::MouseButtonPressed : 
 				
-					//gestion du click sur le bouton
+					//gestion du click sur le bouton Quitter
+					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
+						event.mouseButton.y < 296 && event.mouseButton.y > 218 &&
+						time.asSeconds() > 3.0f){
+					  window.close();
+					return false;
+				  }
+					  
+					//gestion du click sur le bouton Rejouer
 					if(	event.mouseButton.x < 700 && event.mouseButton.x >300 && 
 						event.mouseButton.y < 194 && event.mouseButton.y > 116 &&
 						time.asSeconds() > 3.0f){
 					  window.close();
+					  return true;
 					}
 					break;
 						
@@ -68,13 +82,15 @@ int fenetreLoose(){
 //////////// gestion colorimetrie du bouton  ///////////////////////////
 
 	if (time.asSeconds() > 3.0f ){
-		bouton.setFillColor(Color(0, 0, 0, 0));
+		boutonRejouer.setFillColor(Color(0, 0, 0, 0));
+		boutonQuitter.setFillColor(Color(0, 0, 0, 0));
 	}
+	
 	
 	
 ////////////////// timer de fermeture automatique //////////////////////
 
-	if (time.asSeconds() > 10.0f){
+	if (time.asSeconds() > 30.0f){
 	  window.close();
 	}
 	
@@ -84,8 +100,9 @@ int fenetreLoose(){
 	window.clear(Color::White); 	
 	
 	window.draw(fondEcran_spr);	
-	window.draw(bouton);
-        
+	window.draw(boutonRejouer);
+	window.draw(boutonQuitter);
+	        
 	window.display();
         
 	}
