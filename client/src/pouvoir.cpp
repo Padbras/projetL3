@@ -4,9 +4,9 @@ void pouvoirFrance(int x, int y, Grille *g)
 {
 	std::cout << "pvr france" << std::endl;
 	if (g->getTypeCase(x, y) == mer)
-		g->setColorCase(x, y, 255,0,0,160);
+		g->setColorCase(x, y, 255,0,0,255);
 	else if (g->getTypeCase(x, y) == boat)
-		g->setColorCase(x, y, 0, 255, 0, 160);
+		g->setColorCase(x, y, 0, 255, 0, 255);
 }
 
 void pouvoirRussie(int x, int y, Grille *g)
