@@ -11,15 +11,12 @@
 	make
 
 ##### Commande pour lancer le serveur :
-	./serveur.out 8888     // 8888 étant le port sur lequel se connecter
+	usage : ./server.out [PORT]
+	exemple : ./server.out 8888
 
 ##### Commande pour lancer le client :
-	./client.out 127.0.0.1 8888   // 127.0.0.1 est l'adresse IP du serveur sur lequel on veut 									//se connecter
-
-#### NB : La gestion de la rotation et de la collision des bateaux lors de leur placement n'a pas encore été gérée dans l'interface graphique.
-
-
-
+	usage : ./client.out [IP] [PORT]
+	exemple : ./client.out 127.0.0.1 8888
 
 ### Membres du groupe de travail :
 #### Mallevaey Pierre
